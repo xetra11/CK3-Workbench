@@ -1,9 +1,11 @@
 import androidx.compose.desktop.Window
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.material.Button
@@ -20,13 +22,21 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.github.xetra11.ck3workbench.module.character.ui.NewCharacterForm
+import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
+import com.github.xetra11.ck3workbench.module.character.NewCharacterForm
+import com.github.xetra11.ck3workbench.module.character.ui.CharacterList
 
-fun main() = Window() {
+fun main() = Window(title = "CK3 Mod Workbench") {
     MaterialTheme(lightColors()) {
-        Column(modifier = Modifier.border(1.dp, Color.Black)) {
+        Column(modifier = Modifier.border(1.dp, Color.Black).then(Modifier.fillMaxWidth())) {
             NewCharacterForm()
-            listOf(Text("test"), Text("test"))
+            CharacterList(
+                listOf(
+                    CharacterTemplate.DEFAULT_CHARACTER,
+                    CharacterTemplate.DEFAULT_CHARACTER,
+                    CharacterTemplate.DEFAULT_CHARACTER,
+                )
+            )
         }
     }
 }
