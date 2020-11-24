@@ -11,14 +11,17 @@ import java.io.File
  * @author Patrick C. Höfer
  */
 class CharacterScriptReader {
-    fun readCharacterScript(): Character? {
-        val file = File("src/test/resources/fixtures/character/test_character.txt")
-        val lines = file.readLines()
-
-        val characterDefinition = extractCharacterDefinition(lines)
-        removeScriptSections(characterDefinition)
-        val characterAttributes = transformToAttributes(characterDefinition)
-        return Character.from(characterAttributes)
+    fun readCharacterScript(file: File): Character? {
+        return if (file.exists()) {
+            val lines = file.readLines()
+            val characterDefinition = extractCharacterDefinition(lines)
+            removeScriptSections(characterDefinition)
+            val characterAttributes = transformToAttributes(characterDefinition)
+            Character.from(characterAttributes)
+        } else {
+            LOG.error("File ${file.absoluteFile} could not be found")
+            null
+        }
     }
 
     private fun transformToAttributes(characterDefinition: MutableList<String>): Map<String, String> {
