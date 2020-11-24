@@ -15,6 +15,9 @@ internal class CharacterScriptReaderTest {
         assertThat(actual.name).isEqualTo("Thorak")
     }
 
+    fun `should log error if file does not exist`() {
+
+    }
     fun `should parse txt file and convert multiple entries into list of character objects`() {}
     fun `should validate character txt script file`() {}
 }

@@ -15,24 +15,43 @@ class CharacterScriptReader {
         val file = File("src/test/resources/fixtures/character/test_character.txt")
         val lines = file.readLines()
 
-        val amountOpenBrackets = lines.filter { line -> line.contains("{") }.count()
-        val amountCloseBrackets = lines.filter { line -> line.contains("}") }.count()
+        val characterDefinition = extractCharacterDefinition(lines)
+        removeScriptSections(characterDefinition)
+        val characterAttributes = transformToAttributes(characterDefinition)
+        return Character.from(characterAttributes)
+    }
 
-        val startLineNumber = lines.indexOfFirst { line -> line.contains("{") }.plus(1)
-        val endLineNumber = lines.indexOfLast { line -> line.contains("}") }.plus(1)
+    private fun transformToAttributes(characterDefinition: MutableList<String>): Map<String, String> {
+        val characterAttributes = characterDefinition
+            .map { character ->
+                character.trim()
+                    .trimIndent()
+                    .replace(" ", "")
+                    .replace("\"", "")
+                    .split("=")
+            }
+            .associate { list -> list[0] to list[1] }
+        return characterAttributes
+    }
+
+    private fun extractCharacterDefinition(lines: List<String>): MutableList<String> {
+        //val amountOpenBrackets = lines.filter { it.contains("{") }.count()
+        //val amountCloseBrackets = lines.filter { it.contains("}") }.count()
+
+        val startLineNumber = lines.indexOfFirst { it.contains("{") }.plus(1)
+        val endLineNumber = lines.indexOfLast { it.contains("}") }
 
         val characterDefinition = lines.subList(startLineNumber, endLineNumber)
             .filterNot { it.isBlank() }
+            .toMutableList()
+        return characterDefinition
+    }
 
-        val preparedCharacterDefintion = characterDefinition.map {
-            it.trim()
-                .trimIndent()
-                .replace(" ", "")
-                .replace("\"", "")
-                .split("=")
-        }
-
-        return null
+    private fun removeScriptSections(characterDefinition: MutableList<String>) {
+        val innerScriptStart = characterDefinition.indexOfFirst { it.contains("{") }
+        val innerScriptEnd = characterDefinition.indexOfLast { it.contains("}") }.plus(1)
+        val innerScriptSection = characterDefinition.subList(innerScriptStart, innerScriptEnd)
+        characterDefinition.removeAll(innerScriptSection)
     }
 
     companion object {
