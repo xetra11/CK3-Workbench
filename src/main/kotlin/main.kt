@@ -25,18 +25,12 @@ import androidx.compose.ui.unit.dp
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import com.github.xetra11.ck3workbench.module.character.NewCharacterForm
 import com.github.xetra11.ck3workbench.module.character.ui.CharacterList
+import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
 
 fun main() = Window(title = "CK3 Mod Workbench") {
     MaterialTheme(lightColors()) {
         Column(modifier = Modifier.border(1.dp, Color.Black).then(Modifier.fillMaxWidth())) {
-            NewCharacterForm()
-            CharacterList(
-                listOf(
-                    CharacterTemplate.DEFAULT_CHARACTER,
-                    CharacterTemplate.DEFAULT_CHARACTER,
-                    CharacterTemplate.DEFAULT_CHARACTER,
-                )
-            )
+            CharacterModuleView()
         }
     }
 }
