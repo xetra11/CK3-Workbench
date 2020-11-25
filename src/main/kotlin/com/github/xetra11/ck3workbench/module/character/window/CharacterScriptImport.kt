@@ -17,7 +17,6 @@ import java.io.File
 fun CharacterScriptImport(
     modifier: Modifier = Modifier
 ) {
-    val dialogState = remember { mutableStateOf(false) }
     val window = AppWindowAmbient.current!!.window
     val file = remember { mutableStateOf(File("")) }
 
@@ -29,7 +28,6 @@ fun CharacterScriptImport(
         Button(
             modifier = modifier,
             onClick = {
-                //dialogState.value = true
                 val fileDialog = FileDialog(window)
                 fileDialog.mode = LOAD
                 fileDialog.isVisible = true
