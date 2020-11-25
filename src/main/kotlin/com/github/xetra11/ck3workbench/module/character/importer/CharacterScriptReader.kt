@@ -1,4 +1,4 @@
-package com.github.xetra11.ck3workbench.module.character.service
+package com.github.xetra11.ck3workbench.module.character.importer
 
 import com.github.xetra11.ck3workbench.module.character.Character
 import org.slf4j.Logger

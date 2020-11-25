@@ -10,7 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import com.github.xetra11.ck3workbench.module.character.Character
-import com.github.xetra11.ck3workbench.module.character.service.CharacterScriptReader
+import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptReader
 import java.awt.FileDialog
 import java.awt.FileDialog.LOAD
 import java.io.File
