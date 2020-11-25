@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -18,7 +19,7 @@ import com.github.xetra11.ck3workbench.module.character.Character
  */
 @Composable
 fun CharacterList(
-    characters: List<Character>
+    characterState: SnapshotStateList<Character>
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         val boxModifier = Modifier.border(1.dp, Color.Black)
@@ -27,7 +28,7 @@ fun CharacterList(
 
         CharacterTable(
             boxModifier,
-            characters
+            characterState
         )
 
     }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.github.xetra11.ck3workbench.module.character.Character
@@ -17,7 +18,7 @@ import com.github.xetra11.ck3workbench.module.character.Character
 @Composable
 fun CharacterTable(
     modifier: Modifier = Modifier,
-    characters: List<Character>
+    characterState: SnapshotStateList<Character>
 ) {
     TableHeader(
         modifier.then(Modifier.background(Color.LightGray)),
@@ -32,7 +33,7 @@ fun CharacterTable(
         )
     )
 
-    characters.map {
+    characterState.map {
         Row {
             Box(modifier) { Text(it.name) }
             Box(modifier) { Text(it.dna) }

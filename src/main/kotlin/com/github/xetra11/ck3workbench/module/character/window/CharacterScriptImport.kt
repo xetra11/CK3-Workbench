@@ -7,7 +7,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
+import com.github.xetra11.ck3workbench.module.character.Character
 import com.github.xetra11.ck3workbench.module.character.service.CharacterScriptReader
 import java.awt.FileDialog
 import java.awt.FileDialog.LOAD
@@ -15,7 +17,8 @@ import java.io.File
 
 @Composable
 fun CharacterScriptImport(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    characterState: SnapshotStateList<Character>
 ) {
     val window = AppWindowAmbient.current!!.window
     val file = remember { mutableStateOf(File("")) }
@@ -42,6 +45,7 @@ fun CharacterScriptImport(
             onClick = {
                 val characterScriptReader = CharacterScriptReader()
                 val character = characterScriptReader.readCharacterScript(file.value.absoluteFile)
+                character?.let { characterState.add(it) }
             }
         ) {
             Text("Import")
