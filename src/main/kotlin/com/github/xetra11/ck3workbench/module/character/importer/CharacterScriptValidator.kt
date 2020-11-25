@@ -1,12 +1,22 @@
 package com.github.xetra11.ck3workbench.module.character.importer
 
+import com.github.xetra11.ck3workbench.ScriptValidator
+import com.github.xetra11.ck3workbench.ScriptValidator.ValidationError
+import com.github.xetra11.ck3workbench.ScriptValidator.ValidationResult
+
 /**
+ * Validats script inputs
  *
  * @author Patrick C. Höfer aka "xetra11"
  */
-class CharacterScriptValidator {
-    fun validate(scriptToValidate: String): Boolean {
-        return hasCompleteBrackets(scriptToValidate)
+class CharacterScriptValidator: ScriptValidator {
+    override fun validate(scriptToValidate: String): ValidationResult {
+        if(!hasCompleteBrackets(scriptToValidate)) {
+            return ValidationResult().error(ValidationError(
+                reason = "Missing Brackets"
+            ))
+        }
+        return ValidationResult()
     }
 
     /*

@@ -10,21 +10,25 @@ internal class CharacterScriptValidatorTest {
     @Test
     fun `should resolve script file as valid if all brackets are closed`() {
         var actual = characterScriptValidator.validate(VALID_BRACKET_FIXTURE)
-        assertThat(actual).isTrue
+        assertThat(actual.hasErrors).isFalse
         actual = characterScriptValidator.validate(VALID_BRACKET_FIXTURE_2)
-        assertThat(actual).isTrue
+        assertThat(actual.hasErrors).isFalse
     }
 
     @Test
     fun `should resolve script file as invalid if not all brackets are closed`() {
         var actual = characterScriptValidator.validate(INVALID_BRACKET_FIXTURE)
-        assertThat(actual).isFalse
+        assertThat(actual.hasErrors).isTrue
+        assertThat(actual.errors[0].reason).isEqualTo("Missing Brackets")
         actual = characterScriptValidator.validate(INVALID_BRACKET_FIXTURE_2)
-        assertThat(actual).isFalse
+        assertThat(actual.hasErrors).isTrue
+        assertThat(actual.errors[0].reason).isEqualTo("Missing Brackets")
         actual = characterScriptValidator.validate(INVALID_BRACKET_FIXTURE_3)
-        assertThat(actual).isFalse
+        assertThat(actual.hasErrors).isTrue
+        assertThat(actual.errors[0].reason).isEqualTo("Missing Brackets")
         actual = characterScriptValidator.validate(INVALID_BRACKET_FIXTURE_COMPLEX)
-        assertThat(actual).isFalse
+        assertThat(actual.hasErrors).isTrue
+        assertThat(actual.errors[0].reason).isEqualTo("Missing Brackets")
     }
 
     companion object {
