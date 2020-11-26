@@ -9,8 +9,8 @@ interface ScriptValidator {
     * Represents the status of a validation.
     */
     class ValidationResult(
-        val errors: List<ValidationError> = emptyList(),
-        val warnings: List<ValidationWarning> = emptyList()
+        val errors: MutableList<ValidationError> = mutableListOf(),
+        val warnings: MutableList<ValidationWarning> = mutableListOf()
     ) {
         val hasErrors: Boolean
             get() = errors.isNotEmpty()
@@ -27,6 +27,6 @@ interface ScriptValidator {
     )
 
     fun ValidationResult.error(error: ValidationError) = ValidationResult(
-        listOf(error)
+        mutableListOf(error)
     )
 }

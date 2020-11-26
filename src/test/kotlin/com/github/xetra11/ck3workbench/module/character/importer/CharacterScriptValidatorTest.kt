@@ -19,17 +19,33 @@ internal class CharacterScriptValidatorTest {
     fun `should resolve script file as invalid if not all brackets are closed`() {
         var actual = characterScriptValidator.validate(INVALID_BRACKET_FIXTURE)
         assertThat(actual.hasErrors).isTrue
-        assertThat(actual.errors[0].reason).isEqualTo("Missing Brackets")
+        assertThat(actual.errors[0].reason).isEqualTo("missing brackets")
         actual = characterScriptValidator.validate(INVALID_BRACKET_FIXTURE_2)
         assertThat(actual.hasErrors).isTrue
-        assertThat(actual.errors[0].reason).isEqualTo("Missing Brackets")
+        assertThat(actual.errors[0].reason).isEqualTo("missing brackets")
         actual = characterScriptValidator.validate(INVALID_BRACKET_FIXTURE_3)
         assertThat(actual.hasErrors).isTrue
-        assertThat(actual.errors[0].reason).isEqualTo("Missing Brackets")
+        assertThat(actual.errors[0].reason).isEqualTo("missing brackets")
         actual = characterScriptValidator.validate(INVALID_BRACKET_FIXTURE_COMPLEX)
         assertThat(actual.hasErrors).isTrue
-        assertThat(actual.errors[0].reason).isEqualTo("Missing Brackets")
+        assertThat(actual.errors[0].reason).isEqualTo("missing brackets")
     }
+
+    @Test
+    fun `should resolve script file as invalid if block without id assignment`() {
+        val actual = characterScriptValidator.validate(INVALID_MISSING_ID)
+        assertThat(actual.hasErrors).isTrue
+        assertThat(actual.errors[0].reason).isEqualTo("missing historical id")
+    }
+
+    @Test
+    fun `should resolve script file as invalid if assignment without id identifier `() {
+        val actual = characterScriptValidator.validate(INVALID_MISSING_ID_2)
+        assertThat(actual.hasErrors).isTrue
+        assertThat(actual.errors[0].reason).isEqualTo("missing historical id")
+    }
+
+    fun `should return multiple errors`() {}
 
     companion object {
         const val VALID_BRACKET_FIXTURE = """
@@ -64,6 +80,23 @@ internal class CharacterScriptValidatorTest {
                 foo = {
                     bar = {
                     }
+             }
+        """
+
+        const val INVALID_MISSING_ID = """
+            {
+                foo = {
+                    bar = {
+                    }
+                }
+             }
+        """
+
+        const val INVALID_MISSING_ID_2 = """
+            = {
+                foo = {
+                    bar = { }
+                }
              }
         """
     }

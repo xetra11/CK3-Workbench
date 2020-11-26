@@ -9,22 +9,47 @@ import com.github.xetra11.ck3workbench.ScriptValidator.ValidationResult
  *
  * @author Patrick C. Höfer aka "xetra11"
  */
-class CharacterScriptValidator: ScriptValidator {
+class CharacterScriptValidator : ScriptValidator {
+
     override fun validate(scriptToValidate: String): ValidationResult {
-        if(!hasCompleteBrackets(scriptToValidate)) {
-            return ValidationResult().error(ValidationError(
-                reason = "Missing Brackets"
-            ))
+        val validation = ValidationResult()
+        hasCompleteBrackets(scriptToValidate).let {
+            if (it.hasErrors) {
+                validation.errors.addAll(it.errors)
+            }
         }
-        return ValidationResult()
+        hasHistoricalId(scriptToValidate).let {
+            if (it.hasErrors) {
+                validation.errors.addAll(it.errors)
+            }
+        }
+        return validation
     }
 
     /*
-    * Checks if the given scripts has as many opening '{' as it has
-    * closing backets '}'
+    * Checks if the given script has as many opening '{' as it has closing brackets '}'
     */
-    private fun hasCompleteBrackets(scriptToValidate: String): Boolean {
+    private fun hasCompleteBrackets(scriptToValidate: String): ValidationResult {
         val sumOfBrackets = scriptToValidate.count { it == '{' || it == '}' }
-        return sumOfBrackets % 2 == 0
+        return if (sumOfBrackets % 2 == 0) ValidationResult()
+        else ValidationResult().error(ValidationError(reason = "missing brackets"))
+    }
+
+    /*
+    * Checks if the given scripts has an historical id
+    */
+    private fun hasHistoricalId(scriptToValidate: String): ValidationResult {
+        var valid = false
+        val sumOfBrackets = scriptToValidate.count { it == '{' || it == '}' }
+        val sumOfAssignments = scriptToValidate.count { it == '=' }
+        // As many complete blocks as there are assignments
+        valid = (sumOfBrackets / 2) == sumOfAssignments
+
+        val split = scriptToValidate.split('=')
+        val leftAssignment = split[0]
+        val rightAssignment = split[1]
+        valid = valid && leftAssignment.isNotBlank()
+
+        return if (valid) ValidationResult() else ValidationResult().error(ValidationError(reason = "missing historical id"))
     }
 }
