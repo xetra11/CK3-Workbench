@@ -1,5 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.view
 
+import androidx.compose.foundation.ScrollableRow
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,7 +16,7 @@ import com.github.xetra11.ck3workbench.module.character.AddCharacterDialog
 import com.github.xetra11.ck3workbench.module.character.Character
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import com.github.xetra11.ck3workbench.module.character.ui.CharacterList
-import com.github.xetra11.ck3workbench.module.character.window.CharacterScriptImport
+import com.github.xetra11.ck3workbench.module.character.window.CharacterScriptImportControls
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -28,13 +29,16 @@ fun CharacterModuleView() {
         )
     }
 
-    Column(modifier = Modifier.border(1.dp, Color.Black).then(Modifier.fillMaxWidth())) {
-        CharacterScriptImport(
-            Modifier.padding(20.dp),
-            characterState
-        )
+    Column(
+        modifier = Modifier
+            .border(1.dp, Color.Black)
+            .fillMaxWidth()
+    ) {
+        CharacterScriptImportControls(characterState)
         AddCharacterDialog(Modifier.padding(20.dp))
-        CharacterList(characterState)
+        ScrollableRow {
+            CharacterList(characterState)
+        }
     }
 }
 
