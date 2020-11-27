@@ -47,11 +47,6 @@ fun CharacterScriptImportControls(
         Row {
             Button(
                 modifier = modifier.preferredSize(70.dp, 25.dp),
-                shape = RectangleShape,
-                colors = ButtonConstants.defaultTextButtonColors(
-                    backgroundColor = Color.LightGray,
-                    contentColor = Color.Black
-                ),
                 onClick = {
                     val fileDialog = FileDialog(window)
                     fileDialog.mode = LOAD
