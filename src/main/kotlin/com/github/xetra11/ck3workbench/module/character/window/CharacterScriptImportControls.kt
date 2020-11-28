@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +20,9 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.github.xetra11.ck3workbench.module.character.Character
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptReader
+import com.github.xetra11.ck3workbench.styles.WorkbenchButtons
+import com.github.xetra11.ck3workbench.styles.WorkbenchButtons.BasicButton
+import com.github.xetra11.ck3workbench.styles.WorkbenchTexts.BasicButtonText
 import java.awt.FileDialog
 import java.awt.FileDialog.LOAD
 import java.io.File
@@ -42,8 +46,7 @@ fun CharacterScriptImportControls(
             )
         }
         Row {
-            Button(
-                modifier = modifier.preferredSize(70.dp, 25.dp),
+            BasicButton(
                 onClick = {
                     val fileDialog = FileDialog(window)
                     fileDialog.mode = LOAD
@@ -51,21 +54,17 @@ fun CharacterScriptImportControls(
                     file.value = File(fileDialog.directory + fileDialog.file)
                 }
             ) {
-                Text(
-                    fontSize = TextUnit.Companion.Sp(9),
-                    text = "Select"
-                )
+                BasicButtonText(text = "Select")
             }
 
-            Button(
-                modifier = modifier,
+            BasicButton(
                 onClick = {
                     val characterScriptReader = CharacterScriptReader()
                     val character = characterScriptReader.readCharacterScript(file.value.absoluteFile)
                     character?.let { characterState.add(it) }
                 }
             ) {
-                Text("Import")
+                BasicButtonText(text = "Import")
             }
         }
     }
