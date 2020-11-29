@@ -1,8 +1,16 @@
 import androidx.compose.desktop.AppManager
 import androidx.compose.desktop.AppWindow
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.AlertDialog
+import androidx.compose.material.Button
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
@@ -12,8 +20,11 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
@@ -50,7 +61,7 @@ fun main() = invokeLater {
             Menu("File", MenuItem("Exit", onClick = { AppManager.exit() })),
             Menu(
                 "Characters",
-                MenuItem("Import characters", onClick = {
+                MenuItem("Import Characters", onClick = {
                     val file = mutableStateOf(File(""))
 
                     val fileDialog = FileDialog(window.window)
@@ -97,24 +108,25 @@ private fun CharacterValidationErrorAlert(
     alertState: MutableState<Boolean>,
     validationErrors: SnapshotStateList<ValidationError>
 ) {
-    AlertDialog(
-        title = { Text("Validation Error") },
-        text = {
-            Row { Text("Following validation reasons occured: ") }
-            validationErrors.forEach {
-                Row { Text("- $it") }
+    Dialog(onDismissRequest = {}) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("Validation Error")
+            validationErrors.forEach { error ->
+                Text("- ${error.reason}")
             }
-        },
-        onDismissRequest = {},
-        buttons = {
-            BasicButton(
+            Spacer(modifier = Modifier.height(20.dp))
+            Button(
+                modifier = Modifier.background(Color.LightGray),
                 onClick = { alertState.value = false }
             ) {
                 Text("Ok")
             }
         }
-    )
 
+    }
 }
 
 fun workbenchLightColors(
@@ -123,7 +135,7 @@ fun workbenchLightColors(
     secondary: Color = Color.Red,
     secondaryVariant: Color = Color.Red,
     background: Color = Color.DarkGray,
-    surface: Color = Color.Red,
+    surface: Color = Color.White,
     error: Color = Color(0xFFB00020),
     onPrimary: Color = Color.Black,
     onSecondary: Color = Color.Black,
