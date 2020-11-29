@@ -82,7 +82,13 @@ fun main() = invokeLater {
                     } else {
                         val characterScriptReader = CharacterScriptReader()
                         val character = characterScriptReader.readCharacterScript(file.value.absoluteFile)
-                        character?.let { characterState.add(it) }
+                        character?.let {
+                            if ((characterState.indexOf(it) == -1)) {
+                                characterState.add(it)
+                            } else {
+                               LOG.info("Character $it already exists")
+                            }
+                        }
                     }
                 }),
                 MenuItem("Dynasties", onClick = {})
