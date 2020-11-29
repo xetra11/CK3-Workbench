@@ -21,10 +21,11 @@ import com.github.xetra11.ck3workbench.module.character.Character
 fun CharacterList(
     characterState: SnapshotStateList<Character>
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(
+        modifier = Modifier.fillMaxWidth()) {
         val boxModifier = Modifier.border(1.dp, Color.Black)
             .then(Modifier.padding(horizontal = 2.dp, vertical = 4.dp))
-            .then(Modifier.width(100.dp))
+            .then(Modifier.width(200.dp))
 
         CharacterTable(
             boxModifier,
