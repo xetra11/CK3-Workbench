@@ -30,8 +30,6 @@ fun CharacterModuleView(
             .border(2.dp, Color.Black)
             .fillMaxWidth()
     ) {
-        //CharacterScriptImportControls(characterState)
-        //AddCharacterDialog(Modifier.padding(20.dp))
         ScrollableRow {
             CharacterList(characterState)
         }
