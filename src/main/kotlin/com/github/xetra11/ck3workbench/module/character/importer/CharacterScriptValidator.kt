@@ -42,8 +42,8 @@ class CharacterScriptValidator : ScriptValidator {
         var valid = false
         val sumOfBrackets = scriptToValidate.count { it == '{' || it == '}' }
         val sumOfAssignments = scriptToValidate.count { it == '=' }
-        // As many complete blocks as there are assignments
-        valid = (sumOfBrackets / 2) == sumOfAssignments
+        // At least as many complete blocks as there are assignments
+        valid = (sumOfBrackets / 2) <= sumOfAssignments
 
         val split = scriptToValidate.split('=')
         val leftAssignment = split[0]

@@ -3,6 +3,7 @@ package com.github.xetra11.ck3workbench.module.character.importer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import java.io.File
 
 internal class CharacterScriptValidatorTest {
     private val characterScriptValidator: CharacterScriptValidator = CharacterScriptValidator()
@@ -45,9 +46,22 @@ internal class CharacterScriptValidatorTest {
         assertThat(actual.errors[0].reason).isEqualTo("missing historical id")
     }
 
+    @Test
+    fun `should resolve as valid with given test data`() {
+        val actual = characterScriptValidator.validate(VALID_FIXTURE_WITH_ATTR)
+        assertThat(actual.hasErrors).isFalse
+    }
+
     fun `should return multiple errors`() {}
 
     companion object {
+        const val VALID_FIXTURE_WITH_ATTR = """
+            thorak = {
+                name = "Thorak"
+                dna = thorak_dna
+                dynasty = lineage_of_donar
+            }
+        """
         const val VALID_BRACKET_FIXTURE = """
             name = {
             }
