@@ -21,21 +21,17 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 @Composable
-fun CharacterModuleView() {
-    val characterState: SnapshotStateList<Character> = remember { mutableStateListOf(
-                CharacterTemplate.DEFAULT_CHARACTER,
-                CharacterTemplate.DEFAULT_CHARACTER,
-                CharacterTemplate.DEFAULT_CHARACTER
-        )
-    }
+fun CharacterModuleView(
+    characterState: SnapshotStateList<Character>
+) {
 
     Column(
         modifier = Modifier
-            .border(1.dp, Color.Black)
+            .border(2.dp, Color.Black)
             .fillMaxWidth()
     ) {
-        CharacterScriptImportControls(characterState)
-        AddCharacterDialog(Modifier.padding(20.dp))
+        //CharacterScriptImportControls(characterState)
+        //AddCharacterDialog(Modifier.padding(20.dp))
         ScrollableRow {
             CharacterList(characterState)
         }
