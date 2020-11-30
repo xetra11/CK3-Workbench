@@ -43,7 +43,6 @@ import java.io.File
 import javax.swing.SwingUtilities.invokeLater
 
 fun main() = invokeLater {
-    val LOG: Logger = LoggerFactory.getLogger("Main")
     lateinit var window: AppWindow
     val hasAlert = mutableStateOf(false)
     val validationErrors = mutableStateListOf<ValidationError>()
@@ -62,34 +61,8 @@ fun main() = invokeLater {
             Menu(
                 "Characters",
                 MenuItem("Import Characters", onClick = {
-                    val file = mutableStateOf(File(""))
-
-                    val fileDialog = FileDialog(window.window)
-                    fileDialog.mode = FileDialog.LOAD
-                    fileDialog.isVisible = true
-                    file.value = File(fileDialog.directory + fileDialog.file)
-
-                    val characterScriptValidator = CharacterScriptValidator()
-                    val validation = characterScriptValidator.validate(file.value.readText())
-                    if (validation.hasErrors) {
-                        LOG.error("Script to be imported has errors")
-                        LOG.error("Errors found:")
-                        validation.errors.forEach {
-                            LOG.error(it.reason)
-                        }
-                        validationErrors.addAll(validation.errors)
-                        hasAlert.value = true
-                    } else {
-                        val characterScriptReader = CharacterScriptReader()
-                        val character = characterScriptReader.readCharacterScript(file.value.absoluteFile)
-                        character?.let {
-                            if ((characterState.indexOf(it) == -1)) {
-                                characterState.add(it)
-                            } else {
-                               LOG.info("Character $it already exists")
-                            }
-                        }
-                    }
+                    val file = openScriptFile(window)
+                    importCharactersScript(file, validationErrors, hasAlert, characterState)
                 }),
                 MenuItem("Dynasties", onClick = {})
             ),
@@ -107,6 +80,45 @@ fun main() = invokeLater {
             CharacterModuleView(characterState)
         }
     }
+}
+
+private fun importCharactersScript(
+    file: MutableState<File>,
+    validationErrors: SnapshotStateList<ValidationError>,
+    hasAlert: MutableState<Boolean>,
+    characterState: SnapshotStateList<Character>
+) {
+    val characterScriptValidator = CharacterScriptValidator()
+    val validation = characterScriptValidator.validate(file.value.readText())
+    if (validation.hasErrors) {
+        LOG().error("Script to be imported has errors")
+        LOG().error("Errors found:")
+        validation.errors.forEach {
+            LOG().error(it.reason)
+        }
+        validationErrors.addAll(validation.errors)
+        hasAlert.value = true
+    } else {
+        val characterScriptReader = CharacterScriptReader()
+        val character = characterScriptReader.readCharacterScript(file.value.absoluteFile)
+        character?.let {
+            if ((characterState.indexOf(it) == -1)) {
+                characterState.add(it)
+            } else {
+                LOG().info("Character $it already exists")
+            }
+        }
+    }
+}
+
+private fun openScriptFile(window: AppWindow): MutableState<File> {
+    val file = mutableStateOf(File(""))
+
+    val fileDialog = FileDialog(window.window)
+    fileDialog.mode = FileDialog.LOAD
+    fileDialog.isVisible = true
+    file.value = File(fileDialog.directory + fileDialog.file)
+    return file
 }
 
 @Composable
@@ -133,6 +145,10 @@ private fun CharacterValidationErrorAlert(
         }
 
     }
+}
+
+private fun LOG(): Logger {
+    return LoggerFactory.getLogger("Main")
 }
 
 fun workbenchLightColors(
