@@ -1,5 +1,7 @@
 package com.github.xetra11.ck3workbench.module.character.importer
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.io.File
 
 /*
@@ -20,13 +22,39 @@ class ScriptTokenizer {
     }
 
     fun tokenize(scriptContent: String): List<Token> {
-        return scriptContent
+        val preparedToken =  scriptContent
             .trim()
             .split(" ")
             .filterNot { it.isBlank() }
             .map { it.replace("\n", "") }
             .map { segment -> segment to resolveSymbols(segment)}
             .map { Token(it.first, it.second)}
+
+        return resolveIdentifier(preparedToken.toMutableList())
+    }
+
+    private fun resolveIdentifier(preparedToken: MutableList<Token>): List<Token> {
+        val indexOfAssignmentOperation = preparedToken.indexOfFirst { it.type == TokenType.ASSIGNMENT }
+
+        if (indexOfAssignmentOperation <= 0) {
+            LOG.error("Assignment operation can not exist without left side value")
+        }
+        if (indexOfAssignmentOperation >= preparedToken.size + 1) {
+            LOG.error("Assignment operation can not exist without right side value")
+        }
+
+        val leftAssignmentToken = preparedToken[indexOfAssignmentOperation - 1]
+        val rightAssignmentToken = preparedToken[indexOfAssignmentOperation + 1]
+
+        if (leftAssignmentToken.type == TokenType.UNTYPED) {
+            preparedToken[indexOfAssignmentOperation - 1] = Token(leftAssignmentToken.value, TokenType.IDENTIFIER)
+        }
+
+        if (rightAssignmentToken.type == TokenType.UNTYPED) {
+            preparedToken[indexOfAssignmentOperation + 1] = Token(rightAssignmentToken.value, TokenType.VALUE)
+        }
+
+        return preparedToken
     }
 
     private fun resolveSymbols(string: String): TokenType {
@@ -42,4 +70,8 @@ class ScriptTokenizer {
         val value: String,
         val type: TokenType
     )
+
+    companion object {
+        private val LOG: Logger = LoggerFactory.getLogger(ScriptTokenizer::class.java)
+    }
 }
