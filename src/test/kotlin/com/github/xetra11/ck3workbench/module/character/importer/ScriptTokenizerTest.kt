@@ -14,7 +14,7 @@ internal class ScriptTokenizerTest {
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_1)
 
         assertThat(actual).containsExactly(
-            Token("thorak", TokenType.IDENTIFIER),
+            Token("thorak", TokenType.OBJECT_ID),
             Token("=", TokenType.ASSIGNMENT),
             Token("{", TokenType.L_BRACE),
             Token("}", TokenType.R_BRACE)
@@ -26,10 +26,10 @@ internal class ScriptTokenizerTest {
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_2)
 
         assertThat(actual).containsExactly(
-            Token("thorak", TokenType.IDENTIFIER),
+            Token("thorak", TokenType.OBJECT_ID),
             Token("=", TokenType.ASSIGNMENT),
             Token("{", TokenType.L_BRACE),
-            Token("name", TokenType.ATTRIBUTE_IDENTIFIER),
+            Token("name", TokenType.ATTRIBUTE_ID),
             Token("=", TokenType.ASSIGNMENT),
             Token("}", TokenType.R_BRACE)
         )
@@ -40,7 +40,7 @@ internal class ScriptTokenizerTest {
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_3)
 
         assertThat(actual).containsExactly(
-            Token("thorak", TokenType.IDENTIFIER),
+            Token("thorak", TokenType.OBJECT_ID),
             Token("=", TokenType.ASSIGNMENT),
             Token("{", TokenType.L_BRACE),
             Token("=", TokenType.ASSIGNMENT),
@@ -54,12 +54,30 @@ internal class ScriptTokenizerTest {
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_4)
 
         assertThat(actual).containsExactly(
-            Token("thorak", TokenType.IDENTIFIER),
+            Token("thorak", TokenType.OBJECT_ID),
             Token("=", TokenType.ASSIGNMENT),
             Token("{", TokenType.L_BRACE),
-            Token("name", TokenType.ATTRIBUTE_IDENTIFIER),
+            Token("name", TokenType.ATTRIBUTE_ID),
             Token("=", TokenType.ASSIGNMENT),
             Token("\"Thorak\"", TokenType.ATTRIBUTE_VALUE),
+            Token("}", TokenType.R_BRACE)
+        )
+    }
+
+    @Test
+    fun `should return a tokenization for a characer script definition with multiple attributes`(){
+        val actual = scriptTokenizer.tokenize(TEST_SCRIPT_5)
+
+        assertThat(actual).containsExactly(
+            Token("thorak", TokenType.OBJECT_ID),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("{", TokenType.L_BRACE),
+            Token("name", TokenType.ATTRIBUTE_ID),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("\"Thorak\"", TokenType.ATTRIBUTE_VALUE),
+            Token("dna", TokenType.ATTRIBUTE_ID),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("thorak_dna", TokenType.ATTRIBUTE_VALUE),
             Token("}", TokenType.R_BRACE)
         )
     }
@@ -95,6 +113,12 @@ internal class ScriptTokenizerTest {
         const val TEST_SCRIPT_4 = """
             thorak =  {
                 name = "Thorak"
+            }
+        """
+        const val TEST_SCRIPT_5 = """
+            thorak =  {
+                name = "Thorak"
+                dna = thorak_dna
             }
         """
         const val NO_LEFT_VALUE = """

@@ -9,8 +9,8 @@ import java.io.File
 */
 class ScriptTokenizer {
     enum class TokenType {
-        IDENTIFIER,
-        ATTRIBUTE_IDENTIFIER,
+        OBJECT_ID,
+        ATTRIBUTE_ID,
         ATTRIBUTE_VALUE,
         L_BRACE,
         R_BRACE,
@@ -75,7 +75,7 @@ class ScriptTokenizer {
         val rightAssignmentToken = preparedToken[indexOfAssignmentOperation + 1]
 
         if (leftAssignmentToken.type == TokenType.UNTYPED) {
-            preparedToken[indexOfAssignmentOperation - 1] = Token(leftAssignmentToken.value, TokenType.IDENTIFIER)
+            preparedToken[indexOfAssignmentOperation - 1] = Token(leftAssignmentToken.value, TokenType.OBJECT_ID)
         }
 
         if (rightAssignmentToken.type == TokenType.UNTYPED) {
@@ -96,7 +96,7 @@ class ScriptTokenizer {
         preparedToken: MutableList<Token>,
         nextProcessor: (preparedToken: MutableList<Token>) -> MutableList<Token>
     ): MutableList<Token> {
-        val sectionEntry = preparedToken.indexOfFirst { it.type == TokenType.IDENTIFIER }
+        val sectionEntry = preparedToken.indexOfFirst { it.type == TokenType.OBJECT_ID }
         val sectionBlockStart = preparedToken.indexOfFirst { it.type == TokenType.L_BRACE }
         val sectionBlockEnd = preparedToken.indexOfFirst { it.type == TokenType.R_BRACE }
 
@@ -112,7 +112,7 @@ class ScriptTokenizer {
         assignmentIndices.forEach { indexOfAssignment ->
             val token = preparedToken[indexOfAssignment - 1]
             if (token.type == TokenType.UNTYPED) {
-                preparedToken[indexOfAssignment - 1] = Token(token.value, TokenType.ATTRIBUTE_IDENTIFIER)
+                preparedToken[indexOfAssignment - 1] = Token(token.value, TokenType.ATTRIBUTE_ID)
             }
         }
         return nextProcessor(preparedToken)
@@ -126,7 +126,7 @@ class ScriptTokenizer {
     *
     */
     private fun resolveAttributeValue(preparedToken: MutableList<Token>): MutableList<Token> {
-        val sectionEntry = preparedToken.indexOfFirst { it.type == TokenType.IDENTIFIER }
+        val sectionEntry = preparedToken.indexOfFirst { it.type == TokenType.OBJECT_ID }
         val sectionBlockStart = preparedToken.indexOfFirst { it.type == TokenType.L_BRACE }
         val sectionBlockEnd = preparedToken.indexOfFirst { it.type == TokenType.R_BRACE }
 
