@@ -83,6 +83,35 @@ internal class ScriptTokenizerTest {
     }
 
     @Test
+    fun `should return a tokenization for a characer script definition with sub object`(){
+        val actual = scriptTokenizer.tokenize(TEST_SCRIPT_6)
+
+        assertThat(actual).containsExactly(
+            Token("thorak", TokenType.OBJECT_ID),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("{", TokenType.L_BRACE),
+            Token("name", TokenType.ATTRIBUTE_ID),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("\"Thorak\"", TokenType.ATTRIBUTE_VALUE),
+            Token("dna", TokenType.ATTRIBUTE_ID),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("thorak_dna", TokenType.ATTRIBUTE_VALUE),
+            Token("733.1.1", TokenType.OBJECT_ID),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("{", TokenType.L_BRACE),
+            Token("birth", TokenType.ATTRIBUTE_ID),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("yes", TokenType.ATTRIBUTE_VALUE),
+            Token("}", TokenType.R_BRACE),
+            Token("}", TokenType.R_BRACE)
+        )
+    }
+
+    fun `should remove comments before tokenizing`(){
+        val actual = scriptTokenizer.tokenize(WITH_COMMENT)
+    }
+
+    @Test
     fun `should fail if script has null value left of assignment`(){
         assertThatExceptionOfType(ScriptTokenizerError::class.java).isThrownBy {
             scriptTokenizer.tokenize(NO_LEFT_VALUE)
@@ -119,6 +148,27 @@ internal class ScriptTokenizerTest {
             thorak =  {
                 name = "Thorak"
                 dna = thorak_dna
+            }
+        """
+        const val TEST_SCRIPT_6 = """
+            thorak =  {
+                name = "Thorak"
+                dna = thorak_dna
+                
+                731.1.1 = { 
+                    birth = yes
+                }
+            }
+        """
+        const val WITH_COMMENT = """
+            thorak =  {
+                # Bar Text
+                name = "Thorak"
+                dna = thorak_dna
+                
+                731.1.1 = { # Foo
+                    birth = yes
+                }
             }
         """
         const val NO_LEFT_VALUE = """
