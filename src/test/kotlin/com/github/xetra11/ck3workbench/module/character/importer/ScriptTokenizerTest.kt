@@ -22,6 +22,20 @@ internal class ScriptTokenizerTest {
     }
 
     @Test
+    fun `should return a tokenization for a character script definition containing an attribute identifier`(){
+        val actual = scriptTokenizer.tokenize(TEST_SCRIPT_2)
+
+        assertThat(actual).containsExactly(
+            Token("thorak", TokenType.IDENTIFIER),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("{", TokenType.L_BRACE),
+            Token("name", TokenType.ATTRIBUTE_IDENTIFIER),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("}", TokenType.R_BRACE)
+        )
+    }
+
+    @Test
     fun `should fail if script has null value left of assignment`(){
         assertThatExceptionOfType(ScriptTokenizerError::class.java).isThrownBy {
             scriptTokenizer.tokenize(NO_LEFT_VALUE)
@@ -38,6 +52,11 @@ internal class ScriptTokenizerTest {
     companion object {
         const val TEST_SCRIPT_1 = """
             thorak =  { }
+        """
+        const val TEST_SCRIPT_2 = """
+            thorak =  {
+                name = 
+            }
         """
         const val NO_LEFT_VALUE = """
             =  {

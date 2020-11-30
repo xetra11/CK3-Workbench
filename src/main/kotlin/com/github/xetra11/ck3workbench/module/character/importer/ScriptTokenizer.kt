@@ -10,10 +10,11 @@ import java.io.File
 class ScriptTokenizer {
     enum class TokenType {
         IDENTIFIER,
+        ATTRIBUTE_IDENTIFIER,
+        ATTRIBUTE_VALUE,
         L_BRACE,
         R_BRACE,
         ASSIGNMENT,
-        VALUE,
         UNTYPED
     }
 
@@ -22,18 +23,40 @@ class ScriptTokenizer {
     }
 
     fun tokenize(scriptContent: String): List<Token> {
-        val preparedToken =  scriptContent
+        val preparedToken = scriptContent
             .trim()
             .split(" ")
             .filterNot { it.isBlank() }
             .map { it.replace("\n", "") }
-            .map { segment -> segment to resolveSymbols(segment)}
-            .map { Token(it.first, it.second)}
+            .map { Token(it, TokenType.UNTYPED) }
 
-        return resolveIdentifier(preparedToken.toMutableList())
+        return resolveSymbols(preparedToken.toMutableList()) { withSymbols ->
+            resolveIdentifier(withSymbols) { withIdentifiers ->
+                resolveAttributeIdentifier(withIdentifiers)
+            }
+        }
+    }
+    private fun resolveSymbols(
+        preparedToken: MutableList<Token>,
+        nextProcessor: (preparedToken: MutableList<Token>) -> MutableList<Token>
+    ): MutableList<Token> {
+        val processed = preparedToken.map { token ->
+            val type  = when (token.value) {
+                "{" -> TokenType.L_BRACE
+                "}" -> TokenType.R_BRACE
+                "=" -> TokenType.ASSIGNMENT
+                else -> TokenType.UNTYPED
+            }
+            Token(token.value, type)
+        }.toMutableList()
+
+        return nextProcessor(processed)
     }
 
-    private fun resolveIdentifier(preparedToken: MutableList<Token>): List<Token> {
+    private fun resolveIdentifier(
+        preparedToken: MutableList<Token>,
+        nextProcessor: (preparedToken: MutableList<Token>) -> MutableList<Token>
+    ): MutableList<Token> {
         val indexOfAssignmentOperation = preparedToken.indexOfFirst { it.type == TokenType.ASSIGNMENT }
 
         if (indexOfAssignmentOperation <= 0) {
@@ -53,19 +76,39 @@ class ScriptTokenizer {
         }
 
         if (rightAssignmentToken.type == TokenType.UNTYPED) {
-            preparedToken[indexOfAssignmentOperation + 1] = Token(rightAssignmentToken.value, TokenType.VALUE)
+            preparedToken[indexOfAssignmentOperation + 1] = Token(rightAssignmentToken.value, TokenType.ATTRIBUTE_VALUE)
+        }
+
+        return nextProcessor(preparedToken)
+    }
+
+    /*
+    *
+    * IDENTIFIER = {
+    *   ATTRIBUTE_IDENTIFIER = ATTRIBUTE_VALUE
+    * }    ^ to find
+    *
+    */
+    private fun resolveAttributeIdentifier(preparedToken: MutableList<Token>): MutableList<Token> {
+        val sectionEntry = preparedToken.indexOfFirst { it.type == TokenType.IDENTIFIER }
+        val sectionBlockStart = preparedToken.indexOfFirst { it.type == TokenType.L_BRACE }
+        val sectionBlockEnd = preparedToken.indexOfFirst { it.type == TokenType.R_BRACE }
+
+        // check for assignment operations within the section
+        val assignmentIndices = mutableListOf<Int>()
+        (sectionBlockStart..sectionBlockEnd).forEach { index ->
+            val (value, type) = preparedToken[index]
+            if (type == TokenType.ASSIGNMENT) {
+                assignmentIndices.add(index)
+            }
+        }
+
+        assignmentIndices.forEach { indexOfAssignment ->
+            val attributeIdentifierToken = preparedToken[indexOfAssignment - 1]
+            preparedToken[indexOfAssignment - 1] = Token(attributeIdentifierToken.value, TokenType.ATTRIBUTE_IDENTIFIER)
         }
 
         return preparedToken
-    }
-
-    private fun resolveSymbols(string: String): TokenType {
-        return when (string) {
-            "{" -> TokenType.L_BRACE
-            "}" -> TokenType.R_BRACE
-            "=" -> TokenType.ASSIGNMENT
-            else -> TokenType.UNTYPED
-        }
     }
 
     data class Token(
@@ -78,6 +121,4 @@ class ScriptTokenizer {
     }
 }
 
-class ScriptTokenizerError(message:String): Throwable(message) {
-
-}
+class ScriptTokenizerError(message: String) : Throwable(message)
