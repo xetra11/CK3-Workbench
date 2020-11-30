@@ -36,6 +36,35 @@ internal class ScriptTokenizerTest {
     }
 
     @Test
+    fun `should return a tokenization for a character script definition containing an attribute value`(){
+        val actual = scriptTokenizer.tokenize(TEST_SCRIPT_3)
+
+        assertThat(actual).containsExactly(
+            Token("thorak", TokenType.IDENTIFIER),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("{", TokenType.L_BRACE),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("value", TokenType.ATTRIBUTE_VALUE),
+            Token("}", TokenType.R_BRACE)
+        )
+    }
+
+    @Test
+    fun `should return a tokenization for a characer script definition with one attribute`(){
+        val actual = scriptTokenizer.tokenize(TEST_SCRIPT_4)
+
+        assertThat(actual).containsExactly(
+            Token("thorak", TokenType.IDENTIFIER),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("{", TokenType.L_BRACE),
+            Token("name", TokenType.ATTRIBUTE_IDENTIFIER),
+            Token("=", TokenType.ASSIGNMENT),
+            Token("\"Thorak\"", TokenType.ATTRIBUTE_VALUE),
+            Token("}", TokenType.R_BRACE)
+        )
+    }
+
+    @Test
     fun `should fail if script has null value left of assignment`(){
         assertThatExceptionOfType(ScriptTokenizerError::class.java).isThrownBy {
             scriptTokenizer.tokenize(NO_LEFT_VALUE)
@@ -56,6 +85,16 @@ internal class ScriptTokenizerTest {
         const val TEST_SCRIPT_2 = """
             thorak =  {
                 name = 
+            }
+        """
+        const val TEST_SCRIPT_3 = """
+            thorak =  {
+                = value
+            }
+        """
+        const val TEST_SCRIPT_4 = """
+            thorak =  {
+                name = "Thorak"
             }
         """
         const val NO_LEFT_VALUE = """

@@ -32,10 +32,13 @@ class ScriptTokenizer {
 
         return resolveSymbols(preparedToken.toMutableList()) { withSymbols ->
             resolveIdentifier(withSymbols) { withIdentifiers ->
-                resolveAttributeIdentifier(withIdentifiers)
+                resolveAttributeIdentifier(withIdentifiers) { withAttributeIdentifier ->
+                    resolveAttributeValue(withAttributeIdentifier)
+                }
             }
         }
     }
+
     private fun resolveSymbols(
         preparedToken: MutableList<Token>,
         nextProcessor: (preparedToken: MutableList<Token>) -> MutableList<Token>
@@ -89,7 +92,10 @@ class ScriptTokenizer {
     * }    ^ to find
     *
     */
-    private fun resolveAttributeIdentifier(preparedToken: MutableList<Token>): MutableList<Token> {
+    private fun resolveAttributeIdentifier(
+        preparedToken: MutableList<Token>,
+        nextProcessor: (preparedToken: MutableList<Token>) -> MutableList<Token>
+    ): MutableList<Token> {
         val sectionEntry = preparedToken.indexOfFirst { it.type == TokenType.IDENTIFIER }
         val sectionBlockStart = preparedToken.indexOfFirst { it.type == TokenType.L_BRACE }
         val sectionBlockEnd = preparedToken.indexOfFirst { it.type == TokenType.R_BRACE }
@@ -104,8 +110,40 @@ class ScriptTokenizer {
         }
 
         assignmentIndices.forEach { indexOfAssignment ->
-            val attributeIdentifierToken = preparedToken[indexOfAssignment - 1]
-            preparedToken[indexOfAssignment - 1] = Token(attributeIdentifierToken.value, TokenType.ATTRIBUTE_IDENTIFIER)
+            val token = preparedToken[indexOfAssignment - 1]
+            if (token.type == TokenType.UNTYPED) {
+                preparedToken[indexOfAssignment - 1] = Token(token.value, TokenType.ATTRIBUTE_IDENTIFIER)
+            }
+        }
+        return nextProcessor(preparedToken)
+    }
+
+    /*
+    *
+    * IDENTIFIER = {
+    *   ATTRIBUTE_IDENTIFIER = ATTRIBUTE_VALUE
+    * }                          ^ to find
+    *
+    */
+    private fun resolveAttributeValue(preparedToken: MutableList<Token>): MutableList<Token> {
+        val sectionEntry = preparedToken.indexOfFirst { it.type == TokenType.IDENTIFIER }
+        val sectionBlockStart = preparedToken.indexOfFirst { it.type == TokenType.L_BRACE }
+        val sectionBlockEnd = preparedToken.indexOfFirst { it.type == TokenType.R_BRACE }
+
+        // check for assignment operations within the section
+        val assignmentIndices = mutableListOf<Int>()
+        (sectionBlockStart..sectionBlockEnd).forEach { index ->
+            val (value, type) = preparedToken[index]
+            if (type == TokenType.ASSIGNMENT) {
+                assignmentIndices.add(index)
+            }
+        }
+
+        assignmentIndices.forEach { indexOfAssignment ->
+            val token = preparedToken[indexOfAssignment + 1]
+            if (token.type == TokenType.UNTYPED) {
+                preparedToken[indexOfAssignment + 1] = Token(token.value, TokenType.ATTRIBUTE_VALUE)
+            }
         }
 
         return preparedToken
