@@ -37,10 +37,12 @@ class ScriptTokenizer {
         val indexOfAssignmentOperation = preparedToken.indexOfFirst { it.type == TokenType.ASSIGNMENT }
 
         if (indexOfAssignmentOperation <= 0) {
-            LOG.error("Assignment operation can not exist without left side value")
+            val message = "Assignment operation can not exist without left side value"
+            throw ScriptTokenizerError(message)
         }
-        if (indexOfAssignmentOperation >= preparedToken.size + 1) {
-            LOG.error("Assignment operation can not exist without right side value")
+        if (indexOfAssignmentOperation + 1 >= preparedToken.size) {
+            val message = "Assignment operation can not exist without right side value"
+            throw ScriptTokenizerError(message)
         }
 
         val leftAssignmentToken = preparedToken[indexOfAssignmentOperation - 1]
@@ -74,4 +76,8 @@ class ScriptTokenizer {
     companion object {
         private val LOG: Logger = LoggerFactory.getLogger(ScriptTokenizer::class.java)
     }
+}
+
+class ScriptTokenizerError(message:String): Throwable(message) {
+
 }
