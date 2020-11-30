@@ -14,9 +14,9 @@ internal class ScriptTokenizerTest {
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_1)
 
         assertThat(actual).element(0).isEqualTo(Token("thorak", TokenType.UNTYPED))
-        assertThat(actual).element(1).isEqualTo(Token("=", TokenType.OPERATOR))
-        assertThat(actual).element(2).isEqualTo(Token("{", TokenType.DECLARATION))
-        assertThat(actual).element(3).isEqualTo(Token("}", TokenType.DECLARATION))
+        assertThat(actual).element(1).isEqualTo(Token("=", TokenType.ASSIGNMENT))
+        assertThat(actual).element(2).isEqualTo(Token("{", TokenType.L_BRACE))
+        assertThat(actual).element(3).isEqualTo(Token("}", TokenType.R_BRACE))
     }
 
     companion object {
@@ -24,7 +24,6 @@ internal class ScriptTokenizerTest {
             thorak =  {
             }
         """
-
     }
 }
 

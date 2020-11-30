@@ -7,9 +7,10 @@ import java.io.File
 */
 class ScriptTokenizer {
     enum class TokenType {
-        ID,
-        OPERATOR,
-        DECLARATION,
+        IDENTIFIER,
+        L_BRACE,
+        R_BRACE,
+        ASSIGNMENT,
         VALUE,
         UNTYPED
     }
@@ -24,17 +25,17 @@ class ScriptTokenizer {
             .split(" ")
             .filterNot { it.isBlank() }
             .map { it.replace("\n", "") }
-            .map {  segment -> segment to resolveType(segment)}
+            .map { segment -> segment to resolveSymbols(segment)}
             .map { Token(it.first, it.second)}
     }
 
-    private fun resolveType(string: String): TokenType {
+    private fun resolveSymbols(string: String): TokenType {
         return when (string) {
-           "{","}" -> TokenType.DECLARATION
-            "=" -> TokenType.OPERATOR
+            "{" -> TokenType.L_BRACE
+            "}" -> TokenType.R_BRACE
+            "=" -> TokenType.ASSIGNMENT
             else -> TokenType.UNTYPED
         }
-
     }
 
     data class Token(
