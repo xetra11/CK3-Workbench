@@ -1,9 +1,9 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.Token
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType
-import java.util.LinkedList
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /**
  * Reads a grammar file and returns the grammar definition for it
@@ -19,7 +19,10 @@ class GrammarParser {
 
         return grammars.map { grammar ->
             val lines = grammar.lines()
-            val grammarScope = lines.first { it.startsWith(":") }.replace(":","")
+                .filter { it.isNotBlank() }
+                .map { it.trim() }
+            LOG.info(lines.toString())
+            val grammarScope = lines.first { it.startsWith(":") }.replace(":", "")
             val grammarDefinitions = lines.filterNot { it.startsWith(":") }.joinToString("")
             val definitions = grammarDefinitions.trim().split(".")
             val tokenTypes = toTokenTypes(definitions)
@@ -30,8 +33,9 @@ class GrammarParser {
 
     private fun toTokenTypes(definitions: List<String>): List<TokenType> {
         return definitions.map {
-            when(it) {
+            when (it) {
                 "[ATTRIBUTE_ID]" -> TokenType.ATTRIBUTE_ID
+                "[OBJECT_ID]" -> TokenType.OBJECT_ID
                 "[ASSIGNMENT]" -> TokenType.ASSIGNMENT
                 "[ATTRIBUTE_VALUE]" -> TokenType.ATTRIBUTE_VALUE
                 else -> TokenType.UNTYPED
@@ -39,8 +43,12 @@ class GrammarParser {
         }
     }
 
-    class Grammar(
+    data class Grammar(
         val scope: String,
         val tokenDefinition: LinkedHashSet<TokenType>
     )
+
+    companion object {
+        private val LOG: Logger = LoggerFactory.getLogger(GrammarParser::class.java)
+    }
 }
