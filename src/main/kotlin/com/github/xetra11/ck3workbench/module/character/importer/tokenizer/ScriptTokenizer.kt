@@ -12,8 +12,8 @@ class ScriptTokenizer {
         OBJECT_ID,
         ATTRIBUTE_ID,
         ATTRIBUTE_VALUE,
-        L_BRACE,
-        R_BRACE,
+        BLOCK_START,
+        BLOCK_END,
         ASSIGNMENT,
         UNTYPED
     }
@@ -45,8 +45,8 @@ class ScriptTokenizer {
     ): MutableList<Token> {
         val processed = preparedToken.map { token ->
             val type  = when (token.value) {
-                "{" -> TokenType.L_BRACE
-                "}" -> TokenType.R_BRACE
+                "{" -> TokenType.BLOCK_START
+                "}" -> TokenType.BLOCK_END
                 "=" -> TokenType.ASSIGNMENT
                 else -> TokenType.UNTYPED
             }
@@ -96,8 +96,8 @@ class ScriptTokenizer {
         preparedToken: MutableList<Token>,
         nextProcessor: (preparedToken: MutableList<Token>) -> MutableList<Token>
     ): MutableList<Token> {
-        val sectionBlockStart = preparedToken.indexOfFirst { it.type == TokenType.L_BRACE }
-        val sectionBlockEnd = preparedToken.indexOfFirst { it.type == TokenType.R_BRACE }
+        val sectionBlockStart = preparedToken.indexOfFirst { it.type == TokenType.BLOCK_START }
+        val sectionBlockEnd = preparedToken.indexOfFirst { it.type == TokenType.BLOCK_END }
 
         // check for assignment operations within the section
         val assignmentIndices = mutableListOf<Int>()
@@ -125,8 +125,8 @@ class ScriptTokenizer {
     *
     */
     private fun resolveAttributeValue(preparedToken: MutableList<Token>): MutableList<Token> {
-        val sectionBlockStart = preparedToken.indexOfFirst { it.type == TokenType.L_BRACE }
-        val sectionBlockEnd = preparedToken.indexOfFirst { it.type == TokenType.R_BRACE }
+        val sectionBlockStart = preparedToken.indexOfFirst { it.type == TokenType.BLOCK_START }
+        val sectionBlockEnd = preparedToken.indexOfFirst { it.type == TokenType.BLOCK_END }
 
         // check for assignment operations within the section
         val assignmentIndices = mutableListOf<Int>()

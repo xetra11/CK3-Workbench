@@ -18,8 +18,8 @@ internal class ScriptTokenizerTest {
         assertThat(actual).containsExactly(
             Token("thorak", TokenType.OBJECT_ID),
             Token("=", TokenType.ASSIGNMENT),
-            Token("{", TokenType.L_BRACE),
-            Token("}", TokenType.R_BRACE)
+            Token("{", TokenType.BLOCK_START),
+            Token("}", TokenType.BLOCK_END)
         )
     }
 
@@ -30,10 +30,10 @@ internal class ScriptTokenizerTest {
         assertThat(actual).containsExactly(
             Token("thorak", TokenType.OBJECT_ID),
             Token("=", TokenType.ASSIGNMENT),
-            Token("{", TokenType.L_BRACE),
+            Token("{", TokenType.BLOCK_START),
             Token("name", TokenType.ATTRIBUTE_ID),
             Token("=", TokenType.ASSIGNMENT),
-            Token("}", TokenType.R_BRACE)
+            Token("}", TokenType.BLOCK_END)
         )
     }
 
@@ -44,10 +44,10 @@ internal class ScriptTokenizerTest {
         assertThat(actual).containsExactly(
             Token("thorak", TokenType.OBJECT_ID),
             Token("=", TokenType.ASSIGNMENT),
-            Token("{", TokenType.L_BRACE),
+            Token("{", TokenType.BLOCK_START),
             Token("=", TokenType.ASSIGNMENT),
             Token("value", TokenType.ATTRIBUTE_VALUE),
-            Token("}", TokenType.R_BRACE)
+            Token("}", TokenType.BLOCK_END)
         )
     }
 
@@ -58,11 +58,11 @@ internal class ScriptTokenizerTest {
         assertThat(actual).containsExactly(
             Token("thorak", TokenType.OBJECT_ID),
             Token("=", TokenType.ASSIGNMENT),
-            Token("{", TokenType.L_BRACE),
+            Token("{", TokenType.BLOCK_START),
             Token("name", TokenType.ATTRIBUTE_ID),
             Token("=", TokenType.ASSIGNMENT),
             Token("\"Thorak\"", TokenType.ATTRIBUTE_VALUE),
-            Token("}", TokenType.R_BRACE)
+            Token("}", TokenType.BLOCK_END)
         )
     }
 
@@ -73,14 +73,14 @@ internal class ScriptTokenizerTest {
         assertThat(actual).containsExactly(
             Token("thorak", TokenType.OBJECT_ID),
             Token("=", TokenType.ASSIGNMENT),
-            Token("{", TokenType.L_BRACE),
+            Token("{", TokenType.BLOCK_START),
             Token("name", TokenType.ATTRIBUTE_ID),
             Token("=", TokenType.ASSIGNMENT),
             Token("\"Thorak\"", TokenType.ATTRIBUTE_VALUE),
             Token("dna", TokenType.ATTRIBUTE_ID),
             Token("=", TokenType.ASSIGNMENT),
             Token("thorak_dna", TokenType.ATTRIBUTE_VALUE),
-            Token("}", TokenType.R_BRACE)
+            Token("}", TokenType.BLOCK_END)
         )
     }
 
@@ -91,7 +91,7 @@ internal class ScriptTokenizerTest {
         assertThat(actual).containsExactly(
             Token("thorak", TokenType.OBJECT_ID),
             Token("=", TokenType.ASSIGNMENT),
-            Token("{", TokenType.L_BRACE),
+            Token("{", TokenType.BLOCK_START),
             Token("name", TokenType.ATTRIBUTE_ID),
             Token("=", TokenType.ASSIGNMENT),
             Token("\"Thorak\"", TokenType.ATTRIBUTE_VALUE),
@@ -100,12 +100,12 @@ internal class ScriptTokenizerTest {
             Token("thorak_dna", TokenType.ATTRIBUTE_VALUE),
             Token("733.1.1", TokenType.OBJECT_ID),
             Token("=", TokenType.ASSIGNMENT),
-            Token("{", TokenType.L_BRACE),
+            Token("{", TokenType.BLOCK_START),
             Token("birth", TokenType.ATTRIBUTE_ID),
             Token("=", TokenType.ASSIGNMENT),
             Token("yes", TokenType.ATTRIBUTE_VALUE),
-            Token("}", TokenType.R_BRACE),
-            Token("}", TokenType.R_BRACE)
+            Token("}", TokenType.BLOCK_END),
+            Token("}", TokenType.BLOCK_END)
         )
     }
 

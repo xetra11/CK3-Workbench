@@ -31,6 +31,33 @@ internal class GrammarParserTest {
         )
     }
 
+    @Test
+    fun `should read grammar file with nested attributes and return a grammar definition`() {
+        val grammars = grammarParser.parse(GRAMMAR_FILE_2)
+
+        assertThat(grammars).containsExactly(
+            Grammar(
+                "ATTRIBUTE", linkedSetOf(
+                    TokenType.ATTRIBUTE_ID,
+                    TokenType.ASSIGNMENT,
+                    TokenType.ATTRIBUTE_VALUE
+                )
+            ),
+            Grammar(
+                "OBJECT", linkedSetOf(
+                    TokenType.OBJECT_ID,
+                    TokenType.ASSIGNMENT,
+                    TokenType.ATTRIBUTE_VALUE,
+                    TokenType.BLOCK_START,
+                    TokenType.ATTRIBUTE_ID,
+                    TokenType.ASSIGNMENT,
+                    TokenType.ATTRIBUTE_VALUE,
+                    TokenType.BLOCK_END
+                )
+            )
+        )
+    }
+
     companion object {
         const val GRAMMAR_FILE_1 = """
             :ATTRIBUTE
@@ -38,6 +65,13 @@ internal class GrammarParserTest {
             ---
             :OBJECT
             [OBJECT_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
+        """
+        const val GRAMMAR_FILE_2 = """
+            :ATTRIBUTE
+            [ATTRIBUTE_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
+            ---
+            :OBJECT
+            [OBJECT_ID].[ASSIGNMENT].[BLOCK_START].[:ATTRIBUTE]*1.[BLOCK_END]
         """
     }
 }

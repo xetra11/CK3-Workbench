@@ -1,6 +1,5 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -22,12 +21,36 @@ class GrammarParser {
                 .filter { it.isNotBlank() }
                 .map { it.trim() }
             LOG.info(lines.toString())
-            val grammarScope = lines.first { it.startsWith(":") }.replace(":", "")
-            val grammarDefinitions = lines.filterNot { it.startsWith(":") }.joinToString("")
-            val definitions = grammarDefinitions.trim().split(".")
-            val tokenTypes = toTokenTypes(definitions)
+            // :<definition>
+            val definition = lines.first { it.startsWith(":") }.replace(":", "")
+            // [<token>].[<token2>].[<token3>]
+            val tokenChain = lines.filterNot { it.startsWith(":") }.joinToString("")
+            val tokens = tokenChain.trim().split(".")
 
-            Grammar(grammarScope, LinkedHashSet(tokenTypes))
+            val definitionReferences = tokens
+                .filter { it.startsWith("[:") }
+                .quantify()
+
+
+            val tokenTypes = toTokenTypes(tokens)
+
+            Grammar(definition, LinkedHashSet(tokenTypes))
+        }
+    }
+
+    // multiply definition depending on its quantifier modifier
+    private fun Iterable<String>.quantify(): List<String> {
+        return this.flatMap { reference ->
+            val quantity: Int
+            try {
+                quantity = reference.split("*")[1].toInt()
+                return reference.repeat(quantity)
+                    .split("*$quantity")
+                    .filter { it.isNotBlank() }
+            } catch (e: NumberFormatException) {
+                LOG.error("Quantity modifier is not a number")
+            }
+            listOf()
         }
     }
 
@@ -44,7 +67,7 @@ class GrammarParser {
     }
 
     data class Grammar(
-        val scope: String,
+        val definitionName: String,
         val tokenDefinition: LinkedHashSet<TokenType>
     )
 
