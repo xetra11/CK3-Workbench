@@ -58,6 +58,8 @@ internal class GrammarParserTest {
         )
     }
 
+    fun `should add mandatory modifier`() {}
+
     companion object {
         const val GRAMMAR_FILE_1 = """
             :ATTRIBUTE

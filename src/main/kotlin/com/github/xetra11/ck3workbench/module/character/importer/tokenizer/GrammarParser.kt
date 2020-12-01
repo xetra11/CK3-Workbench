@@ -30,6 +30,7 @@ class GrammarParser {
             val definitionReferences = tokens
                 .filter { it.startsWith("[:") }
                 .quantify()
+                .resolve()
 
 
             val tokenTypes = toTokenTypes(tokens)
@@ -44,7 +45,8 @@ class GrammarParser {
             val quantity: Int
             try {
                 quantity = reference.split("*")[1].toInt()
-                return reference.repeat(quantity)
+                return reference
+                    .repeat(quantity)
                     .split("*$quantity")
                     .filter { it.isNotBlank() }
             } catch (e: NumberFormatException) {
@@ -53,6 +55,13 @@ class GrammarParser {
             listOf()
         }
     }
+
+    // resolve references with their definitions
+    private fun Iterable<String>.resolve(): List<String> {
+        return this.flatMap { reference ->
+        }
+    }
+
 
     private fun toTokenTypes(definitions: List<String>): List<TokenType> {
         return definitions.map {
