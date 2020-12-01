@@ -1,7 +1,9 @@
-package com.github.xetra11.ck3workbench.module.character.importer
+package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
+import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.Token
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType
+import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizerError
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.Test
@@ -83,7 +85,7 @@ internal class ScriptTokenizerTest {
     }
 
     @Test
-    fun `should return a tokenization for a characer script definition with sub object`(){
+    fun `should return a tokenization for a character script definition with sub object`(){
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_6)
 
         assertThat(actual).containsExactly(

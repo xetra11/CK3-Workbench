@@ -96,7 +96,6 @@ class ScriptTokenizer {
         preparedToken: MutableList<Token>,
         nextProcessor: (preparedToken: MutableList<Token>) -> MutableList<Token>
     ): MutableList<Token> {
-        val sectionEntry = preparedToken.indexOfFirst { it.type == TokenType.OBJECT_ID }
         val sectionBlockStart = preparedToken.indexOfFirst { it.type == TokenType.L_BRACE }
         val sectionBlockEnd = preparedToken.indexOfFirst { it.type == TokenType.R_BRACE }
 
@@ -126,7 +125,6 @@ class ScriptTokenizer {
     *
     */
     private fun resolveAttributeValue(preparedToken: MutableList<Token>): MutableList<Token> {
-        val sectionEntry = preparedToken.indexOfFirst { it.type == TokenType.OBJECT_ID }
         val sectionBlockStart = preparedToken.indexOfFirst { it.type == TokenType.L_BRACE }
         val sectionBlockEnd = preparedToken.indexOfFirst { it.type == TokenType.R_BRACE }
 
