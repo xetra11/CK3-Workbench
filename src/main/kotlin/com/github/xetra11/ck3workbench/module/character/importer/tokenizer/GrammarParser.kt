@@ -27,15 +27,23 @@ class GrammarParser {
             val tokenChain = lines.filterNot { it.startsWith(":") }.joinToString("")
             val tokens = tokenChain.trim().split(".")
 
-            val definitionReferences = tokens
-                .filter { it.startsWith("[:") }
-                .quantify()
-                .resolve()
+            val typedTokens = tokens
+                .flatMap {
+                    tokens
+                        .filter { it.startsWith("[:") }
+                        .quantify()
+                }
+                .map {
+                    when (it) {
+                        "[ATTRIBUTE_ID]" -> TokenType.ATTRIBUTE_ID
+                        "[OBJECT_ID]" -> TokenType.OBJECT_ID
+                        "[ASSIGNMENT]" -> TokenType.ASSIGNMENT
+                        "[ATTRIBUTE_VALUE]" -> TokenType.ATTRIBUTE_VALUE
+                        else -> TokenType.UNTYPED
+                    }
+                }
 
-
-            val tokenTypes = toTokenTypes(tokens)
-
-            Grammar(definition, LinkedHashSet(tokenTypes))
+            Grammar(definition, LinkedHashSet(typedTokens))
         }
     }
 
@@ -57,23 +65,10 @@ class GrammarParser {
     }
 
     // resolve references with their definitions
-    private fun Iterable<String>.resolve(): List<String> {
-        return this.flatMap { reference ->
-        }
-    }
-
-
-    private fun toTokenTypes(definitions: List<String>): List<TokenType> {
-        return definitions.map {
-            when (it) {
-                "[ATTRIBUTE_ID]" -> TokenType.ATTRIBUTE_ID
-                "[OBJECT_ID]" -> TokenType.OBJECT_ID
-                "[ASSIGNMENT]" -> TokenType.ASSIGNMENT
-                "[ATTRIBUTE_VALUE]" -> TokenType.ATTRIBUTE_VALUE
-                else -> TokenType.UNTYPED
-            }
-        }
-    }
+    // private fun Iterable<String>.resolve(): List<String> {
+    //     return this.flatMap { reference ->
+    //     }
+    // }
 
     data class Grammar(
         val definitionName: String,
