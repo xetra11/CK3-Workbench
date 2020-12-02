@@ -15,14 +15,14 @@ internal class GrammarParserTest {
 
         assertThat(grammars).containsExactly(
             Grammar(
-                "ATTRIBUTE", linkedSetOf(
+                "ATTRIBUTE", listOf(
                     TokenType.ATTRIBUTE_ID,
                     TokenType.ASSIGNMENT,
                     TokenType.ATTRIBUTE_VALUE
                 )
             ),
             Grammar(
-                "OBJECT", linkedSetOf(
+                "OBJECT", listOf(
                     TokenType.OBJECT_ID,
                     TokenType.ASSIGNMENT,
                     TokenType.ATTRIBUTE_VALUE
@@ -32,22 +32,37 @@ internal class GrammarParserTest {
     }
 
     @Test
+    fun `should read simple grammar file with multiplier and return a grammar definition`() {
+        val grammars = grammarParser.parse(MULTI_TEST)
+
+        assertThat(grammars).containsExactly(
+            Grammar(
+                "MULTI", listOf(
+                    TokenType.ATTRIBUTE_ID,
+                    TokenType.ATTRIBUTE_ID,
+                    TokenType.ASSIGNMENT,
+                    TokenType.ATTRIBUTE_VALUE
+                )
+            )
+        )
+    }
+
+    @Test
     fun `should read grammar file with nested attributes and return a grammar definition`() {
         val grammars = grammarParser.parse(GRAMMAR_FILE_2)
 
         assertThat(grammars).containsExactly(
             Grammar(
-                "ATTRIBUTE", linkedSetOf(
+                "ATTRIBUTE", listOf(
                     TokenType.ATTRIBUTE_ID,
                     TokenType.ASSIGNMENT,
                     TokenType.ATTRIBUTE_VALUE
                 )
             ),
             Grammar(
-                "OBJECT", linkedSetOf(
+                "OBJECT", listOf(
                     TokenType.OBJECT_ID,
                     TokenType.ASSIGNMENT,
-                    TokenType.ATTRIBUTE_VALUE,
                     TokenType.BLOCK_START,
                     TokenType.ATTRIBUTE_ID,
                     TokenType.ASSIGNMENT,
@@ -55,6 +70,28 @@ internal class GrammarParserTest {
                     TokenType.BLOCK_END
                 )
             )
+        )
+    }
+
+    fun `flatmap test`() {
+        val actual = listOf("A", "B", "C*2")
+            .flatMap { token ->
+                if (token.contains("*")) {
+                    try {
+                        val quantity = token.split("*")[1].toInt()
+                        token
+                            .repeat(quantity)
+                            .split("*$quantity")
+                            .filter { it.isNotBlank() }
+                    } catch (e: NumberFormatException) {
+                        //stuff
+                    }
+                }
+                listOf(token)
+            }
+
+        assertThat(actual).contains(
+            "A", "B", "C", "C"
         )
     }
 
@@ -67,6 +104,10 @@ internal class GrammarParserTest {
             ---
             :OBJECT
             [OBJECT_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
+        """
+        const val MULTI_TEST = """
+            :MULTI
+            [ATTRIBUTE_ID]*2.[ASSIGNMENT].[ATTRIBUTE_VALUE]
         """
         const val GRAMMAR_FILE_2 = """
             :ATTRIBUTE

@@ -20,7 +20,6 @@ class GrammarParser {
             val lines = grammar.lines()
                 .filter { it.isNotBlank() }
                 .map { it.trim() }
-            LOG.info(lines.toString())
             // :<definition>
             val definition = lines.first { it.startsWith(":") }.replace(":", "")
             // [<token>].[<token2>].[<token3>]
@@ -28,11 +27,7 @@ class GrammarParser {
             val tokens = tokenChain.trim().split(".")
 
             val typedTokens = tokens
-                .flatMap {
-                    tokens
-                        .filter { it.startsWith("[:") }
-                        .quantify()
-                }
+                .quantify()
                 .map {
                     when (it) {
                         "[ATTRIBUTE_ID]" -> TokenType.ATTRIBUTE_ID
@@ -43,24 +38,29 @@ class GrammarParser {
                     }
                 }
 
-            Grammar(definition, LinkedHashSet(typedTokens))
+            Grammar(definition, typedTokens)
         }
     }
 
-    // multiply definition depending on its quantifier modifier
+    // multiply definition depending on its quantity modifier
+    // Example: [DEFINITION]*3
     private fun Iterable<String>.quantify(): List<String> {
-        return this.flatMap { reference ->
-            val quantity: Int
-            try {
-                quantity = reference.split("*")[1].toInt()
-                return reference
-                    .repeat(quantity)
-                    .split("*$quantity")
-                    .filter { it.isNotBlank() }
-            } catch (e: NumberFormatException) {
-                LOG.error("Quantity modifier is not a number")
+        return this.flatMap { token ->
+            if (!token.contains("*")) {
+               listOf(token)
+            } else {
+                try {
+                    val quantity = token.split("*")[1].toInt()
+                    token
+                        .repeat(quantity)
+                        .split("*$quantity")
+                        .filter { it.isNotBlank() }
+                } catch (e: NumberFormatException) {
+                    LOG.error("Quantity modifier is not a number")
+                    listOf(token)
+                }
             }
-            listOf()
+
         }
     }
 
@@ -72,7 +72,7 @@ class GrammarParser {
 
     data class Grammar(
         val definitionName: String,
-        val tokenDefinition: LinkedHashSet<TokenType>
+        val tokenDefinition: List<TokenType>
     )
 
     companion object {
