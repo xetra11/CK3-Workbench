@@ -1,4 +1,6 @@
-package com.github.xetra11.ck3workbench.module.character.importer
+package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
+
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 
 /**
  * The grammar parser takes a grammar definition and a list of [ScriptTokenizer.Token]
@@ -6,4 +8,16 @@ package com.github.xetra11.ck3workbench.module.character.importer
  *
  * @author Patrick C. Höfer aka "xetra11"
  */
-class GrammarMatcher {}
+class GrammarMatcher {
+    fun rule(grammar: Grammar, script: String): MatcherResult {
+        return MatcherResult()
+    }
+
+    class MatcherResult() {
+        fun match(): String {
+            return ""
+        }
+
+    }
+}
+

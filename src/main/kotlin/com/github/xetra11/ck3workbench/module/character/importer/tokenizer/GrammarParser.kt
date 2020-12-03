@@ -3,7 +3,6 @@ package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.util.function.Function
 
 /**
  * Reads a grammar file and returns the grammar definition for it
@@ -17,8 +16,7 @@ class GrammarParser {
 
     fun process(grammarInput: String) {
         val rawGrammars = grammarInput
-            .trimStart()
-            .trimEnd()
+            .trim()
             .split("---")
 
         val processedGrammars = mutableListOf<Grammar>()
@@ -56,22 +54,18 @@ class GrammarParser {
     }
 
     private fun extractGrammarInputLines(grammar: String): List<String> {
-        val lines = grammar.lines()
-            .filter { it.isNotBlank() }
-            .map { it.trim() }
-        return lines
+        return grammar.lines()
+            .map { it.trimWhiteSpace() }
     }
 
     private fun extractTokens(tokenChain: String) = tokenChain.trim().split(".")
 
     private fun extractTokenChain(lines: List<String>): String {
-        val tokenChain = lines.filterNot { it.startsWith(":") }.joinToString("")
-        return tokenChain
+        return lines.filterNot { it.startsWith(":") }.joinToString("")
     }
 
     private fun extractDefinitionName(lines: List<String>): String {
-        val definition = lines.first { it.startsWith(":") }.replace(":", "")
-        return definition
+        return lines.first { it.startsWith(":") }.replace(":", "")
     }
 
     private fun initResolverDictionary(definition: String) {
@@ -115,6 +109,10 @@ class GrammarParser {
 
     private fun isDefinitionToken(token: String): Boolean {
         return token.startsWith("[:")
+    }
+
+    private fun String.trimWhiteSpace(): String {
+        return this.filterNot { it.isWhitespace() }
     }
 
     data class Grammar(
