@@ -11,9 +11,9 @@ internal class GrammarParserTest {
 
     @Test
     fun `should read simple grammar file and return a grammar definition`() {
-        val grammars = grammarParser.parse(GRAMMAR_FILE_1)
+        grammarParser.process(GRAMMAR_FILE_1)
 
-        assertThat(grammars).containsExactly(
+        assertThat(grammarParser.grammars).containsExactly(
             Grammar(
                 "ATTRIBUTE", listOf(
                     TokenType.ATTRIBUTE_ID,
@@ -33,9 +33,9 @@ internal class GrammarParserTest {
 
     @Test
     fun `should read simple grammar file with multiplier and return a grammar definition`() {
-        val grammars = grammarParser.parse(MULTI_TEST)
+        grammarParser.process(MULTI_TEST)
 
-        assertThat(grammars).containsExactly(
+        assertThat(grammarParser.grammars).containsExactly(
             Grammar(
                 "MULTI", listOf(
                     TokenType.ATTRIBUTE_ID,
@@ -49,49 +49,22 @@ internal class GrammarParserTest {
 
     @Test
     fun `should read grammar file with nested attributes and return a grammar definition`() {
-        val grammars = grammarParser.parse(GRAMMAR_FILE_2)
+        grammarParser.process(GRAMMAR_FILE_2)
 
-        assertThat(grammars).containsExactly(
+        assertThat(grammarParser.grammars).containsExactly(
             Grammar(
                 "ATTRIBUTE", listOf(
-                    TokenType.ATTRIBUTE_ID,
-                    TokenType.ASSIGNMENT,
-                    TokenType.ATTRIBUTE_VALUE
+                    TokenType.ATTRIBUTE_ID, TokenType.ASSIGNMENT, TokenType.ATTRIBUTE_VALUE
                 )
             ),
             Grammar(
                 "OBJECT", listOf(
-                    TokenType.OBJECT_ID,
-                    TokenType.ASSIGNMENT,
+                    TokenType.OBJECT_ID, TokenType.ASSIGNMENT,
                     TokenType.BLOCK_START,
-                    TokenType.ATTRIBUTE_ID,
-                    TokenType.ASSIGNMENT,
-                    TokenType.ATTRIBUTE_VALUE,
+                    TokenType.ATTRIBUTE_ID, TokenType.ASSIGNMENT, TokenType.ATTRIBUTE_VALUE,
                     TokenType.BLOCK_END
                 )
             )
-        )
-    }
-
-    fun `flatmap test`() {
-        val actual = listOf("A", "B", "C*2")
-            .flatMap { token ->
-                if (token.contains("*")) {
-                    try {
-                        val quantity = token.split("*")[1].toInt()
-                        token
-                            .repeat(quantity)
-                            .split("*$quantity")
-                            .filter { it.isNotBlank() }
-                    } catch (e: NumberFormatException) {
-                        //stuff
-                    }
-                }
-                listOf(token)
-            }
-
-        assertThat(actual).contains(
-            "A", "B", "C", "C"
         )
     }
 
