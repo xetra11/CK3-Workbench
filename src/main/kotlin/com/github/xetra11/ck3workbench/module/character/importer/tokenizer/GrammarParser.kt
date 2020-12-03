@@ -24,16 +24,13 @@ class GrammarParser {
         val processedGrammars = mutableListOf<Grammar>()
 
         rawGrammars.forEach { grammar ->
-            val lines = grammar.lines()
-                .filter { it.isNotBlank() }
-                .map { it.trim() }
-            // :<definition>
-            val definition = lines.first { it.startsWith(":") }.replace(":", "")
-            // [<token>].[<token2>].[<token3>]
-            val tokenChain = lines.filterNot { it.startsWith(":") }.joinToString("")
-            val tokens = tokenChain.trim().split(".")
+            val lines = extractGrammarInputLines(grammar)
+            val definition = extractDefinitionName(lines)
+            val tokenChain = extractTokenChain(lines)
+            val tokens = extractTokens(tokenChain)
 
-            resolverDictionary.putIfAbsent(definition, mutableListOf())
+            initResolverDictionary(definition)
+
             val typedTokens = tokens
                 .quantify()
                 .map { token ->
@@ -56,6 +53,29 @@ class GrammarParser {
             // add to outer scope for .resolver access to existing processed grammars
             this._grammars.add(Grammar(definition, typedTokens))
         }
+    }
+
+    private fun extractGrammarInputLines(grammar: String): List<String> {
+        val lines = grammar.lines()
+            .filter { it.isNotBlank() }
+            .map { it.trim() }
+        return lines
+    }
+
+    private fun extractTokens(tokenChain: String) = tokenChain.trim().split(".")
+
+    private fun extractTokenChain(lines: List<String>): String {
+        val tokenChain = lines.filterNot { it.startsWith(":") }.joinToString("")
+        return tokenChain
+    }
+
+    private fun extractDefinitionName(lines: List<String>): String {
+        val definition = lines.first { it.startsWith(":") }.replace(":", "")
+        return definition
+    }
+
+    private fun initResolverDictionary(definition: String) {
+        resolverDictionary.putIfAbsent(definition, mutableListOf())
     }
 
     // multiply definition depending on its quantity modifier
