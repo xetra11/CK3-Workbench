@@ -6,6 +6,7 @@ import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizerError
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class ScriptTokenizerTest {
@@ -84,6 +85,7 @@ internal class ScriptTokenizerTest {
         )
     }
 
+    @Disabled
     @Test
     fun `should return a tokenization for a character script definition with sub object`(){
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_6)

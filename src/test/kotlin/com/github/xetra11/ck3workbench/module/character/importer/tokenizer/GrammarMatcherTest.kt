@@ -9,23 +9,16 @@ internal class GrammarMatcherTest {
     private val grammarMatcher: GrammarMatcher = GrammarMatcher()
 
     @Test
-    fun `should return a match for given script string and grammar definition`() {
+    fun `should return the a word if the given test script is having only a matching OBJECT_ID`() {
         val grammar = Grammar(
-            "CHARACTER",
-            listOf(
-                OBJECT_ID,
-                ASSIGNMENT,
-                BLOCK_START,
-                ATTRIBUTE_ID,
-                ATTRIBUTE_VALUE,
-                BLOCK_END
-            )
+            "TEST",
+            listOf(OBJECT_ID)
         )
         val actual: String = grammarMatcher
-            .rule(grammar, SCRIPT_EXAMPLE_1)
-            .match()
+            .rule(grammar, TEST_1)
+            .match
 
-        assertThat(actual.trimWhiteSpace()).isEqualTo(SCRIPT_EXAMPLE_1.trimWhiteSpace())
+        assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_1.trimWhiteSpace())
     }
 
     private fun String.trimWhiteSpace(): String {
@@ -33,6 +26,9 @@ internal class GrammarMatcherTest {
     }
 
     companion object {
+        const val TEST_1 = """
+            thorak
+        """
         const val SCRIPT_EXAMPLE_1 = """
             thorak =  {
                 name = "Thorak"
