@@ -2,6 +2,7 @@ package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType
+import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.ASSIGNMENT
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.OBJECT_ID
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 
@@ -13,15 +14,23 @@ import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.Gramm
  */
 class GrammarMatcher {
     private val tokenRegexMapping: Map<TokenType, Regex> = mapOf(
-        OBJECT_ID to Regex("^(\\w+)")
+        OBJECT_ID to Regex("^(\\w+)"),
+        ASSIGNMENT to Regex("^=")
     )
 
     fun rule(grammar: Grammar, script: String): MatcherResult {
-        val formattedScript = script.trimWhiteSpace()
-        val regex = tokenRegexMapping[OBJECT_ID]
-        val matchedValue = regex?.find(formattedScript)?.value
+        var formattedScript = script.trimWhiteSpace()
+        val regexObjectId = tokenRegexMapping[OBJECT_ID]
+        val regexAssignment = tokenRegexMapping[ASSIGNMENT]
+        val matchCollector = mutableListOf<String>()
 
-        return MatcherResult(matchedValue ?: "")
+        var value = regexObjectId?.find(formattedScript)?.value ?: ""
+        matchCollector.add(value)
+        formattedScript = formattedScript.replace(value, "")
+        value = regexAssignment?.find(formattedScript)?.value ?: ""
+        matchCollector.add(value)
+
+        return MatcherResult(matchCollector.joinToString("") { it })
     }
 
     private fun String.trimWhiteSpace(): String {

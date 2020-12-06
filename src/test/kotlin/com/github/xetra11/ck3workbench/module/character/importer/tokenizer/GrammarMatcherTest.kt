@@ -21,6 +21,19 @@ internal class GrammarMatcherTest {
         assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_1.trimWhiteSpace())
     }
 
+    @Test
+    fun `should return the a word if the given test script is having only a matching OBJECT_ID and ASSIGNMENT`() {
+        val grammar = Grammar(
+            "TEST",
+            listOf(OBJECT_ID, ASSIGNMENT)
+        )
+        val actual: String = grammarMatcher
+            .rule(grammar, TEST_2)
+            .match
+
+        assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_2.trimWhiteSpace())
+    }
+
     private fun String.trimWhiteSpace(): String {
         return this.filterNot { it.isWhitespace() }
     }
@@ -28,6 +41,9 @@ internal class GrammarMatcherTest {
     companion object {
         const val TEST_1 = """
             thorak
+        """
+        const val TEST_2 = """
+            thorak =
         """
         const val SCRIPT_EXAMPLE_1 = """
             thorak =  {
