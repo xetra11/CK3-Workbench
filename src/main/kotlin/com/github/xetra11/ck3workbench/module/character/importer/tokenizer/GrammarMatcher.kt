@@ -15,7 +15,8 @@ class GrammarMatcher {
     private val tokenRegexMapping: Map<TokenType, Regex> = mapOf(
         OBJECT_ID to Regex("^(\\w+)"),
         ASSIGNMENT to Regex("^="),
-        BLOCK_START to Regex("^\\{")
+        BLOCK_START to Regex("^\\{"),
+        BLOCK_END to Regex("^}")
     )
 
     fun rule(grammar: Grammar, script: String): MatcherResult {
@@ -38,7 +39,7 @@ class GrammarMatcher {
         return this.filterNot { it.isWhitespace() }
     }
 
-    class MatcherResult(
+    data class MatcherResult(
         val match: String,
         val hasError: Boolean = false,
         val errorReason: String = ""

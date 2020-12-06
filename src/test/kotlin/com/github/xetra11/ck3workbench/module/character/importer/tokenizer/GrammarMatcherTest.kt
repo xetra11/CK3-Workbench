@@ -1,6 +1,7 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.*
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.MatcherResult
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -9,7 +10,20 @@ internal class GrammarMatcherTest {
     private val grammarMatcher: GrammarMatcher = GrammarMatcher()
 
     @Test
-    fun `should return the a word if the given test script is having only a matching OBJECT_ID`() {
+    fun `should return the scriptstring if the given test script is matching`() {
+        val grammar = Grammar(
+            "SCRIPT",
+            listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START, ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, BLOCK_END)
+        )
+        val actual = grammarMatcher
+            .rule(grammar, SCRIPT_EXAMPLE_1)
+        val expected = MatcherResult(SCRIPT_EXAMPLE_1.trimWhiteSpace())
+
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `should return the string if the given test script is having only a matching OBJECT_ID`() {
         val grammar = Grammar(
             "TEST",
             listOf(OBJECT_ID)
@@ -22,7 +36,7 @@ internal class GrammarMatcherTest {
     }
 
     @Test
-    fun `should return the a word if the given test script is having only a matching OBJECT_ID and ASSIGNMENT`() {
+    fun `should return the string if the given test script is having only a matching OBJECT_ID and ASSIGNMENT`() {
         val grammar = Grammar(
             "TEST",
             listOf(OBJECT_ID, ASSIGNMENT)
@@ -35,7 +49,7 @@ internal class GrammarMatcherTest {
     }
 
     @Test
-    fun `should return the a word if the given test script is  matching OBJECT_ID, ASSIGNMENT, BLOCK_START`() {
+    fun `should return the string if the given test script is  matching OBJECT_ID, ASSIGNMENT, BLOCK_START`() {
         val grammar = Grammar(
             "TEST",
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START)
@@ -48,7 +62,7 @@ internal class GrammarMatcherTest {
     }
 
     @Test
-    fun `should return an error if given script tokens won't match wit grammar`() {
+    fun `should return an error if given script tokens won't match with grammar`() {
         val grammar = Grammar(
             "TEST",
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START)
