@@ -47,6 +47,20 @@ internal class GrammarMatcherTest {
         assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_3.trimWhiteSpace())
     }
 
+    @Test
+    fun `should return an error if given script tokens won't match wit grammar`() {
+        val grammar = Grammar(
+            "TEST",
+            listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START)
+        )
+        val actual = grammarMatcher
+            .rule(grammar, INVALID_1)
+
+        assertThat(actual.hasError).isTrue
+        assertThat(actual.errorReason).isEqualTo("Token order invalid")
+        assertThat(actual.match).isEqualTo("")
+    }
+
     private fun String.trimWhiteSpace(): String {
         return this.filterNot { it.isWhitespace() }
     }
@@ -60,6 +74,9 @@ internal class GrammarMatcherTest {
         """
         const val TEST_3 = """
             thorak = {
+        """
+        const val INVALID_1 = """
+            thorak {
         """
         const val SCRIPT_EXAMPLE_1 = """
             thorak =  {

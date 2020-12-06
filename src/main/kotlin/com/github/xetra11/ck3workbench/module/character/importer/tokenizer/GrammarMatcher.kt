@@ -20,19 +20,22 @@ class GrammarMatcher {
 
     fun rule(grammar: Grammar, script: String): MatcherResult {
         var formattedScript = script.trimWhiteSpace()
-        val regexObjectId = tokenRegexMapping[OBJECT_ID]
-        val regexAssignment = tokenRegexMapping[ASSIGNMENT]
-        val regexBlockStart = tokenRegexMapping[BLOCK_START]
         val matchCollector = mutableListOf<String>()
 
+        val regexObjectId = tokenRegexMapping[OBJECT_ID]
         var value = regexObjectId?.find(formattedScript)?.value ?: ""
         matchCollector.add(value)
         formattedScript = formattedScript.replace(value, "")
 
+        val regexAssignment = tokenRegexMapping[ASSIGNMENT]
         value = regexAssignment?.find(formattedScript)?.value ?: ""
+        if (value.isEmpty()) {
+            return MatcherResult("", hasError = true, errorReason = "Token order invalid")
+        }
         matchCollector.add(value)
         formattedScript = formattedScript.replace(value, "")
 
+        val regexBlockStart = tokenRegexMapping[BLOCK_START]
         value = regexBlockStart?.find(formattedScript)?.value ?: ""
         matchCollector.add(value)
         formattedScript = formattedScript.replace(value, "")
@@ -45,7 +48,9 @@ class GrammarMatcher {
     }
 
     class MatcherResult(
-        val match: String
+        val match: String,
+        val hasError: Boolean = false,
+        val errorReason: String = ""
     )
 }
 
