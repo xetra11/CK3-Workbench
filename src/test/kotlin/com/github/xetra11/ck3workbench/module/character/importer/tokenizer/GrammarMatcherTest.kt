@@ -34,6 +34,19 @@ internal class GrammarMatcherTest {
         assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_2.trimWhiteSpace())
     }
 
+    @Test
+    fun `should return the a word if the given test script is  matching OBJECT_ID, ASSIGNMENT, BLOCK_START`() {
+        val grammar = Grammar(
+            "TEST",
+            listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START)
+        )
+        val actual: String = grammarMatcher
+            .rule(grammar, TEST_3)
+            .match
+
+        assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_3.trimWhiteSpace())
+    }
+
     private fun String.trimWhiteSpace(): String {
         return this.filterNot { it.isWhitespace() }
     }
@@ -44,6 +57,9 @@ internal class GrammarMatcherTest {
         """
         const val TEST_2 = """
             thorak =
+        """
+        const val TEST_3 = """
+            thorak = {
         """
         const val SCRIPT_EXAMPLE_1 = """
             thorak =  {
