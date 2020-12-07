@@ -15,6 +15,8 @@ class GrammarMatcher {
     private val tokenRegexMapping: Map<TokenType, Regex> = mapOf(
         OBJECT_ID to Regex("^(\\w+)"),
         ASSIGNMENT to Regex("^="),
+        ATTRIBUTE_ID to Regex("^(\\w+)"),
+        ATTRIBUTE_VALUE to Regex("^(\"?\\w+\"?)"),
         BLOCK_START to Regex("^\\{"),
         BLOCK_END to Regex("^}")
     )
@@ -28,7 +30,7 @@ class GrammarMatcher {
             if (value.isEmpty()) {
                 return MatcherResult("", hasError = true, errorReason = "Token order invalid")
             }
-            formattedScript = formattedScript.replace(value, "")
+            formattedScript = formattedScript.replaceFirst(value, "")
             value
         }
 
