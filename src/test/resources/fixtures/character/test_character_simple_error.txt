@@ -14,5 +14,4 @@ thorak = {
 	trait = wrathful
 	trait = callous
 	trait = viking
-	trait = education_martial_3
 }
