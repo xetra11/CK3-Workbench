@@ -8,6 +8,19 @@ internal class GrammarIntegrationTest {
     private val grammarParser: GrammarParser = GrammarParser()
     private val grammarMatcher: GrammarMatcher = GrammarMatcher()
 
+    fun `should parse grammar file and match given character script that contains sub object`() {
+        val grammarFile = File("src/test/resources/test_grammar_subobject.grm")
+        val scriptFile = File("src/test/resources/fixtures/character/test_character.txt")
+
+        val grammarDefinitionContent = grammarFile.readText()
+        val parsedGrammar = grammarParser.process(grammarDefinitionContent)
+
+        val actual = grammarMatcher.rule(parsedGrammar, scriptFile.readLines())
+
+        assertThat(actual.hasError).isFalse
+        assertThat(actual.errorReason).isEqualTo("")
+    }
+
     @Test
     fun `should parse grammar file and match given character script file`() {
         val grammarFile = File("src/test/resources/test_grammar_file.grm")
