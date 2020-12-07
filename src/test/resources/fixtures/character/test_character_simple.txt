@@ -1,0 +1,18 @@
+﻿thorak = {
+	name = "Thorak"
+	dna = thorak_dna
+	dynasty = lineage_of_donar
+	religion = "norse_pagan"
+	culture = cheruscii
+	martial = 7
+	stewardship = 6
+	diplomacy = 4
+	intrigue = 5
+	learning = 3
+	trait = ambitious
+	trait = hunter_1
+	trait = wrathful
+	trait = callous
+	trait = viking
+	trait = education_martial_3
+}

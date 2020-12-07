@@ -21,28 +21,34 @@ class GrammarMatcher {
         BLOCK_END to Regex("^}")
     )
 
-    fun rule(grammar: Grammar, script: String): MatcherResult {
+    fun rule(grammar: Grammar, scriptLines: List<String>): MatcherResult {
         if (grammar.tokenDefinition.isEmpty()) {
             return MatcherResult("", hasError = true, errorReason = "Grammar was undefined")
         }
 
-        var formattedScript = script.trimWhiteSpace()
+        var formattedLines = scriptLines.prepareScriptString()
 
         val matchCollector = grammar.tokenDefinition.mapTo(mutableListOf<String>()) { tokenType ->
-            val regexObjectId = tokenRegexMapping[tokenType]
-            val value = regexObjectId?.find(formattedScript)?.value ?: ""
-            if (value.isEmpty()) {
+            val regex = tokenRegexMapping[tokenType]
+            val match = regex?.find(formattedLines[NEXT])?.value ?: ""
+            if (match.isEmpty()) {
                 return MatcherResult("", hasError = true, errorReason = "Token order invalid")
             }
-            formattedScript = formattedScript.replaceFirst(value, "")
-            value
+            formattedLines[NEXT] = formattedLines[NEXT].replaceFirst(match, "")
+            formattedLines = formattedLines.filter { it.isNotBlank() }.toMutableList()
+
+            match
         }
 
         return MatcherResult(matchCollector.joinToString("") { it })
     }
 
-    private fun String.trimWhiteSpace(): String {
-        return this.filterNot { it.isWhitespace() }
+    private fun List<String>.prepareScriptString(): MutableList<String> {
+        return this
+            .map { it.replace(" ", "")}
+            .map { it.trim() }
+            .filter { it.isNotBlank() }
+            .toMutableList()
     }
 
     data class MatcherResult(
@@ -50,5 +56,9 @@ class GrammarMatcher {
         val hasError: Boolean = false,
         val errorReason: String = ""
     )
+
+    companion object {
+       const val NEXT = 0
+    }
 }
 

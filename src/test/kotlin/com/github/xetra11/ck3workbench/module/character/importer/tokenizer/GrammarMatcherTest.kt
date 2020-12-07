@@ -1,13 +1,38 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.*
+import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.ASSIGNMENT
+import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.ATTRIBUTE_ID
+import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.ATTRIBUTE_VALUE
+import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.BLOCK_END
+import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.BLOCK_START
+import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.OBJECT_ID
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.MatcherResult
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.io.File
 
 internal class GrammarMatcherTest {
     private val grammarMatcher: GrammarMatcher = GrammarMatcher()
+
+    @Test
+    fun `should return the matched string of a script string with two attributes and dirty intendenation`() {
+        val grammar = Grammar(
+            "SCRIPT",
+            listOf(
+                OBJECT_ID, ASSIGNMENT, BLOCK_START,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                BLOCK_END
+            )
+        )
+        val actual = grammarMatcher
+            .rule(grammar, SCRIPT_EXAMPLE_2.split("\n"))
+        val expected = MatcherResult(SCRIPT_EXAMPLE_2.trimWhiteSpace())
+
+        assertThat(actual).isEqualTo(expected)
+    }
 
     @Test
     fun `should return the scriptstring if the given test script is matching`() {
@@ -16,7 +41,7 @@ internal class GrammarMatcherTest {
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START, ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, BLOCK_END)
         )
         val actual = grammarMatcher
-            .rule(grammar, SCRIPT_EXAMPLE_1)
+            .rule(grammar, SCRIPT_EXAMPLE_1.split("\n"))
         val expected = MatcherResult(SCRIPT_EXAMPLE_1.trimWhiteSpace())
 
         assertThat(actual).isEqualTo(expected)
@@ -29,7 +54,7 @@ internal class GrammarMatcherTest {
             listOf(OBJECT_ID)
         )
         val actual: String = grammarMatcher
-            .rule(grammar, TEST_1)
+            .rule(grammar, TEST_1.split("\n"))
             .match
 
         assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_1.trimWhiteSpace())
@@ -42,7 +67,7 @@ internal class GrammarMatcherTest {
             listOf(OBJECT_ID, ASSIGNMENT)
         )
         val actual: String = grammarMatcher
-            .rule(grammar, TEST_2)
+            .rule(grammar, TEST_2.split("\n"))
             .match
 
         assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_2.trimWhiteSpace())
@@ -55,7 +80,7 @@ internal class GrammarMatcherTest {
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START)
         )
         val actual: String = grammarMatcher
-            .rule(grammar, TEST_3)
+            .rule(grammar, TEST_3.split("\n"))
             .match
 
         assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_3.trimWhiteSpace())
@@ -68,7 +93,7 @@ internal class GrammarMatcherTest {
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START)
         )
         val actual = grammarMatcher
-            .rule(grammar, INVALID_1)
+            .rule(grammar, INVALID_1.split("\n"))
 
         assertThat(actual.hasError).isTrue
         assertThat(actual.errorReason).isEqualTo("Token order invalid")
@@ -82,7 +107,7 @@ internal class GrammarMatcherTest {
             listOf()
         )
         val actual = grammarMatcher
-            .rule(grammar, SCRIPT_EXAMPLE_1)
+            .rule(grammar, SCRIPT_EXAMPLE_1.split("\n"))
 
         assertThat(actual.hasError).isTrue
         assertThat(actual.errorReason).isEqualTo("Grammar was undefined")
@@ -111,6 +136,15 @@ internal class GrammarMatcherTest {
                 name = "Thorak"
             }
         """
+        const val SCRIPT_EXAMPLE_2 = """
+            thorak =     {
+                name =     "Thorak"
+                dna =  thorak_dna 
+                culture = cheruscii
+                
+                
+                
+            }
+        """
     }
-
 }
