@@ -16,6 +16,37 @@ internal class GrammarMatcherTest {
     private val grammarMatcher: GrammarMatcher = GrammarMatcher()
 
     @Test
+    fun `should return the matched string of a script string with full example attributes`() {
+        val grammar = Grammar(
+            "FULL_BOOM",
+            listOf(
+                OBJECT_ID, ASSIGNMENT, BLOCK_START,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                BLOCK_END
+            )
+        )
+        val actual = grammarMatcher
+            .rule(grammar, SCRIPT_FULL_EXAMPLE.split("\n"))
+        val expected = MatcherResult(SCRIPT_FULL_EXAMPLE.trimWhiteSpace())
+
+        assertThat(actual).isEqualTo(expected)
+    }
+    @Test
     fun `should return the matched string of a script string with two attributes and dirty intendenation`() {
         val grammar = Grammar(
             "SCRIPT",
@@ -145,6 +176,26 @@ internal class GrammarMatcherTest {
                 
                 
             }
+        """
+        const val SCRIPT_FULL_EXAMPLE = """
+                thorak = {
+                    name = "Thorak"
+                    dna = thorak_dna
+                    dynasty = lineage_of_donar
+                    religion = "norse_pagan"
+                    culture = cheruscii
+                    martial = 7
+                    stewardship = 6
+                    diplomacy = 4
+                    intrigue = 5
+                    learning = 3
+                    trait = ambitious
+                    trait = hunter_1
+                    trait = wrathful
+                    trait = callous
+                    trait = viking
+                    trait = education_martial_3
+                }
         """
     }
 }
