@@ -13,14 +13,7 @@ internal class GrammarParserTest {
     fun `should read simple grammar file and return a grammar definition`() {
         val actual = grammarParser.process(GRAMMAR_FILE_1)
 
-        assertThat(actual).containsExactly(
-            Grammar(
-                "ATTRIBUTE", listOf(
-                    TokenType.ATTRIBUTE_ID,
-                    TokenType.ASSIGNMENT,
-                    TokenType.ATTRIBUTE_VALUE
-                )
-            ),
+        assertThat(actual).isEqualTo(
             Grammar(
                 "OBJECT", listOf(
                     TokenType.OBJECT_ID,
@@ -35,7 +28,7 @@ internal class GrammarParserTest {
     fun `should read simple grammar file with multiplier and return a grammar definition`() {
         val actual = grammarParser.process(MULTI_TEST)
 
-        assertThat(actual).containsExactly(
+        assertThat(actual).isEqualTo(
             Grammar(
                 "MULTI", listOf(
                     TokenType.ATTRIBUTE_ID,
@@ -51,12 +44,7 @@ internal class GrammarParserTest {
     fun `should read grammar file with nested attributes and return a grammar definition`() {
         val actual = grammarParser.process(GRAMMAR_FILE_2)
 
-        assertThat(actual).containsExactly(
-            Grammar(
-                "ATTRIBUTE", listOf(
-                    TokenType.ATTRIBUTE_ID, TokenType.ASSIGNMENT, TokenType.ATTRIBUTE_VALUE
-                )
-            ),
+        assertThat(actual).isEqualTo(
             Grammar(
                 "OBJECT", listOf(
                     TokenType.OBJECT_ID, TokenType.ASSIGNMENT,
@@ -73,18 +61,18 @@ internal class GrammarParserTest {
             :ATTRIBUTE
             [ATTRIBUTE_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
             ---
-            :OBJECT
+            =OBJECT
             [OBJECT_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
         """
         const val MULTI_TEST = """
-            :MULTI
+            =MULTI
             [ATTRIBUTE_ID]*2.[ASSIGNMENT].[ATTRIBUTE_VALUE]
         """
         const val GRAMMAR_FILE_2 = """
             :ATTRIBUTE
             [ATTRIBUTE_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
             ---
-            :OBJECT
+            =OBJECT
             [OBJECT_ID].[ASSIGNMENT].[BLOCK_START].[:ATTRIBUTE]*1.[BLOCK_END]
         """
     }

@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory
  */
 class GrammarParser {
     private val resolverDictionary: MutableMap<String, MutableList<String>> = mutableMapOf()
-    private val _grammars: MutableList<Grammar> = mutableListOf()
 
-    fun process(grammarInput: String): List<Grammar> {
+    fun process(grammarInput: String): Grammar {
+        var outputGrammar: Grammar = Grammar("", listOf<TokenType>())
         val rawGrammars = grammarInput
             .trim()
             .split("---")
@@ -22,16 +22,19 @@ class GrammarParser {
 
         rawGrammars.forEach { grammar ->
             val lines = extractGrammarInputLines(grammar)
-            val definition = extractDefinitionName(lines)
+            val definitionValueName = extractDefinitionValueName(lines)
+            val definitionResultName = extractDefinitionResultName(lines)
             val tokenChain = extractTokenChain(lines)
             val tokens = extractTokens(tokenChain)
 
-            initResolverDictionary(definition)
+            initResolverDictionary(definitionValueName)
 
             val typedTokens = tokens
                 .quantify()
                 .map { token ->
-                    resolverDictionary[definition]?.add(token)
+                    definitionValueName?.let {
+                        resolverDictionary[it]!!.add(token)
+                    }
                     token
                 }
                 .resolve()
@@ -47,10 +50,11 @@ class GrammarParser {
                     }
                 }
 
-            // add to outer scope for .resolver access to existing processed grammars
-            this._grammars.add(Grammar(definition, typedTokens))
+            definitionResultName?.let {
+                outputGrammar = Grammar(it, typedTokens)
+            }
         }
-        return _grammars
+        return outputGrammar
     }
 
     private fun extractGrammarInputLines(grammar: String): List<String> {
@@ -61,15 +65,29 @@ class GrammarParser {
     private fun extractTokens(tokenChain: String) = tokenChain.trim().split(".")
 
     private fun extractTokenChain(lines: List<String>): String {
-        return lines.filterNot { it.startsWith(":") }.joinToString("")
+        return lines.filterNot { it.startsWith(":") || it.startsWith("=") }.joinToString("")
     }
 
-    private fun extractDefinitionName(lines: List<String>): String {
-        return lines.first { it.startsWith(":") }.replace(":", "")
+    private fun extractDefinitionValueName(lines: List<String>): String? {
+        return try {
+            lines.first { it.startsWith(":") }.replace(":", "")
+        } catch (e: NoSuchElementException) {
+            null
+        }
     }
 
-    private fun initResolverDictionary(definition: String) {
-        resolverDictionary.putIfAbsent(definition, mutableListOf())
+    private fun extractDefinitionResultName(lines: List<String>): String? {
+        return try {
+            lines.first { it.startsWith("=") }.replace("=", "")
+        } catch (e: NoSuchElementException) {
+            null
+        }
+    }
+
+    private fun initResolverDictionary(definition: String?) {
+        definition?.let {
+            resolverDictionary.putIfAbsent(it, mutableListOf())
+        }
     }
 
     // multiply definition depending on its quantity modifier
