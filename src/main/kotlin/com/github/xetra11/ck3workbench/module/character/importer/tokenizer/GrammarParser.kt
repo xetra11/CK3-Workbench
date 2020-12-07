@@ -12,9 +12,8 @@ import org.slf4j.LoggerFactory
 class GrammarParser {
     private val resolverDictionary: MutableMap<String, MutableList<String>> = mutableMapOf()
     private val _grammars: MutableList<Grammar> = mutableListOf()
-    val grammars: List<Grammar> = _grammars
 
-    fun process(grammarInput: String) {
+    fun process(grammarInput: String): List<Grammar> {
         val rawGrammars = grammarInput
             .trim()
             .split("---")
@@ -51,6 +50,7 @@ class GrammarParser {
             // add to outer scope for .resolver access to existing processed grammars
             this._grammars.add(Grammar(definition, typedTokens))
         }
+        return _grammars
     }
 
     private fun extractGrammarInputLines(grammar: String): List<String> {

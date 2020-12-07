@@ -11,9 +11,9 @@ internal class GrammarParserTest {
 
     @Test
     fun `should read simple grammar file and return a grammar definition`() {
-        grammarParser.process(GRAMMAR_FILE_1)
+        val actual = grammarParser.process(GRAMMAR_FILE_1)
 
-        assertThat(grammarParser.grammars).containsExactly(
+        assertThat(actual).containsExactly(
             Grammar(
                 "ATTRIBUTE", listOf(
                     TokenType.ATTRIBUTE_ID,
@@ -33,9 +33,9 @@ internal class GrammarParserTest {
 
     @Test
     fun `should read simple grammar file with multiplier and return a grammar definition`() {
-        grammarParser.process(MULTI_TEST)
+        val actual = grammarParser.process(MULTI_TEST)
 
-        assertThat(grammarParser.grammars).containsExactly(
+        assertThat(actual).containsExactly(
             Grammar(
                 "MULTI", listOf(
                     TokenType.ATTRIBUTE_ID,
@@ -49,9 +49,9 @@ internal class GrammarParserTest {
 
     @Test
     fun `should read grammar file with nested attributes and return a grammar definition`() {
-        grammarParser.process(GRAMMAR_FILE_2)
+        val actual = grammarParser.process(GRAMMAR_FILE_2)
 
-        assertThat(grammarParser.grammars).containsExactly(
+        assertThat(actual).containsExactly(
             Grammar(
                 "ATTRIBUTE", listOf(
                     TokenType.ATTRIBUTE_ID, TokenType.ASSIGNMENT, TokenType.ATTRIBUTE_VALUE
