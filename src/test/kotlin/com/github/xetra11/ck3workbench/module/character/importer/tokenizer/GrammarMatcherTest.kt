@@ -75,6 +75,20 @@ internal class GrammarMatcherTest {
         assertThat(actual.match).isEqualTo("")
     }
 
+    @Test
+    fun `should throw an error if given grammar is empty`() {
+        val grammar = Grammar(
+            "SCRIPT",
+            listOf()
+        )
+        val actual = grammarMatcher
+            .rule(grammar, SCRIPT_EXAMPLE_1)
+
+        assertThat(actual.hasError).isTrue
+        assertThat(actual.errorReason).isEqualTo("Grammar was undefined")
+        assertThat(actual.match).isEqualTo("")
+    }
+
     private fun String.trimWhiteSpace(): String {
         return this.filterNot { it.isWhitespace() }
     }

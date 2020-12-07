@@ -22,6 +22,10 @@ class GrammarMatcher {
     )
 
     fun rule(grammar: Grammar, script: String): MatcherResult {
+        if (grammar.tokenDefinition.isEmpty()) {
+            return MatcherResult("", hasError = true, errorReason = "Grammar was undefined")
+        }
+
         var formattedScript = script.trimWhiteSpace()
 
         val matchCollector = grammar.tokenDefinition.mapTo(mutableListOf<String>()) { tokenType ->
