@@ -34,6 +34,7 @@ class GrammarMatcher {
             if (match.isEmpty()) {
                 return MatcherResult("", hasError = true, errorReason = "Token order invalid")
             }
+            // reduce origin script by matched value
             formattedLines[NEXT] = formattedLines[NEXT].replaceFirst(match, "")
             formattedLines = formattedLines.filter { it.isNotBlank() }.toMutableList()
 

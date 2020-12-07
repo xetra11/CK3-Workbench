@@ -120,7 +120,7 @@ class GrammarParser {
             } else {
                 val identifierMatcher = Regex("([A-Z])\\w+")
                 val name = identifierMatcher.find(token)?.value
-                resolverDictionary[name] ?: listOf(token)
+                (resolverDictionary[name] ?: listOf(token)).resolve()
             }
         }
     }
