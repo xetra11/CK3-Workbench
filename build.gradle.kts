@@ -3,7 +3,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.20"
+    kotlin("jvm") version "1.4.21"
     id("org.jetbrains.compose") version "0.2.0-build128"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
 }
