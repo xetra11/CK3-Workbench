@@ -3,16 +3,18 @@ package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.io.File
+import java.nio.charset.Charset
 
 internal class GrammarIntegrationTest {
     private val grammarParser: GrammarParser = GrammarParser()
     private val grammarMatcher: GrammarMatcher = GrammarMatcher()
 
+    @Test
     fun `should parse grammar file and match given character script that contains sub object`() {
         val grammarFile = File("src/test/resources/test_grammar_subobject.grm")
-        val scriptFile = File("src/test/resources/fixtures/character/test_character.txt")
+        val scriptFile = File("src/test/resources/fixtures/character/test_character_subobject.txt")
 
-        val grammarDefinitionContent = grammarFile.readText()
+        val grammarDefinitionContent = grammarFile.readText(Charsets.UTF_8)
         val parsedGrammar = grammarParser.process(grammarDefinitionContent)
 
         val actual = grammarMatcher.rule(parsedGrammar, scriptFile.readLines())

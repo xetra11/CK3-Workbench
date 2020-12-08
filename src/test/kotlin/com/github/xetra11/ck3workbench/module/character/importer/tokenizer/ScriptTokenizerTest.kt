@@ -111,6 +111,8 @@ internal class ScriptTokenizerTest {
         )
     }
 
+    @Disabled
+    @Test
     fun `should remove comments before tokenizing`(){
         val actual = scriptTokenizer.tokenize(WITH_COMMENT)
     }
