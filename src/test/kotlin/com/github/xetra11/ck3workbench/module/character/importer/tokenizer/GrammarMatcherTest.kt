@@ -16,6 +16,27 @@ internal class GrammarMatcherTest {
     private val grammarMatcher: GrammarMatcher = GrammarMatcher()
 
     @Test
+    fun `should return the matched string of a script string with full example attributes and sub object`() {
+        val grammar = Grammar(
+            "SUBOBJECT",
+            listOf(
+                OBJECT_ID, ASSIGNMENT, BLOCK_START,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                OBJECT_ID, ASSIGNMENT, BLOCK_START,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                BLOCK_END,
+                BLOCK_END
+            )
+        )
+        val actual = grammarMatcher
+            .rule(grammar, SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.split("\n"))
+        val expected = MatcherResult(SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.trimWhiteSpace())
+
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
     fun `should return the matched string of a script string with full example attributes`() {
         val grammar = Grammar(
             "FULL_BOOM",
@@ -46,6 +67,7 @@ internal class GrammarMatcherTest {
 
         assertThat(actual).isEqualTo(expected)
     }
+
     @Test
     fun `should return the matched string of a script string with two attributes and dirty intendenation`() {
         val grammar = Grammar(
@@ -195,6 +217,16 @@ internal class GrammarMatcherTest {
                     trait = callous
                     trait = viking
                     trait = education_martial_3
+                }
+        """
+
+        const val SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT = """
+                thorak = {
+                    name = "Thorak"
+                    dna = thorak_dna
+                    731.11 = {
+                        birth = yes
+                    }
                 }
         """
     }
