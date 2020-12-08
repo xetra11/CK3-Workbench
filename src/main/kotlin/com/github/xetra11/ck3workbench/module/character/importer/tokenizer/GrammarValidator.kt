@@ -5,8 +5,4 @@ package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
  *
  * @author Patrick C. Höfer
  */
-class GrammarValidator {
-
-
-
-}
+class GrammarValidator

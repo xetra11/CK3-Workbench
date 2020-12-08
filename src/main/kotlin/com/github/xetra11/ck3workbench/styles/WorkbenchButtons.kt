@@ -11,15 +11,11 @@ import androidx.compose.material.ButtonConstants
 import androidx.compose.material.ButtonElevation
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import java.awt.FileDialog
-import java.io.File
 
 /*
  * A collection of compose button
@@ -52,5 +48,4 @@ object WorkbenchButtons {
             content
         )
     }
-
 }

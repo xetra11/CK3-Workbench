@@ -2,14 +2,10 @@ import androidx.compose.desktop.AppManager
 import androidx.compose.desktop.AppWindow
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CutCornerShape
-import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
@@ -28,14 +24,12 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
-import com.github.xetra11.ck3workbench.ScriptValidator
 import com.github.xetra11.ck3workbench.ScriptValidator.ValidationError
 import com.github.xetra11.ck3workbench.module.character.Character
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptReader
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptValidator
 import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
-import com.github.xetra11.ck3workbench.styles.WorkbenchButtons.BasicButton
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.awt.FileDialog
@@ -60,10 +54,13 @@ fun main() = invokeLater {
             Menu("File", MenuItem("Exit", onClick = { AppManager.exit() })),
             Menu(
                 "Characters",
-                MenuItem("Import Characters", onClick = {
-                    val file = openScriptFile(window)
-                    importCharactersScript(file, validationErrors, hasAlert, characterState)
-                }),
+                MenuItem(
+                    "Import Characters",
+                    onClick = {
+                        val file = openScriptFile(window)
+                        importCharactersScript(file, validationErrors, hasAlert, characterState)
+                    }
+                ),
                 MenuItem("Dynasties", onClick = {})
             ),
         )
@@ -143,7 +140,6 @@ private fun CharacterValidationErrorAlert(
                 Text("Ok")
             }
         }
-
     }
 }
 

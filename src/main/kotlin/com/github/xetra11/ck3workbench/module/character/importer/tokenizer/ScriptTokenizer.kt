@@ -44,7 +44,7 @@ class ScriptTokenizer {
         nextProcessor: (preparedToken: MutableList<Token>) -> MutableList<Token>
     ): MutableList<Token> {
         val processed = preparedToken.map { token ->
-            val type  = when (token.value) {
+            val type = when (token.value) {
                 "{" -> TokenType.BLOCK_START
                 "}" -> TokenType.BLOCK_END
                 "=" -> TokenType.ASSIGNMENT

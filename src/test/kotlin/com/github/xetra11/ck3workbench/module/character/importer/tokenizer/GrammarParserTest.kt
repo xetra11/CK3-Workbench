@@ -1,7 +1,5 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.*
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.*
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +14,8 @@ internal class GrammarParserTest {
 
         assertThat(actual).isEqualTo(
             Grammar(
-                "OBJECT", listOf(
+                "OBJECT",
+                listOf(
                     OBJECT_ID, ASSIGNMENT, BLOCK_START,
                     OBJECT_ID, ASSIGNMENT, BLOCK_START,
                     ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
@@ -32,7 +31,8 @@ internal class GrammarParserTest {
 
         assertThat(actual).isEqualTo(
             Grammar(
-                "OBJECT", listOf(
+                "OBJECT",
+                listOf(
                     OBJECT_ID,
                     ASSIGNMENT,
                     ATTRIBUTE_VALUE
@@ -47,7 +47,8 @@ internal class GrammarParserTest {
 
         assertThat(actual).isEqualTo(
             Grammar(
-                "MULTI", listOf(
+                "MULTI",
+                listOf(
                     ATTRIBUTE_ID,
                     ATTRIBUTE_ID,
                     ASSIGNMENT,
@@ -63,10 +64,14 @@ internal class GrammarParserTest {
 
         assertThat(actual).isEqualTo(
             Grammar(
-                "OBJECT", listOf(
-                    OBJECT_ID, ASSIGNMENT,
+                "OBJECT",
+                listOf(
+                    OBJECT_ID,
+                    ASSIGNMENT,
                     BLOCK_START,
-                    ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                    ATTRIBUTE_ID,
+                    ASSIGNMENT,
+                    ATTRIBUTE_VALUE,
                     BLOCK_END
                 )
             )
@@ -74,25 +79,29 @@ internal class GrammarParserTest {
     }
 
     companion object {
-        const val GRAMMAR_FILE_1 = """
+        const val GRAMMAR_FILE_1 =
+            """
             :ATTRIBUTE
             [ATTRIBUTE_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
             ---
             =OBJECT
             [OBJECT_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
         """
-        const val MULTI_TEST = """
+        const val MULTI_TEST =
+            """
             =MULTI
             [ATTRIBUTE_ID]*2.[ASSIGNMENT].[ATTRIBUTE_VALUE]
         """
-        const val GRAMMAR_FILE_2 = """
+        const val GRAMMAR_FILE_2 =
+            """
             :ATTRIBUTE
             [ATTRIBUTE_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
             ---
             =OBJECT
             [OBJECT_ID].[ASSIGNMENT].[BLOCK_START].[:ATTRIBUTE]*1.[BLOCK_END]
         """
-        const val GRAMMAR_FILE_3 = """
+        const val GRAMMAR_FILE_3 =
+            """
             :ATTRIBUTE
             [ATTRIBUTE_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
             ---

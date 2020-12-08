@@ -38,8 +38,8 @@ class CharacterScriptReader {
     }
 
     private fun extractCharacterDefinition(lines: List<String>): MutableList<String> {
-        //val amountOpenBrackets = lines.filter { it.contains("{") }.count()
-        //val amountCloseBrackets = lines.filter { it.contains("}") }.count()
+        // val amountOpenBrackets = lines.filter { it.contains("{") }.count()
+        // val amountCloseBrackets = lines.filter { it.contains("}") }.count()
 
         val startLineNumber = lines.indexOfFirst { it.contains("{") }.plus(1)
         val endLineNumber = lines.indexOfLast { it.contains("}") }

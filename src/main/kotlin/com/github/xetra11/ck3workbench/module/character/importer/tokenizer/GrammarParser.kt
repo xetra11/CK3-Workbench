@@ -108,7 +108,6 @@ class GrammarParser {
                     listOf(token)
                 }
             }
-
         }
     }
 

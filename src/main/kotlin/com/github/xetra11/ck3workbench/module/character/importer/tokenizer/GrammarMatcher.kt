@@ -46,8 +46,8 @@ class GrammarMatcher {
 
     private fun List<String>.prepareScriptString(): MutableList<String> {
         return this
-            .map { it.replace(" ", "")}
-            .map { it.replace("\\uFEFF", "")} // remove BOM
+            .map { it.replace(" ", "") }
+            .map { it.replace("\\uFEFF", "") } // remove BOM
             .map { it.trim() }
             .filter { it.isNotBlank() }
             .toMutableList()
@@ -60,7 +60,6 @@ class GrammarMatcher {
     )
 
     companion object {
-       const val NEXT = 0
+        const val NEXT = 0
     }
 }
-

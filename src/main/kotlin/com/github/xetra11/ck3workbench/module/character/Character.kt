@@ -25,26 +25,24 @@ data class Character(
         LEARNING
     }
     companion object {
-       fun from(map: Map<String, String>): Character {
-           val name by map
-           val dna by map
-           val dynasty by map
-           val religion by map
-           val culture by map
+        fun from(map: Map<String, String>): Character {
+            val name by map
+            val dna by map
+            val dynasty by map
+            val religion by map
+            val culture by map
 
-           return Character(
-               name,
-               dna,
-               dynasty,
-               religion,
-               culture,
-               mapOf(),
-               listOf(),
-               "",
-               ""
-           )
-       }
+            return Character(
+                name,
+                dna,
+                dynasty,
+                religion,
+                culture,
+                mapOf(),
+                listOf(),
+                "",
+                ""
+            )
+        }
     }
 }
-
-

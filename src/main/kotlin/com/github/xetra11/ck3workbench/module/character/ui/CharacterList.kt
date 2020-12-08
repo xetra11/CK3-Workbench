@@ -22,7 +22,8 @@ fun CharacterList(
     characterState: SnapshotStateList<Character>
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth()) {
+        modifier = Modifier.fillMaxWidth()
+    ) {
         val boxModifier = Modifier.border(1.dp, Color.Black)
             .then(Modifier.padding(horizontal = 2.dp, vertical = 4.dp))
             .then(Modifier.width(200.dp))
@@ -31,6 +32,5 @@ fun CharacterList(
             boxModifier,
             characterState
         )
-
     }
 }

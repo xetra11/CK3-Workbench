@@ -1,7 +1,5 @@
 package com.github.xetra11.ck3workbench
 
-import kotlin.reflect.KProperty
-
 interface ScriptValidator {
     fun validate(scriptToValidate: String): ValidationResult
 

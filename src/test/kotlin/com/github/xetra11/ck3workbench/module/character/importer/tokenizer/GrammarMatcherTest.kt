@@ -10,7 +10,6 @@ import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.Gramm
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import java.io.File
 
 internal class GrammarMatcherTest {
     private val grammarMatcher: GrammarMatcher = GrammarMatcher()
@@ -172,24 +171,30 @@ internal class GrammarMatcherTest {
     }
 
     companion object {
-        const val TEST_1 = """
+        const val TEST_1 =
+            """
             thorak
         """
-        const val TEST_2 = """
+        const val TEST_2 =
+            """
             thorak =
         """
-        const val TEST_3 = """
+        const val TEST_3 =
+            """
             thorak = {
         """
-        const val INVALID_1 = """
+        const val INVALID_1 =
+            """
             thorak {
         """
-        const val SCRIPT_EXAMPLE_1 = """
+        const val SCRIPT_EXAMPLE_1 =
+            """
             thorak =  {
                 name = "Thorak"
             }
         """
-        const val SCRIPT_EXAMPLE_2 = """
+        const val SCRIPT_EXAMPLE_2 =
+            """
             thorak =     {
                 name =     "Thorak"
                 dna =  thorak_dna 
@@ -199,7 +204,8 @@ internal class GrammarMatcherTest {
                 
             }
         """
-        const val SCRIPT_FULL_EXAMPLE = """
+        const val SCRIPT_FULL_EXAMPLE =
+            """
                 thorak = {
                     name = "Thorak"
                     dna = thorak_dna
@@ -220,7 +226,8 @@ internal class GrammarMatcherTest {
                 }
         """
 
-        const val SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT = """
+        const val SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT =
+            """
                 thorak = {
                     name = "Thorak"
                     dna = thorak_dna

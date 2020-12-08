@@ -3,7 +3,6 @@ package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.io.File
-import java.nio.charset.Charset
 
 internal class GrammarIntegrationTest {
     private val grammarParser: GrammarParser = GrammarParser()

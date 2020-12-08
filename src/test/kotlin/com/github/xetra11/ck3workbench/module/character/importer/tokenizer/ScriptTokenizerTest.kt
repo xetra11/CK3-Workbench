@@ -13,7 +13,7 @@ internal class ScriptTokenizerTest {
     private val scriptTokenizer: ScriptTokenizer = ScriptTokenizer()
 
     @Test
-    fun `should return a simple tokenization for empty character script definition`(){
+    fun `should return a simple tokenization for empty character script definition`() {
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_1)
 
         assertThat(actual).containsExactly(
@@ -25,7 +25,7 @@ internal class ScriptTokenizerTest {
     }
 
     @Test
-    fun `should return a tokenization for a character script definition containing an attribute identifier`(){
+    fun `should return a tokenization for a character script definition containing an attribute identifier`() {
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_2)
 
         assertThat(actual).containsExactly(
@@ -39,7 +39,7 @@ internal class ScriptTokenizerTest {
     }
 
     @Test
-    fun `should return a tokenization for a character script definition containing an attribute value`(){
+    fun `should return a tokenization for a character script definition containing an attribute value`() {
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_3)
 
         assertThat(actual).containsExactly(
@@ -53,7 +53,7 @@ internal class ScriptTokenizerTest {
     }
 
     @Test
-    fun `should return a tokenization for a characer script definition with one attribute`(){
+    fun `should return a tokenization for a characer script definition with one attribute`() {
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_4)
 
         assertThat(actual).containsExactly(
@@ -68,7 +68,7 @@ internal class ScriptTokenizerTest {
     }
 
     @Test
-    fun `should return a tokenization for a characer script definition with multiple attributes`(){
+    fun `should return a tokenization for a characer script definition with multiple attributes`() {
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_5)
 
         assertThat(actual).containsExactly(
@@ -87,7 +87,7 @@ internal class ScriptTokenizerTest {
 
     @Disabled
     @Test
-    fun `should return a tokenization for a character script definition with sub object`(){
+    fun `should return a tokenization for a character script definition with sub object`() {
         val actual = scriptTokenizer.tokenize(TEST_SCRIPT_6)
 
         assertThat(actual).containsExactly(
@@ -113,50 +113,56 @@ internal class ScriptTokenizerTest {
 
     @Disabled
     @Test
-    fun `should remove comments before tokenizing`(){
+    fun `should remove comments before tokenizing`() {
         val actual = scriptTokenizer.tokenize(WITH_COMMENT)
     }
 
     @Test
-    fun `should fail if script has null value left of assignment`(){
+    fun `should fail if script has null value left of assignment`() {
         assertThatExceptionOfType(ScriptTokenizerError::class.java).isThrownBy {
             scriptTokenizer.tokenize(NO_LEFT_VALUE)
         }
     }
 
     @Test
-    fun `should fail if script has null value right of assignment`(){
+    fun `should fail if script has null value right of assignment`() {
         assertThatExceptionOfType(ScriptTokenizerError::class.java).isThrownBy {
             scriptTokenizer.tokenize(NO_RIGHT_VALUE)
         }
     }
 
     companion object {
-        const val TEST_SCRIPT_1 = """
+        const val TEST_SCRIPT_1 =
+            """
             thorak =  { }
         """
-        const val TEST_SCRIPT_2 = """
+        const val TEST_SCRIPT_2 =
+            """
             thorak =  {
                 name = 
             }
         """
-        const val TEST_SCRIPT_3 = """
+        const val TEST_SCRIPT_3 =
+            """
             thorak =  {
                 = value
             }
         """
-        const val TEST_SCRIPT_4 = """
+        const val TEST_SCRIPT_4 =
+            """
             thorak =  {
                 name = "Thorak"
             }
         """
-        const val TEST_SCRIPT_5 = """
+        const val TEST_SCRIPT_5 =
+            """
             thorak =  {
                 name = "Thorak"
                 dna = thorak_dna
             }
         """
-        const val TEST_SCRIPT_6 = """
+        const val TEST_SCRIPT_6 =
+            """
             thorak =  {
                 name = "Thorak"
                 dna = thorak_dna
@@ -166,7 +172,8 @@ internal class ScriptTokenizerTest {
                 }
             }
         """
-        const val WITH_COMMENT = """
+        const val WITH_COMMENT =
+            """
             thorak =  {
                 # Bar Text
                 name = "Thorak"
@@ -177,14 +184,14 @@ internal class ScriptTokenizerTest {
                 }
             }
         """
-        const val NO_LEFT_VALUE = """
+        const val NO_LEFT_VALUE =
+            """
             =  {
             }
         """
-        const val NO_RIGHT_VALUE = """
+        const val NO_RIGHT_VALUE =
+            """
             thorak =
         """
     }
 }
-
-
