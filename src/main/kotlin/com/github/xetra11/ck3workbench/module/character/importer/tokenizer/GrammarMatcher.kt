@@ -13,7 +13,7 @@ import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.Gramm
  */
 open class GrammarMatcher {
     private val tokenRegexMapping: Map<TokenType, Regex> = mapOf(
-        OBJECT_ID to Regex("^(.\\w+\\.*\\w*)"),
+        OBJECT_ID to Regex("(.(\\w+\\.)*\\w*)"),
         ASSIGNMENT to Regex("^="),
         ATTRIBUTE_ID to Regex("^(\\w+)"),
         ATTRIBUTE_VALUE to Regex("^(\"?\\w+\"?)"),
