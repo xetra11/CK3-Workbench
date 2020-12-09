@@ -1,10 +1,10 @@
 package com.github.xetra11.ck3workbench.module.character.importer
 
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.ASSIGNMENT
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.BLOCK_START
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.OBJECT_ID
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.MatcherResult
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ASSIGNMENT
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.BLOCK_START
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.OBJECT_ID
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 import com.nhaarman.mockitokotlin2.given

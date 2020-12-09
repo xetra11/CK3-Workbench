@@ -1,12 +1,12 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.ASSIGNMENT
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.ATTRIBUTE_ID
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.ATTRIBUTE_VALUE
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.BLOCK_END
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.BLOCK_START
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.OBJECT_ID
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.MatcherResult
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ASSIGNMENT
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ATTRIBUTE_ID
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ATTRIBUTE_VALUE
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.BLOCK_END
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.BLOCK_START
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.OBJECT_ID
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

@@ -1,6 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 

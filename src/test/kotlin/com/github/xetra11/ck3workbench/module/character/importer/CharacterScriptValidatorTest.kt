@@ -1,7 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.importer
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 internal class CharacterScriptValidatorTest {

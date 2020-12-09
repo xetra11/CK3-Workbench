@@ -1,8 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.TokenType.*
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 
 /**
@@ -13,12 +11,12 @@ import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.Gramm
  */
 open class GrammarMatcher {
     private val tokenRegexMapping: Map<TokenType, Regex> = mapOf(
-        OBJECT_ID to Regex("(.(\\w+\\.)*\\w*)"),
-        ASSIGNMENT to Regex("^="),
-        ATTRIBUTE_ID to Regex("^(\\w+)"),
-        ATTRIBUTE_VALUE to Regex("^(\"?\\w+\"?)"),
-        BLOCK_START to Regex("^\\{"),
-        BLOCK_END to Regex("^}")
+        TokenType.OBJECT_ID to Regex("(.(\\w+\\.)*\\w*)"),
+        TokenType.ASSIGNMENT to Regex("^="),
+        TokenType.ATTRIBUTE_ID to Regex("^(\\w+)"),
+        TokenType.ATTRIBUTE_VALUE to Regex("^(\"?\\w+\"?)"),
+        TokenType.BLOCK_START to Regex("^\\{"),
+        TokenType.BLOCK_END to Regex("^}")
     )
 
     open fun rule(grammar: Grammar, scriptLines: List<String>): MatcherResult {
@@ -61,5 +59,15 @@ open class GrammarMatcher {
 
     companion object {
         const val NEXT = 0
+    }
+
+    enum class TokenType {
+        OBJECT_ID,
+        ATTRIBUTE_ID,
+        ATTRIBUTE_VALUE,
+        BLOCK_START,
+        BLOCK_END,
+        ASSIGNMENT,
+        UNTYPED
     }
 }
