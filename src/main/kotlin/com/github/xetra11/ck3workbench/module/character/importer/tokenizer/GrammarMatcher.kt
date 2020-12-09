@@ -11,7 +11,7 @@ import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.Gramm
  *
  * @author Patrick C. Höfer aka "xetra11"
  */
-class GrammarMatcher {
+open class GrammarMatcher {
     private val tokenRegexMapping: Map<TokenType, Regex> = mapOf(
         OBJECT_ID to Regex("^(.\\w+\\.*\\w*)"),
         ASSIGNMENT to Regex("^="),
@@ -21,7 +21,7 @@ class GrammarMatcher {
         BLOCK_END to Regex("^}")
     )
 
-    fun rule(grammar: Grammar, scriptLines: List<String>): MatcherResult {
+    open fun rule(grammar: Grammar, scriptLines: List<String>): MatcherResult {
         if (grammar.tokenDefinition.isEmpty()) {
             return MatcherResult("", hasError = true, errorReason = "Grammar was undefined")
         }

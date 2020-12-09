@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory
  *
  * @author Patrick C. Höfer aka "xetra11"
  */
-class GrammarParser {
+open class GrammarParser {
     private val resolverDictionary: MutableMap<String, MutableList<String>> = mutableMapOf()
 
-    fun process(grammarInput: String): Grammar {
+    open fun process(grammarInput: String): Grammar {
         var outputGrammar: Grammar = Grammar("", listOf<TokenType>())
         val rawGrammars = grammarInput
             .trim()
