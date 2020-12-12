@@ -1,5 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.OptionalTokenType
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 import org.assertj.core.api.Assertions.assertThat
@@ -106,10 +107,20 @@ internal class GrammarParserTest {
             [ATTRIBUTE_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
             ---
             :SUB_OBJECT
-            [OBJECT_ID].[ASSIGNMENT].[BLOCK_START].[:ATTRIBUTE]*1.[BLOCK_END]
+            [OBJECT_ID].[ASSIGNMENT].[BLOCK_START].[:ATTRIBUTE].[BLOCK_END]
             ---
             =OBJECT
-            [OBJECT_ID].[ASSIGNMENT].[BLOCK_START].[:SUB_OBJECT]*1.[BLOCK_END]
+            [OBJECT_ID].[ASSIGNMENT].[BLOCK_START].[:SUB_OBJECT].[BLOCK_END]
+        """
+
+        const val GRAMMAR_FILE_4 =
+            """
+            :ATTRIBUTE
+            [ATTRIBUTE_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE]
+            ---
+            OBJECT
+            [OBJECT_ID].[ASSIGNMENT].[BLOCK_START].[ATTRIBUTE]?[:ATTRIBUTE].[BLOCK_END]
+            ---
         """
     }
 }

@@ -61,7 +61,19 @@ open class GrammarMatcher {
         const val NEXT = 0
     }
 
-    enum class TokenType {
+    interface TokenDefinition
+
+    enum class TokenType : TokenDefinition {
+        OBJECT_ID,
+        ATTRIBUTE_ID,
+        ATTRIBUTE_VALUE,
+        BLOCK_START,
+        BLOCK_END,
+        ASSIGNMENT,
+        UNTYPED
+    }
+
+    enum class OptionalTokenType : TokenDefinition {
         OBJECT_ID,
         ATTRIBUTE_ID,
         ATTRIBUTE_VALUE,

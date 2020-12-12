@@ -129,9 +129,11 @@ open class GrammarParser {
         return this.filterNot { it.isWhitespace() }
     }
 
+    class OptionalToken(vararg optionals: TokenType)
+
     data class Grammar(
         val definitionName: String,
-        val tokenDefinition: List<TokenType>
+        val tokenDefinition: List<TokenDefinition>
     )
 
     inner class UntypedGrammar(

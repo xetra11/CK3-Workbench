@@ -25,7 +25,7 @@ object WorkbenchButtons {
     @Composable
     fun BasicButton(
         onClick: () -> Unit,
-        modifier: Modifier = Modifier.preferredSize(70.dp, 25.dp),
+        modifier: Modifier = Modifier.preferredSize(width = 70.dp, height = 25.dp),
         enabled: Boolean = true,
         interactionState: InteractionState = remember { InteractionState() },
         elevation: ButtonElevation? = ButtonConstants.defaultElevation(),
