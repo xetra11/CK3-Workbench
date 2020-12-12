@@ -67,11 +67,17 @@ class ScriptTokenizer {
         val rightAssignmentToken = preparedToken[indexOfAssignmentOperation + 1]
 
         if (leftAssignmentToken.type == GrammarMatcher.TokenType.UNTYPED) {
-            preparedToken[indexOfAssignmentOperation - 1] = Token(leftAssignmentToken.value, GrammarMatcher.TokenType.OBJECT_ID)
+            preparedToken[indexOfAssignmentOperation - 1] = Token(
+                leftAssignmentToken.value,
+                GrammarMatcher.TokenType.OBJECT_ID
+            )
         }
 
         if (rightAssignmentToken.type == GrammarMatcher.TokenType.UNTYPED) {
-            preparedToken[indexOfAssignmentOperation + 1] = Token(rightAssignmentToken.value, GrammarMatcher.TokenType.ATTRIBUTE_VALUE)
+            preparedToken[indexOfAssignmentOperation + 1] = Token(
+                rightAssignmentToken.value,
+                GrammarMatcher.TokenType.ATTRIBUTE_VALUE
+            )
         }
 
         return nextProcessor(preparedToken)

@@ -2,24 +2,5 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>FunctionNaming:CharacterModuleView.kt$private fun LOG(): Logger</ID>
-    <ID>FunctionNaming:main.kt$private fun LOG(): Logger</ID>
-    <ID>LongParameterList:WorkbenchButtons.kt$WorkbenchButtons$( onClick: () -&gt; Unit, modifier: Modifier = Modifier.preferredSize(70.dp, 25.dp), enabled: Boolean = true, interactionState: InteractionState = remember { InteractionState() }, elevation: ButtonElevation? = ButtonConstants.defaultElevation(), shape: Shape = MaterialTheme.shapes.small, border: BorderStroke? = null, colors: ButtonColors = ButtonConstants.defaultButtonColors(), contentPadding: PaddingValues = ButtonConstants.DefaultContentPadding, content: @Composable RowScope.() -&gt; Unit )</ID>
-    <ID>LongParameterList:WorkbenchTexts.kt$WorkbenchTexts$( text: String, modifier: Modifier = Modifier, color: Color = Color.Unspecified, fontSize: TextUnit = TextUnit.Companion.Sp(9), fontStyle: FontStyle? = null, fontWeight: FontWeight? = null, fontFamily: FontFamily? = null, letterSpacing: TextUnit = TextUnit.Unspecified, textDecoration: TextDecoration? = null, textAlign: TextAlign? = null, lineHeight: TextUnit = TextUnit.Unspecified, overflow: TextOverflow = TextOverflow.Clip, softWrap: Boolean = true, maxLines: Int = Int.MAX_VALUE, onTextLayout: (TextLayoutResult) -&gt; Unit = {}, style: TextStyle = AmbientTextStyle.current )</ID>
-    <ID>LongParameterList:main.kt$( primary: Color = Color.LightGray, primaryVariant: Color = Color.Red, secondary: Color = Color.Red, secondaryVariant: Color = Color.Red, background: Color = Color.DarkGray, surface: Color = Color.White, error: Color = Color(0xFFB00020), onPrimary: Color = Color.Black, onSecondary: Color = Color.Black, onBackground: Color = Color.Black, onSurface: Color = Color.Black, onError: Color = Color.White )</ID>
-    <ID>MagicNumber:CharacterList.kt$200</ID>
-    <ID>MagicNumber:CharacterList.kt$4</ID>
-    <ID>MagicNumber:CharacterTable.kt$15</ID>
-    <ID>MagicNumber:CharacterTemplate.kt$CharacterTemplate$5</ID>
-    <ID>MagicNumber:WorkbenchButtons.kt$WorkbenchButtons$25</ID>
-    <ID>MagicNumber:WorkbenchButtons.kt$WorkbenchButtons$70</ID>
-    <ID>MagicNumber:WorkbenchTexts.kt$WorkbenchTexts$9</ID>
-    <ID>MagicNumber:main.kt$0xFFB00020</ID>
-    <ID>MagicNumber:main.kt$20</ID>
-    <ID>MaxLineLength:CharacterScriptValidator.kt$CharacterScriptValidator$return if (valid) ValidationResult() else ValidationResult().error(ValidationError(reason = "missing historical id"))</ID>
-    <ID>MaxLineLength:ScriptTokenizer.kt$ScriptTokenizer$preparedToken[indexOfAssignmentOperation + 1] = Token(rightAssignmentToken.value, GrammarMatcher.TokenType.ATTRIBUTE_VALUE)</ID>
-    <ID>MaxLineLength:ScriptTokenizer.kt$ScriptTokenizer$preparedToken[indexOfAssignmentOperation - 1] = Token(leftAssignmentToken.value, GrammarMatcher.TokenType.OBJECT_ID)</ID>
-    <ID>ReturnCount:GrammarMatcher.kt$GrammarMatcher$open fun rule(grammar: Grammar, scriptLines: List&lt;String&gt;): MatcherResult</ID>
-    <ID>TooManyFunctions:GrammarParser.kt$GrammarParser</ID>
   </CurrentIssues>
 </SmellBaseline>

@@ -20,26 +20,26 @@ open class GrammarMatcher {
     )
 
     open fun rule(grammar: Grammar, scriptLines: List<String>): MatcherResult {
-        if (grammar.tokenDefinition.isEmpty()) {
-            return MatcherResult("", hasError = true, errorReason = "Grammar was undefined")
-        }
+        return if (grammar.tokenDefinition.isEmpty()) {
+            MatcherResult("", hasError = true, errorReason = "Grammar was undefined")
+        } else {
+            var formattedLines = scriptLines.prepareScriptString()
 
-        var formattedLines = scriptLines.prepareScriptString()
+            val matchCollector = grammar.tokenDefinition.mapTo(mutableListOf<String>()) { tokenType ->
+                val regex = tokenRegexMapping[tokenType]
+                val match = regex?.find(formattedLines[NEXT])?.value ?: ""
+                if (match.isEmpty()) {
+                    return MatcherResult("", hasError = true, errorReason = "Token order invalid")
+                }
+                // reduce origin script by matched value
+                formattedLines[NEXT] = formattedLines[NEXT].replaceFirst(match, "")
+                formattedLines = formattedLines.filter { it.isNotBlank() }.toMutableList()
 
-        val matchCollector = grammar.tokenDefinition.mapTo(mutableListOf<String>()) { tokenType ->
-            val regex = tokenRegexMapping[tokenType]
-            val match = regex?.find(formattedLines[NEXT])?.value ?: ""
-            if (match.isEmpty()) {
-                return MatcherResult("", hasError = true, errorReason = "Token order invalid")
+                match
             }
-            // reduce origin script by matched value
-            formattedLines[NEXT] = formattedLines[NEXT].replaceFirst(match, "")
-            formattedLines = formattedLines.filter { it.isNotBlank() }.toMutableList()
 
-            match
+            MatcherResult(matchCollector.joinToString("") { it })
         }
-
-        return MatcherResult(matchCollector.joinToString("") { it })
     }
 
     private fun List<String>.prepareScriptString(): MutableList<String> {

@@ -39,7 +39,7 @@ class CharacterScriptValidator : ScriptValidator {
     * Checks if the given scripts has an historical id
     */
     private fun hasHistoricalId(scriptToValidate: String): ValidationResult {
-        var valid = false
+        var valid: Boolean
         val sumOfBrackets = scriptToValidate.count { it == '{' || it == '}' }
         val sumOfAssignments = scriptToValidate.count { it == '=' }
         // At least as many complete blocks as there are assignments
@@ -47,9 +47,10 @@ class CharacterScriptValidator : ScriptValidator {
 
         val split = scriptToValidate.split('=')
         val leftAssignment = split[0]
-        val rightAssignment = split[1]
         valid = valid && leftAssignment.isNotBlank()
 
-        return if (valid) ValidationResult() else ValidationResult().error(ValidationError(reason = "missing historical id"))
+        return if (valid) {
+            ValidationResult()
+        } else ValidationResult().error(ValidationError(reason = "missing historical id"))
     }
 }

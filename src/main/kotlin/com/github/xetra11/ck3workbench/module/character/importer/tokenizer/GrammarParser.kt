@@ -27,7 +27,10 @@ open class GrammarParser {
             val tokenChain = extractTokenChain(lines)
             val tokens = extractTokens(tokenChain)
 
-            initResolverDictionary(definitionValueName)
+            // init dictionary
+            definitionValueName?.let {
+                resolverDictionary.putIfAbsent(it, mutableListOf())
+            }
 
             val typedTokens = tokens
                 .quantify()
@@ -81,12 +84,6 @@ open class GrammarParser {
             lines.first { it.startsWith("=") }.replace("=", "")
         } catch (e: NoSuchElementException) {
             null
-        }
-    }
-
-    private fun initResolverDictionary(definition: String?) {
-        definition?.let {
-            resolverDictionary.putIfAbsent(it, mutableListOf())
         }
     }
 
