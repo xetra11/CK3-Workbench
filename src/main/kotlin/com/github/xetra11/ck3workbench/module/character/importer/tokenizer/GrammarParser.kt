@@ -1,5 +1,7 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.OptionalTokenType
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenDefinition
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -49,6 +51,14 @@ open class GrammarParser {
                         "[BLOCK_END]" -> TokenType.BLOCK_END
                         "[ASSIGNMENT]" -> TokenType.ASSIGNMENT
                         "[ATTRIBUTE_VALUE]" -> TokenType.ATTRIBUTE_VALUE
+
+                        "[ATTRIBUTE_ID?]" -> OptionalTokenType.ATTRIBUTE_ID
+                        "[OBJECT_ID?]" -> OptionalTokenType.OBJECT_ID
+                        "[BLOCK_START?]" -> OptionalTokenType.BLOCK_START
+                        "[BLOCK_END?]" -> OptionalTokenType.BLOCK_END
+                        "[ASSIGNMENT?]" -> OptionalTokenType.ASSIGNMENT
+                        "[ATTRIBUTE_VALUE?]" -> OptionalTokenType.ATTRIBUTE_VALUE
+
                         else -> TokenType.UNTYPED
                     }
                 }
@@ -111,12 +121,19 @@ open class GrammarParser {
     // resolve references with their definitions
     private fun Iterable<String>.resolve(): List<String> {
         return this.flatMap { token ->
+            val isOptional = token.contains("?")
             if (!isDefinitionToken(token)) {
                 listOf(token)
             } else {
                 val identifierMatcher = Regex("([A-Z])\\w+")
                 val name = identifierMatcher.find(token)?.value
-                (resolverDictionary[name] ?: listOf(token)).resolve()
+                val resolvedToken = (resolverDictionary[name] ?: listOf(token)).resolve()
+                if (isOptional) {
+                    // add ? to the end to mark it as optional
+                    resolvedToken.map { it.replace("]", "?]") }
+                } else {
+                   resolvedToken
+                }
             }
         }
     }
@@ -128,8 +145,6 @@ open class GrammarParser {
     private fun String.trimWhiteSpace(): String {
         return this.filterNot { it.isWhitespace() }
     }
-
-    class OptionalToken(vararg optionals: TokenType)
 
     data class Grammar(
         val definitionName: String,

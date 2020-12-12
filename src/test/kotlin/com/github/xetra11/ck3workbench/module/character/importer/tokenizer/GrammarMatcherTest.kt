@@ -1,6 +1,7 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.MatcherResult
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.OptionalTokenType
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ASSIGNMENT
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ATTRIBUTE_ID
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ATTRIBUTE_VALUE
@@ -13,6 +14,44 @@ import org.junit.jupiter.api.Test
 
 internal class GrammarMatcherTest {
     private val grammarMatcher: GrammarMatcher = GrammarMatcher()
+
+    @Test
+    fun `should return matched grammar for optional definitions exclusive`() {
+        val grammar = Grammar(
+            "OBJECT",
+            listOf(
+                OBJECT_ID, ASSIGNMENT, BLOCK_START, // object_id = {
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, // (attribute_id = attribute_value)
+                OptionalTokenType.ATTRIBUTE_ID, OptionalTokenType.ASSIGNMENT, OptionalTokenType.ATTRIBUTE_VALUE, // attribute_id = attribute_value
+                BLOCK_END // }
+            )
+        )
+
+        val actual = grammarMatcher
+            .rule(grammar, SCRIPT_WITH_OPTIONAL_EXCLUSIVE.split("\n"))
+        val expected = MatcherResult(SCRIPT_WITH_OPTIONAL_EXCLUSIVE.trimWhiteSpace())
+
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `should return matched grammar for optional definitions inclusive`() {
+        val grammar = Grammar(
+            "OBJECT",
+            listOf(
+                OBJECT_ID, ASSIGNMENT, BLOCK_START, // object_id = {
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, // attribute_id = attribute_value
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, // attribute_id = attribute_value
+                BLOCK_END // }
+            )
+        )
+
+        val actual = grammarMatcher
+            .rule(grammar, SCRIPT_WITH_OPTIONAL_INCLUSIVE.split("\n"))
+        val expected = MatcherResult(SCRIPT_WITH_OPTIONAL_INCLUSIVE.trimWhiteSpace())
+
+        assertThat(actual).isEqualTo(expected)
+    }
 
     @Test
     fun `should return the matched string of a script string with full example attributes and sub object`() {
@@ -234,6 +273,20 @@ internal class GrammarMatcherTest {
                     731.11 = {
                         birth = yes
                     }
+                }
+        """
+
+        const val SCRIPT_WITH_OPTIONAL_INCLUSIVE =
+            """
+                thorak = {
+                    name = "Thorak"
+                    dna = thorak_dna
+                }
+        """
+        const val SCRIPT_WITH_OPTIONAL_EXCLUSIVE =
+            """
+                thorak = {
+                    name = "Thorak"
                 }
         """
     }
