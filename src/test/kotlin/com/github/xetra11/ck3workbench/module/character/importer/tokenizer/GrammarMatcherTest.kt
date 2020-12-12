@@ -19,13 +19,13 @@ internal class GrammarMatcherTest {
         val grammar = Grammar(
             "SUBOBJECT",
             listOf(
-                OBJECT_ID, ASSIGNMENT, BLOCK_START,
-                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
-                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
-                OBJECT_ID, ASSIGNMENT, BLOCK_START,
-                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
-                BLOCK_END,
-                BLOCK_END
+                OBJECT_ID, ASSIGNMENT, BLOCK_START, // object_id = {
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, // attribute_id = attribute_value
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, // attribute_id = attribute_value
+                OBJECT_ID, ASSIGNMENT, BLOCK_START, // object_id = {
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, // attribute_id = attribute_value
+                BLOCK_END, // }
+                BLOCK_END // }
             )
         )
         val actual = grammarMatcher
