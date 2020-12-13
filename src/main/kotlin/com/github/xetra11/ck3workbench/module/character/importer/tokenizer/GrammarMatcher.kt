@@ -10,13 +10,20 @@ import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.Gramm
  * @author Patrick C. Höfer aka "xetra11"
  */
 open class GrammarMatcher {
-    private val tokenRegexMapping: Map<TokenType, Regex> = mapOf(
+    private val tokenRegexMapping: Map<TokenDefinition, Regex> = mapOf(
         TokenType.OBJECT_ID to Regex("(.(\\w+\\.)*\\w*)"),
         TokenType.ASSIGNMENT to Regex("^="),
         TokenType.ATTRIBUTE_ID to Regex("^(\\w+)"),
         TokenType.ATTRIBUTE_VALUE to Regex("^(\"?\\w+\"?)"),
         TokenType.BLOCK_START to Regex("^\\{"),
-        TokenType.BLOCK_END to Regex("^}")
+        TokenType.BLOCK_END to Regex("^}"),
+
+        OptionalTokenType.OBJECT_ID to Regex("(.(\\w+\\.)*\\w*)"),
+        OptionalTokenType.ASSIGNMENT to Regex("^="),
+        OptionalTokenType.ATTRIBUTE_ID to Regex("^(\\w+)"),
+        OptionalTokenType.ATTRIBUTE_VALUE to Regex("^(\"?\\w+\"?)"),
+        OptionalTokenType.BLOCK_START to Regex("^\\{"),
+        OptionalTokenType.BLOCK_END to Regex("^}")
     )
 
     open fun rule(grammar: Grammar, scriptLines: List<String>): MatcherResult {
@@ -29,7 +36,9 @@ open class GrammarMatcher {
                 val regex = tokenRegexMapping[tokenType]
                 val match = regex?.find(formattedLines[NEXT])?.value ?: ""
                 if (match.isEmpty()) {
-                    return MatcherResult("", hasError = true, errorReason = "Token order invalid")
+                    if (tokenType is TokenType) {
+                        return MatcherResult("", hasError = true, errorReason = "Token order invalid")
+                    }
                 }
                 // reduce origin script by matched value
                 formattedLines[NEXT] = formattedLines[NEXT].replaceFirst(match, "")

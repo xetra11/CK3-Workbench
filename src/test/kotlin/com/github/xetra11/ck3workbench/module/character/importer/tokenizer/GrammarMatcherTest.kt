@@ -41,7 +41,7 @@ internal class GrammarMatcherTest {
             listOf(
                 OBJECT_ID, ASSIGNMENT, BLOCK_START, // object_id = {
                 ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, // attribute_id = attribute_value
-                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, // attribute_id = attribute_value
+                OptionalTokenType.ATTRIBUTE_ID, OptionalTokenType.ASSIGNMENT, OptionalTokenType.ATTRIBUTE_VALUE, // attribute_id = attribute_value
                 BLOCK_END // }
             )
         )
