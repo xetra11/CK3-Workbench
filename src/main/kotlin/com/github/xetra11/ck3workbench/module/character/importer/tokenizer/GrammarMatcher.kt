@@ -53,6 +53,7 @@ open class GrammarMatcher {
 
     private fun List<String>.prepareScriptString(): MutableList<String> {
         return this
+            .asSequence()
             .map { it.replace(" ", "") }
             .map { it.replace("\\uFEFF", "") } // remove BOM
             .map { it.trim() }

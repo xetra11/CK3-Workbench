@@ -16,6 +16,28 @@ internal class GrammarMatcherTest {
     private val grammarMatcher: GrammarMatcher = GrammarMatcher()
 
     @Test
+    fun `should return matched grammar for different order position`() {
+        val grammar = Grammar(
+            "SUBOBJECT",
+            listOf(
+                OBJECT_ID, ASSIGNMENT, BLOCK_START, // object_id = {
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, // attribute_id = attribute_value
+                OBJECT_ID, ASSIGNMENT, BLOCK_START, // object_id = {
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, // attribute_id = attribute_value
+                BLOCK_END, // }
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, // attribute_id = attribute_value
+                BLOCK_END // }
+            )
+        )
+
+        val actual = grammarMatcher
+            .rule(grammar, SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.split("\n"))
+        val expected = MatcherResult(SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.trimWhiteSpace())
+
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
     fun `should return matched grammar for optional definitions exclusive`() {
         val grammar = Grammar(
             "OBJECT",
