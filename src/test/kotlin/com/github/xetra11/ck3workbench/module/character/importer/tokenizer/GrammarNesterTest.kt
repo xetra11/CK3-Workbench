@@ -26,8 +26,39 @@ internal class GrammarNesterTest {
         val actual = grammarNester.nest(grammar)
         val expected = GrammarNester.NestedGrammar(
             mapOf(
-                0 to listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START, BLOCK_END),
+                0 to listOf(OBJECT_ID, ASSIGNMENT),
                 1 to listOf(ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE)
+            )
+        )
+
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `should return a complex nested grammar list`() {
+        val grammar = GrammarParser.Grammar(
+            "OBJECT",
+            listOf(
+                OBJECT_ID, ASSIGNMENT, BLOCK_START,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, BLOCK_START,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                BLOCK_END,
+                BLOCK_END
+            )
+        )
+
+        val actual = grammarNester.nest(grammar)
+        val expected = GrammarNester.NestedGrammar(
+            mapOf(
+                0 to listOf(OBJECT_ID, ASSIGNMENT),
+                1 to listOf(ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE),
+                2 to listOf(
+                    ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                    ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                    ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE
+                )
             )
         )
 
