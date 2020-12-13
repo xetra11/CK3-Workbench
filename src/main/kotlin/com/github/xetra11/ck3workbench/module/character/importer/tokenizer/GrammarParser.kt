@@ -43,25 +43,7 @@ open class GrammarParser {
                     token
                 }
                 .resolve()
-                .map {
-                    when (it) {
-                        "[ATTRIBUTE_ID]" -> TokenType.ATTRIBUTE_ID
-                        "[OBJECT_ID]" -> TokenType.OBJECT_ID
-                        "[BLOCK_START]" -> TokenType.BLOCK_START
-                        "[BLOCK_END]" -> TokenType.BLOCK_END
-                        "[ASSIGNMENT]" -> TokenType.ASSIGNMENT
-                        "[ATTRIBUTE_VALUE]" -> TokenType.ATTRIBUTE_VALUE
-
-                        "[ATTRIBUTE_ID?]" -> OptionalTokenType.ATTRIBUTE_ID
-                        "[OBJECT_ID?]" -> OptionalTokenType.OBJECT_ID
-                        "[BLOCK_START?]" -> OptionalTokenType.BLOCK_START
-                        "[BLOCK_END?]" -> OptionalTokenType.BLOCK_END
-                        "[ASSIGNMENT?]" -> OptionalTokenType.ASSIGNMENT
-                        "[ATTRIBUTE_VALUE?]" -> OptionalTokenType.ATTRIBUTE_VALUE
-
-                        else -> TokenType.UNTYPED
-                    }
-                }
+                .map { GrammarMappings.mapGrammar(it) }
 
             definitionResultName?.let {
                 outputGrammar = Grammar(it, typedTokens)
