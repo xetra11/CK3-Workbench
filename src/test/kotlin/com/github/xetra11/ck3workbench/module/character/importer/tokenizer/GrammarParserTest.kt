@@ -9,6 +9,21 @@ import org.junit.jupiter.api.Test
 internal class GrammarParserTest {
     private val grammarParser: GrammarParser = GrammarParser()
 
+    @Test fun `should read grammar file containing complex optional token definition`() {
+        val actual = grammarParser.process(GRAMMAR_FILE_5)
+
+        assertThat(actual).isEqualTo(
+            Grammar(
+                "OBJECT",
+                listOf(
+                    TokenType.OBJECT_ID, OptionalTokenType.ASSIGNMENT, TokenType.BLOCK_START,
+                    TokenType.ATTRIBUTE_ID, TokenType.ASSIGNMENT, OptionalTokenType.ATTRIBUTE_VALUE,
+                    OptionalTokenType.BLOCK_END
+                )
+            )
+        )
+    }
+
     @Test fun `should read grammar file containing optional token definition`() {
         val actual = grammarParser.process(GRAMMAR_FILE_4)
 
@@ -127,7 +142,6 @@ internal class GrammarParserTest {
             =OBJECT
             [OBJECT_ID].[ASSIGNMENT].[BLOCK_START].[:SUB_OBJECT].[BLOCK_END]
         """
-
         const val GRAMMAR_FILE_4 =
             """
             :ATTRIBUTE
@@ -135,6 +149,14 @@ internal class GrammarParserTest {
             ---
             =OBJECT
             [OBJECT_ID].[ASSIGNMENT].[BLOCK_START].[:ATTRIBUTE?].[BLOCK_END]
+        """
+        const val GRAMMAR_FILE_5 =
+            """
+            :ATTRIBUTE
+            [ATTRIBUTE_ID].[ASSIGNMENT].[ATTRIBUTE_VALUE?]
+            ---
+            =OBJECT
+            [OBJECT_ID].[ASSIGNMENT?].[BLOCK_START].[:ATTRIBUTE].[BLOCK_END?]
         """
     }
 }
