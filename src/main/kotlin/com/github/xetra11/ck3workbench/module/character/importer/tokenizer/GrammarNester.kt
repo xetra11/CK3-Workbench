@@ -14,6 +14,11 @@ class GrammarNester {
     private var currentLevel = 0
     private val nestedGrammar: MutableMap<Int, MutableList<TokenDefinition>> = mutableMapOf()
 
+    /**
+     * Takes a [List] of [GrammarParser.Grammar] and converts it into [NestedGrammar]
+     * @param [GrammarParser.Grammar] to converted to [NestedGrammar]
+     * @return [NestedGrammar]
+     */
     fun nest(grammar: GrammarParser.Grammar): NestedGrammar {
 
         grammar.tokenDefinition.forEach { token ->

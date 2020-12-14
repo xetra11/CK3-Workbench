@@ -32,6 +32,9 @@ open class GrammarMatcher {
         } else {
             var formattedLines = scriptLines.prepareScriptString()
 
+            val grammarNester = GrammarNester()
+            val nestedGrammar = grammarNester.nest(grammar)
+
             val matchCollector = grammar.tokenDefinition.mapTo(mutableListOf<String>()) { tokenType ->
                 val regex = tokenRegexMapping[tokenType]
                 val match = regex?.find(formattedLines[NEXT])?.value ?: ""
