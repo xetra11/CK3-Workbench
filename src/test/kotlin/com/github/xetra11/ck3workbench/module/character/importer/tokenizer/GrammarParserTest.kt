@@ -16,8 +16,12 @@ internal class GrammarParserTest {
             Grammar(
                 "OBJECT",
                 listOf(
-                    TokenType.OBJECT_ID, OptionalTokenType.ASSIGNMENT, TokenType.BLOCK_START,
-                    TokenType.ATTRIBUTE_ID, TokenType.ASSIGNMENT, OptionalTokenType.ATTRIBUTE_VALUE,
+                    TokenType.OBJECT_ID,
+                    OptionalTokenType.ASSIGNMENT,
+                    TokenType.BLOCK_START,
+                    TokenType.ATTRIBUTE_ID,
+                    TokenType.ASSIGNMENT,
+                    OptionalTokenType.ATTRIBUTE_VALUE,
                     OptionalTokenType.BLOCK_END
                 )
             )
@@ -31,8 +35,12 @@ internal class GrammarParserTest {
             Grammar(
                 "OBJECT",
                 listOf(
-                    TokenType.OBJECT_ID, TokenType.ASSIGNMENT, TokenType.BLOCK_START,
-                    OptionalTokenType.ATTRIBUTE_ID, OptionalTokenType.ASSIGNMENT, OptionalTokenType.ATTRIBUTE_VALUE,
+                    TokenType.OBJECT_ID,
+                    TokenType.ASSIGNMENT,
+                    TokenType.BLOCK_START,
+                    OptionalTokenType.ATTRIBUTE_ID,
+                    OptionalTokenType.ASSIGNMENT,
+                    OptionalTokenType.ATTRIBUTE_VALUE,
                     TokenType.BLOCK_END
                 )
             )

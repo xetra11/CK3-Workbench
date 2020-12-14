@@ -17,8 +17,12 @@ internal class GrammarNesterTest {
         val grammar = GrammarParser.Grammar(
             "OBJECT",
             listOf(
-                OBJECT_ID, ASSIGNMENT, BLOCK_START,
-                ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE,
+                OBJECT_ID,
+                ASSIGNMENT,
+                BLOCK_START,
+                ATTRIBUTE_ID,
+                ASSIGNMENT,
+                ATTRIBUTE_VALUE,
                 BLOCK_END
             )
         )
@@ -65,4 +69,3 @@ internal class GrammarNesterTest {
         assertThat(actual).isEqualTo(expected)
     }
 }
-

@@ -1,6 +1,5 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.OptionalTokenType
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenDefinition
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType
 import org.slf4j.Logger
@@ -114,7 +113,7 @@ open class GrammarParser {
                     // add ? to the end to mark it as optional
                     resolvedToken.map { it.replace("]", "?]") }
                 } else {
-                   resolvedToken
+                    resolvedToken
                 }
             }
         }
