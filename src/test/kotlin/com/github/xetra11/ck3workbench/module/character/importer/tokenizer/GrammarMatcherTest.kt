@@ -31,9 +31,8 @@ internal class GrammarMatcherTest {
         )
 
         val actual = grammarMatcher.rule(grammar, SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.split("\n"))
-        val expected = MatcherResult(SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.trimWhiteSpace())
 
-        assertThat(actual).isEqualTo(expected)
+        assertThat(actual.hasError).isFalse
     }
 
     @Test

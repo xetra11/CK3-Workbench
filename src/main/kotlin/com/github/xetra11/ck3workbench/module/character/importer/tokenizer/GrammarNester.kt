@@ -70,7 +70,7 @@ class GrammarNester {
          * @return the list of [TokenDefinition] at the given level
          */
         fun level(level: Int): List<TokenDefinition> {
-            require((level > 0).and(level.minus(1) < nestedToken.size))
+            require((level >= 0).and(level.minus(1) < nestedToken.size))
             return nestedToken[level].orEmpty()
         }
 

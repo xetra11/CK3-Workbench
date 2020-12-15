@@ -30,36 +30,49 @@ open class GrammarMatcher {
         return if (grammar.tokenDefinition.isEmpty()) {
             MatcherResult("", hasError = true, errorReason = "Grammar was undefined")
         } else {
-            var formattedLines = scriptLines.prepareScriptString()
+            val formattedLines = scriptLines.prepareScriptString()
+            val nestedGrammar = nestGrammar(grammar)
 
-            val grammarNester = GrammarNester()
-            val nestedGrammar = grammarNester.nest(grammar)
-
-            val matchCollector = grammar.tokenDefinition.mapTo(mutableListOf<String>()) { tokenType ->
-                val regex = tokenRegexMapping[tokenType]
-                val match = regex?.find(formattedLines[NEXT])?.value ?: ""
-                if (match.isEmpty()) {
-                    if (tokenType is TokenType) {
-                        return MatcherResult("", hasError = true, errorReason = "Token order invalid")
+            var currentLevel = 0
+            val scriptValid = formattedLines.all { line ->
+                val pieces = line.split(" ")
+                pieces.all { piece ->
+                    when (piece) {
+                        "{" -> {
+                            currentLevel++
+                            true
+                        }
+                        "}" -> {
+                            currentLevel--
+                            true
+                        }
+                        else -> {
+                            val grammarSection = nestedGrammar.level(currentLevel)
+                            val tokenRegexCandidates = grammarSection.mapTo(mutableListOf<Regex>()) { tokenRegexMapping[it] ?: Regex("") }
+                            tokenRegexCandidates.any { it.matches(piece) }
+                        }
                     }
                 }
-                // reduce origin script by matched value
-                formattedLines[NEXT] = formattedLines[NEXT].replaceFirst(match, "")
-                formattedLines = formattedLines.filter { it.isNotBlank() }.toMutableList()
-
-                match
             }
-
-            MatcherResult(matchCollector.joinToString("") { it })
+            if (scriptValid) {
+                MatcherResult("")
+            } else {
+                MatcherResult("", true, "Script could not be validated against given grammar")
+            }
         }
+    }
+
+    private fun nestGrammar(grammar: Grammar): GrammarNester.NestedGrammar {
+        val grammarNester = GrammarNester()
+        return grammarNester.nest(grammar)
     }
 
     private fun List<String>.prepareScriptString(): MutableList<String> {
         return this
             .asSequence()
-            .map { it.replace(" ", "") }
             .map { it.replace("\\uFEFF", "") } // remove BOM
-            .map { it.trim() }
+            .map { it.trimStart() }
+            .map { it.trimEnd() }
             .filter { it.isNotBlank() }
             .toMutableList()
     }
