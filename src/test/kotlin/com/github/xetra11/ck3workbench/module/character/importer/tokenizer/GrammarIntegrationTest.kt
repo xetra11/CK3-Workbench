@@ -47,6 +47,6 @@ internal class GrammarIntegrationTest {
         val actual = grammarMatcher.rule(parsedGrammar, scriptFile.readLines())
 
         assertThat(actual.hasError).isTrue
-        assertThat(actual.errorReason).isEqualTo("Token order invalid")
+        assertThat(actual.errorReason).isEqualTo("Not all mandatory token were matched. 3 were left out")
     }
 }

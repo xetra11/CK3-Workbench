@@ -33,7 +33,9 @@ open class GrammarMatcher {
             val formattedLines = scriptLines.prepareScriptString()
             val nestedGrammar = nestGrammar(grammar)
 
+            var mandatoryTokenToFulfill = nestedGrammar.mandatoryToken().count()
             var currentLevel = 0
+
             val scriptValid = formattedLines.all { line ->
                 val pieces = line.split(" ").filter { it.isNotBlank() }
                 pieces.all { piece ->
@@ -47,17 +49,21 @@ open class GrammarMatcher {
                             true
                         }
                         else -> {
+                            mandatoryTokenToFulfill--
                             val grammarSection = nestedGrammar.level(currentLevel)
-                            val tokenRegexCandidates = grammarSection.mapTo(mutableListOf<Regex>()) { tokenRegexMapping[it] ?: Regex("") }
+                            val tokenRegexCandidates = grammarSection
+                                .mapTo(mutableListOf<Regex>()) { tokenRegexMapping[it] ?: Regex("") }
                             tokenRegexCandidates.any { it.matches(piece) }
                         }
                     }
                 }
             }
-            if (scriptValid) {
-                MatcherResult("")
+            if (!scriptValid) {
+                MatcherResult("", true, "Some token are not matching the given grammar")
+            } else if (mandatoryTokenToFulfill > 0) {
+                MatcherResult("", true, "Not all mandatory token were matched. $mandatoryTokenToFulfill were left out")
             } else {
-                MatcherResult("", true, "Script could not be validated against given grammar")
+                MatcherResult("")
             }
         }
     }

@@ -90,6 +90,16 @@ class GrammarNester {
             return nestedToken[0].orEmpty()
         }
 
+        /**
+         * The amount of non optional [TokenType] token.
+         * @return the amount of mandatory token
+         */
+        fun mandatoryToken(): List<TokenType> {
+            return nestedToken.values
+                .flatten()
+                .filterIsInstance<TokenType>()
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false

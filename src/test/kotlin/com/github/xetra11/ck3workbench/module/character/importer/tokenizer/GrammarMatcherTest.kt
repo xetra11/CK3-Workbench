@@ -176,7 +176,7 @@ internal class GrammarMatcherTest {
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START)
         )
         val actual = grammarMatcher.rule(grammar, INVALID_1.split("\n"))
-        assertThat(actual.hasError).isFalse
+        assertThat(actual.hasError).isTrue
     }
 
     @Test
