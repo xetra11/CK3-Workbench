@@ -35,7 +35,7 @@ open class GrammarMatcher {
 
             var currentLevel = 0
             val scriptValid = formattedLines.all { line ->
-                val pieces = line.split(" ")
+                val pieces = line.split(" ").filter { it.isNotBlank() }
                 pieces.all { piece ->
                     when (piece) {
                         "{" -> {

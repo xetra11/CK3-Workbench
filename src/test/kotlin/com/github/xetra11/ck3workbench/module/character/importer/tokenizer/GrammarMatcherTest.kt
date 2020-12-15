@@ -1,6 +1,5 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.MatcherResult
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.OptionalTokenType
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ASSIGNMENT
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ATTRIBUTE_ID
@@ -47,11 +46,8 @@ internal class GrammarMatcherTest {
             )
         )
 
-        val actual = grammarMatcher
-            .rule(grammar, SCRIPT_WITH_OPTIONAL_EXCLUSIVE.split("\n"))
-        val expected = MatcherResult(SCRIPT_WITH_OPTIONAL_EXCLUSIVE.trimWhiteSpace())
-
-        assertThat(actual).isEqualTo(expected)
+        val actual = grammarMatcher.rule(grammar, SCRIPT_WITH_OPTIONAL_EXCLUSIVE.split("\n"))
+        assertThat(actual.hasError).isFalse
     }
 
     @Test
@@ -66,11 +62,8 @@ internal class GrammarMatcherTest {
             )
         )
 
-        val actual = grammarMatcher
-            .rule(grammar, SCRIPT_WITH_OPTIONAL_INCLUSIVE.split("\n"))
-        val expected = MatcherResult(SCRIPT_WITH_OPTIONAL_INCLUSIVE.trimWhiteSpace())
-
-        assertThat(actual).isEqualTo(expected)
+        val actual = grammarMatcher.rule(grammar, SCRIPT_WITH_OPTIONAL_INCLUSIVE.split("\n"))
+        assertThat(actual.hasError).isFalse
     }
 
     @Test
@@ -87,11 +80,8 @@ internal class GrammarMatcherTest {
                 BLOCK_END // }
             )
         )
-        val actual = grammarMatcher
-            .rule(grammar, SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.split("\n"))
-        val expected = MatcherResult(SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.trimWhiteSpace())
-
-        assertThat(actual).isEqualTo(expected)
+        val actual = grammarMatcher.rule(grammar, SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.split("\n"))
+        assertThat(actual.hasError).isFalse
     }
 
     @Test
@@ -119,11 +109,8 @@ internal class GrammarMatcherTest {
                 BLOCK_END
             )
         )
-        val actual = grammarMatcher
-            .rule(grammar, SCRIPT_FULL_EXAMPLE.split("\n"))
-        val expected = MatcherResult(SCRIPT_FULL_EXAMPLE.trimWhiteSpace())
-
-        assertThat(actual).isEqualTo(expected)
+        val actual = grammarMatcher.rule(grammar, SCRIPT_FULL_EXAMPLE.split("\n"))
+        assertThat(actual.hasError).isFalse
     }
 
     @Test
@@ -138,11 +125,8 @@ internal class GrammarMatcherTest {
                 BLOCK_END
             )
         )
-        val actual = grammarMatcher
-            .rule(grammar, SCRIPT_EXAMPLE_2.split("\n"))
-        val expected = MatcherResult(SCRIPT_EXAMPLE_2.trimWhiteSpace())
-
-        assertThat(actual).isEqualTo(expected)
+        val actual = grammarMatcher.rule(grammar, SCRIPT_EXAMPLE_2.split("\n"))
+        assertThat(actual.hasError).isFalse
     }
 
     @Test
@@ -151,11 +135,8 @@ internal class GrammarMatcherTest {
             "SCRIPT",
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START, ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, BLOCK_END)
         )
-        val actual = grammarMatcher
-            .rule(grammar, SCRIPT_EXAMPLE_1.split("\n"))
-        val expected = MatcherResult(SCRIPT_EXAMPLE_1.trimWhiteSpace())
-
-        assertThat(actual).isEqualTo(expected)
+        val actual = grammarMatcher.rule(grammar, SCRIPT_EXAMPLE_1.split("\n"))
+        assertThat(actual.hasError).isFalse
     }
 
     @Test
@@ -164,11 +145,8 @@ internal class GrammarMatcherTest {
             "TEST",
             listOf(OBJECT_ID)
         )
-        val actual: String = grammarMatcher
-            .rule(grammar, TEST_1.split("\n"))
-            .match
-
-        assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_1.trimWhiteSpace())
+        val actual = grammarMatcher.rule(grammar, TEST_1.split("\n"))
+        assertThat(actual.hasError).isFalse
     }
 
     @Test
@@ -177,11 +155,8 @@ internal class GrammarMatcherTest {
             "TEST",
             listOf(OBJECT_ID, ASSIGNMENT)
         )
-        val actual: String = grammarMatcher
-            .rule(grammar, TEST_2.split("\n"))
-            .match
-
-        assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_2.trimWhiteSpace())
+        val actual = grammarMatcher.rule(grammar, TEST_2.split("\n"))
+        assertThat(actual.hasError).isFalse
     }
 
     @Test
@@ -190,11 +165,8 @@ internal class GrammarMatcherTest {
             "TEST",
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START)
         )
-        val actual: String = grammarMatcher
-            .rule(grammar, TEST_3.split("\n"))
-            .match
-
-        assertThat(actual.trimWhiteSpace()).isEqualTo(TEST_3.trimWhiteSpace())
+        val actual = grammarMatcher.rule(grammar, TEST_3.split("\n"))
+        assertThat(actual.hasError).isFalse
     }
 
     @Test
@@ -203,12 +175,8 @@ internal class GrammarMatcherTest {
             "TEST",
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START)
         )
-        val actual = grammarMatcher
-            .rule(grammar, INVALID_1.split("\n"))
-
-        assertThat(actual.hasError).isTrue
-        assertThat(actual.errorReason).isEqualTo("Token order invalid")
-        assertThat(actual.match).isEqualTo("")
+        val actual = grammarMatcher.rule(grammar, INVALID_1.split("\n"))
+        assertThat(actual.hasError).isFalse
     }
 
     @Test
@@ -217,16 +185,8 @@ internal class GrammarMatcherTest {
             "SCRIPT",
             listOf()
         )
-        val actual = grammarMatcher
-            .rule(grammar, SCRIPT_EXAMPLE_1.split("\n"))
-
+        val actual = grammarMatcher.rule(grammar, SCRIPT_EXAMPLE_1.split("\n"))
         assertThat(actual.hasError).isTrue
-        assertThat(actual.errorReason).isEqualTo("Grammar was undefined")
-        assertThat(actual.match).isEqualTo("")
-    }
-
-    private fun String.trimWhiteSpace(): String {
-        return this.filterNot { it.isWhitespace() }
     }
 
     companion object {
