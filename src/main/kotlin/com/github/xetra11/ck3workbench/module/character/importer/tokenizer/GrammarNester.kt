@@ -1,9 +1,9 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarNester.NestedGrammar
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.OptionalTokenType
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenDefinition
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarNester.NestedGrammar
 
 /**
  * Takes a [List] of [GrammarParser.Grammar] and converts it into [NestedGrammar]

@@ -1,12 +1,12 @@
 package com.github.xetra11.ck3workbench.module.character.importer
 
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.GrammarValidation
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.ASSIGNMENT
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.BLOCK_START
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.OBJECT_ID
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.mock
 import org.assertj.core.api.Assertions.assertThat

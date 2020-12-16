@@ -1,20 +1,15 @@
 import androidx.compose.desktop.AppManager
 import androidx.compose.desktop.AppWindow
-import androidx.compose.desktop.WindowEvents
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.preferredHeight
-import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.foundation.layout.preferredWidth
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Button
@@ -40,8 +35,6 @@ import com.github.xetra11.ck3workbench.ScriptValidator.ValidationError
 import com.github.xetra11.ck3workbench.module.character.Character
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
-import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptReader
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptValidatorFactory
 import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -95,7 +88,6 @@ fun main() = invokeLater {
             Row(modifier = Modifier.fillMaxSize()) {
                 val widthBlack = percWindowWidth(windowSize.value.width, 20)
                 Box(Modifier.border(5.dp, Color.Black).preferredWidth(widthBlack.dp).fillMaxHeight()) {
-
                 }
                 Box(Modifier.border(5.dp, Color.Red).fillMaxSize()) {
                     CharacterModuleView(characterState)
