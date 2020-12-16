@@ -29,6 +29,7 @@ import com.github.xetra11.ck3workbench.module.character.Character
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptReader
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptValidator
+import com.github.xetra11.ck3workbench.module.character.importer.ScriptValidatorFactory
 import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -85,15 +86,10 @@ private fun importCharactersScript(
     hasAlert: MutableState<Boolean>,
     characterState: SnapshotStateList<Character>
 ) {
-    val characterScriptValidator = CharacterScriptValidator()
-    val validation = characterScriptValidator.validate(file.value.readText())
-    if (validation.hasErrors) {
-        LOG().error("Script to be imported has errors")
-        LOG().error("Errors found:")
-        validation.errors.forEach {
-            LOG().error(it.reason)
-        }
-        validationErrors.addAll(validation.errors)
+    val scriptValidator = ScriptValidatorFactory.createScriptValidator()
+    val isScriptValid = scriptValidator.validate(file.value, "Character")
+    if (!isScriptValid) {
+        LOG().error("Script to be imported is invalid")
         hasAlert.value = true
     } else {
         val characterScriptReader = CharacterScriptReader()

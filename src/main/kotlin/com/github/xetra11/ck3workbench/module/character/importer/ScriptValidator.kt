@@ -17,7 +17,7 @@ class ScriptValidator(
 ) {
     fun validate(script: File, type: String): Boolean {
         val grammars = loadGrammar()
-        val requiredGrammars = grammars.filter { it.definitionName == type }
+        val requiredGrammars = grammars.filter { it.definitionName.equals(type, ignoreCase = true) }
         if (requiredGrammars.isEmpty()) {
             LOG.warn("Could not find any grammars matching the type $type")
             LOG.info("Found grammar types are: ${grammars.map { it.definitionName }}")
