@@ -1,6 +1,7 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import java.io.File
 
@@ -36,6 +37,20 @@ internal class GrammarIntegrationTest {
         assertThat(actual.errorReason).isEqualTo("")
     }
 
+    @Disabled
+    @Test
+    fun `should return valid if the given file has optionals missing and tokens in different order`() {
+        val grammarFile = File("src/test/resources/test_grammar_file_2.grm")
+        val scriptFile = File("src/test/resources/fixtures/character/test_character_with_missing_subobject_attribute.txt")
+
+        val grammarDefinitionContent = grammarFile.readText()
+        val parsedGrammar = grammarParser.process(grammarDefinitionContent)
+
+        val actual = grammarMatcher.rule(parsedGrammar, scriptFile.readLines())
+
+        assertThat(actual.hasError).isTrue
+    }
+
     @Test
     fun `should return error if the given file is not matching the definition due to missing attribute`() {
         val grammarFile = File("src/test/resources/test_grammar_file.grm")
@@ -47,6 +62,5 @@ internal class GrammarIntegrationTest {
         val actual = grammarMatcher.rule(parsedGrammar, scriptFile.readLines())
 
         assertThat(actual.hasError).isTrue
-        assertThat(actual.errorReason).isEqualTo("Not all mandatory token were matched. 3 were left out")
     }
 }
