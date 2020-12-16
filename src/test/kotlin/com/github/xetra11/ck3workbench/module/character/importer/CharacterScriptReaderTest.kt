@@ -26,5 +26,4 @@ internal class CharacterScriptReaderTest {
         assertThat(actual).isNull()
     }
     fun `should parse txt file and convert multiple entries into list of character objects`() {}
-    fun `should validate character txt script file`() {}
 }

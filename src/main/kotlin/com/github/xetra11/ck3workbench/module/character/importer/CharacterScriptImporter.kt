@@ -1,0 +1,40 @@
+package com.github.xetra11.ck3workbench.module.character.importer
+
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import com.github.xetra11.ck3workbench.ScriptValidator
+import com.github.xetra11.ck3workbench.module.character.Character
+import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter.Companion.LOG
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import java.io.File
+
+class CharacterScriptImporter {
+    fun importCharactersScript(
+        file: MutableState<File>,
+        validationErrors: SnapshotStateList<ScriptValidator.ValidationError>,
+        hasAlert: MutableState<Boolean>,
+        characterState: SnapshotStateList<Character>
+    ) {
+        val scriptValidator = ScriptValidatorFactory.createScriptValidator()
+        val isScriptValid = scriptValidator.validate(file.value, "Character")
+        if (!isScriptValid) {
+            LOG.error("Script to be imported is invalid")
+            hasAlert.value = true
+        } else {
+            val characterScriptReader = CharacterScriptReader()
+            val character = characterScriptReader.readCharacterScript(file.value.absoluteFile)
+            character?.let {
+                if ((characterState.indexOf(it) == -1)) {
+                    characterState.add(it)
+                } else {
+                    LOG.info("Character $it already exists")
+                }
+            }
+        }
+    }
+
+    companion object {
+        private val LOG: Logger = LoggerFactory.getLogger(CharacterScriptImporter::class.java)
+    }
+}

@@ -27,6 +27,7 @@ import androidx.compose.ui.window.MenuItem
 import com.github.xetra11.ck3workbench.ScriptValidator.ValidationError
 import com.github.xetra11.ck3workbench.module.character.Character
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
+import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptReader
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptValidatorFactory
 import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
@@ -58,7 +59,9 @@ fun main() = invokeLater {
                     "Import Characters",
                     onClick = {
                         val file = openScriptFile(window)
-                        importCharactersScript(file, validationErrors, hasAlert, characterState)
+                        val characterScriptImporter = CharacterScriptImporter()
+                        characterScriptImporter
+                            .importCharactersScript(file, validationErrors, hasAlert, characterState)
                     }
                 ),
                 MenuItem("Dynasties", onClick = {})
@@ -75,30 +78,6 @@ fun main() = invokeLater {
                 CharacterValidationErrorAlert(hasAlert, validationErrors)
             }
             CharacterModuleView(characterState)
-        }
-    }
-}
-
-private fun importCharactersScript(
-    file: MutableState<File>,
-    validationErrors: SnapshotStateList<ValidationError>,
-    hasAlert: MutableState<Boolean>,
-    characterState: SnapshotStateList<Character>
-) {
-    val scriptValidator = ScriptValidatorFactory.createScriptValidator()
-    val isScriptValid = scriptValidator.validate(file.value, "Character")
-    if (!isScriptValid) {
-        LOG().error("Script to be imported is invalid")
-        hasAlert.value = true
-    } else {
-        val characterScriptReader = CharacterScriptReader()
-        val character = characterScriptReader.readCharacterScript(file.value.absoluteFile)
-        character?.let {
-            if ((characterState.indexOf(it) == -1)) {
-                characterState.add(it)
-            } else {
-                LOG().info("Character $it already exists")
-            }
         }
     }
 }
