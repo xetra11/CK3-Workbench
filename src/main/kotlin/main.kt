@@ -28,7 +28,6 @@ import com.github.xetra11.ck3workbench.ScriptValidator.ValidationError
 import com.github.xetra11.ck3workbench.module.character.Character
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptReader
-import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptValidator
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptValidatorFactory
 import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
 import org.slf4j.Logger
