@@ -1,11 +1,10 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
-import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 
 /**
- * The grammar parser takes a grammar definition and a list of [ScriptTokenizer.Token]
- * and searches in that for a match. The match is returned as a subset of [ScriptTokenizer.Token]
+ * The grammar parser takes a grammar definition and a list of [Token]
+ * and searches in that for a match. The match is returned as a subset of [Token]
  *
  * @author Patrick C. Höfer aka "xetra11"
  */
@@ -86,6 +85,11 @@ open class GrammarValidator {
     data class GrammarValidation(
         val hasError: Boolean = false,
         val errorReason: String = ""
+    )
+
+    data class Token(
+        val value: String,
+        val type: GrammarValidator.TokenType
     )
 
     companion object {
