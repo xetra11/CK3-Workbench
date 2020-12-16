@@ -1,10 +1,21 @@
 import androidx.compose.desktop.AppManager
 import androidx.compose.desktop.AppWindow
+import androidx.compose.desktop.WindowEvents
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.preferredWidth
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Colors
@@ -19,6 +30,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Menu
@@ -41,6 +53,7 @@ fun main() = invokeLater {
     lateinit var window: AppWindow
     val hasAlert = mutableStateOf(false)
     val validationErrors = mutableStateListOf<ValidationError>()
+    val windowSize = mutableStateOf(IntSize.Zero)
 
     val characterState: SnapshotStateList<Character> =
         mutableStateListOf(
@@ -50,7 +63,7 @@ fun main() = invokeLater {
         )
 
     window = AppWindow(
-        title = "CK3 Mod Workbench",
+        title = "CK3 Mod Workbench v0.0.1-a",
         menuBar = MenuBar(
             Menu("File", MenuItem("Exit", onClick = { AppManager.exit() })),
             Menu(
@@ -60,8 +73,7 @@ fun main() = invokeLater {
                     onClick = {
                         val file = openScriptFile(window)
                         val characterScriptImporter = CharacterScriptImporter()
-                        characterScriptImporter
-                            .importCharactersScript(file, hasAlert, characterState)
+                        characterScriptImporter.importCharactersScript(file, hasAlert, characterState)
                     }
                 ),
                 MenuItem("Dynasties", onClick = {})
@@ -70,6 +82,9 @@ fun main() = invokeLater {
     )
 
     window.show {
+        window.events.onResize = {
+            windowSize.value = it
+        }
         MaterialTheme(
             colors = workbenchLightColors(),
             shapes = workBenchShapes()
@@ -77,9 +92,25 @@ fun main() = invokeLater {
             if (hasAlert.value) {
                 CharacterValidationErrorAlert(hasAlert, validationErrors)
             }
-            CharacterModuleView(characterState)
+            Row(modifier = Modifier.fillMaxSize()) {
+                val widthBlack = percWindowWidth(windowSize.value.width, 20)
+                Box(Modifier.border(5.dp, Color.Black).preferredWidth(widthBlack.dp).fillMaxHeight()) {
+
+                }
+                Box(Modifier.border(5.dp, Color.Red).fillMaxSize()) {
+                    CharacterModuleView(characterState)
+                }
+            }
         }
     }
+}
+
+private fun percWindowWidth(width: Int, percentage: Int): Int {
+    return width.div(100).times(percentage)
+}
+
+private fun percWindowHeight(height: Int, percentage: Int): Int {
+    return height.div(100).times(percentage)
 }
 
 private fun openScriptFile(window: AppWindow): MutableState<File> {

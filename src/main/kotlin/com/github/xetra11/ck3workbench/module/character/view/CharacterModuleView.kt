@@ -18,15 +18,8 @@ import org.slf4j.LoggerFactory
 fun CharacterModuleView(
     characterState: SnapshotStateList<Character>
 ) {
-
-    Column(
-        modifier = Modifier
-            .border(2.dp, Color.Black)
-            .fillMaxWidth()
-    ) {
-        Row {
-            CharacterList(characterState)
-        }
+    Row {
+        CharacterList(characterState)
     }
 }
 

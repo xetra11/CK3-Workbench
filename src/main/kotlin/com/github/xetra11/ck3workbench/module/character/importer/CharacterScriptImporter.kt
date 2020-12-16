@@ -16,8 +16,7 @@ class CharacterScriptImporter {
         characterState: SnapshotStateList<Character>
     ) {
         val scriptValidator = ScriptValidatorFactory.createScriptValidator()
-        val isScriptValid = scriptValidator.validate(file.value, "Character")
-        if (!isScriptValid) {
+        if (!scriptValidator.validate(file.value, "Character")) {
             LOG.error("Script to be imported is invalid")
             hasAlert.value = true
         } else {
