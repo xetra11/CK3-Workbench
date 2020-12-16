@@ -7,7 +7,7 @@ import java.io.File
 
 internal class GrammarIntegrationTest {
     private val grammarParser: GrammarParser = GrammarParser()
-    private val grammarMatcher: GrammarMatcher = GrammarMatcher()
+    private val grammarValidator: GrammarValidator = GrammarValidator()
 
     @Test
     fun `should parse grammar file and match given character script that contains sub object`() {
@@ -17,7 +17,7 @@ internal class GrammarIntegrationTest {
         val grammarDefinitionContent = grammarFile.readText(Charsets.UTF_8)
         val parsedGrammar = grammarParser.process(grammarDefinitionContent)
 
-        val actual = grammarMatcher.rule(parsedGrammar, scriptFile.readLines())
+        val actual = grammarValidator.rule(parsedGrammar, scriptFile.readLines())
 
         assertThat(actual.hasError).isFalse
         assertThat(actual.errorReason).isEqualTo("")
@@ -31,7 +31,7 @@ internal class GrammarIntegrationTest {
         val grammarDefinitionContent = grammarFile.readText()
         val parsedGrammar = grammarParser.process(grammarDefinitionContent)
 
-        val actual = grammarMatcher.rule(parsedGrammar, scriptFile.readLines())
+        val actual = grammarValidator.rule(parsedGrammar, scriptFile.readLines())
 
         assertThat(actual.hasError).isFalse
         assertThat(actual.errorReason).isEqualTo("")
@@ -46,7 +46,7 @@ internal class GrammarIntegrationTest {
         val grammarDefinitionContent = grammarFile.readText()
         val parsedGrammar = grammarParser.process(grammarDefinitionContent)
 
-        val actual = grammarMatcher.rule(parsedGrammar, scriptFile.readLines())
+        val actual = grammarValidator.rule(parsedGrammar, scriptFile.readLines())
 
         assertThat(actual.hasError).isTrue
     }
@@ -59,7 +59,7 @@ internal class GrammarIntegrationTest {
         val grammarDefinitionContent = grammarFile.readText()
         val parsedGrammar = grammarParser.process(grammarDefinitionContent)
 
-        val actual = grammarMatcher.rule(parsedGrammar, scriptFile.readLines())
+        val actual = grammarValidator.rule(parsedGrammar, scriptFile.readLines())
 
         assertThat(actual.hasError).isTrue
     }

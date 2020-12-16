@@ -9,7 +9,7 @@ import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.Gramm
  *
  * @author Patrick C. Höfer aka "xetra11"
  */
-open class GrammarMatcher {
+open class GrammarValidator {
     private val tokenRegexMapping: Map<TokenDefinition, Regex> = mapOf(
         TokenType.OBJECT_ID to Regex("(.(\\w+\\.)*\\w*)"),
         TokenType.ASSIGNMENT to Regex("^="),

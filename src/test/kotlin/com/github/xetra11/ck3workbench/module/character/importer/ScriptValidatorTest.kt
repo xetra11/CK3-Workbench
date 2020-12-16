@@ -1,10 +1,10 @@
 package com.github.xetra11.ck3workbench.module.character.importer
 
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.MatcherResult
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ASSIGNMENT
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.BLOCK_START
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.OBJECT_ID
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.MatcherResult
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.ASSIGNMENT
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.BLOCK_START
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.OBJECT_ID
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 import com.nhaarman.mockitokotlin2.given
@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test
 import java.io.File
 
 internal class ScriptValidatorTest {
-    private val mockedGrammarMatcher: GrammarMatcher = mock()
+    private val mockedGrammarValidator: GrammarValidator = mock()
     private val mockedGrammarParser: GrammarParser = mock()
 
-    private val scriptValidator: ScriptValidator = ScriptValidator(mockedGrammarMatcher, mockedGrammarParser)
+    private val scriptValidator: ScriptValidator = ScriptValidator(mockedGrammarValidator, mockedGrammarParser)
 
     @Test
     fun `should return character script as valid`() {
@@ -27,7 +27,7 @@ internal class ScriptValidatorTest {
         val expectedResult = MatcherResult("", hasError = false, "")
 
         given(mockedGrammarParser.process(grammarDefinitionFile.readText())).willReturn(expectedGrammar)
-        given(mockedGrammarMatcher.rule(expectedGrammar, characterScript.readLines())).willReturn(expectedResult)
+        given(mockedGrammarValidator.rule(expectedGrammar, characterScript.readLines())).willReturn(expectedResult)
 
         val actual: Boolean = scriptValidator.validate(characterScript, "Character")
 
@@ -42,7 +42,7 @@ internal class ScriptValidatorTest {
         val expectedResult = MatcherResult("", hasError = false, "")
 
         given(mockedGrammarParser.process(grammarDefinitionFile.readText())).willReturn(expectedGrammar)
-        given(mockedGrammarMatcher.rule(expectedGrammar, characterScript.readLines())).willReturn(expectedResult)
+        given(mockedGrammarValidator.rule(expectedGrammar, characterScript.readLines())).willReturn(expectedResult)
 
         val actual: Boolean = scriptValidator.validate(characterScript, "WrongType")
 

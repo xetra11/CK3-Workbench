@@ -1,8 +1,8 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.OptionalTokenType
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenDefinition
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.OptionalTokenType
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenDefinition
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarNester.NestedGrammar
 
 /**

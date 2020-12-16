@@ -3,7 +3,7 @@ package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizer.Token
 import com.github.xetra11.ck3workbench.module.character.importer.ScriptTokenizerError
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.Disabled

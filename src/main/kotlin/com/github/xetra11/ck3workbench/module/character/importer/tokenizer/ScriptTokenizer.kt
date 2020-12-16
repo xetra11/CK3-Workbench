@@ -1,6 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.importer
 
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -20,7 +20,7 @@ class ScriptTokenizer {
             .split(" ")
             .filterNot { it.isBlank() }
             .map { it.replace("\n", "") }
-            .map { Token(it, GrammarMatcher.TokenType.UNTYPED) }
+            .map { Token(it, GrammarValidator.TokenType.UNTYPED) }
 
         return resolveSymbols(preparedToken.toMutableList()) { withSymbols ->
             resolveIdentifier(withSymbols) { withIdentifiers ->
@@ -37,10 +37,10 @@ class ScriptTokenizer {
     ): MutableList<Token> {
         val processed = preparedToken.map { token ->
             val type = when (token.value) {
-                "{" -> GrammarMatcher.TokenType.BLOCK_START
-                "}" -> GrammarMatcher.TokenType.BLOCK_END
-                "=" -> GrammarMatcher.TokenType.ASSIGNMENT
-                else -> GrammarMatcher.TokenType.UNTYPED
+                "{" -> GrammarValidator.TokenType.BLOCK_START
+                "}" -> GrammarValidator.TokenType.BLOCK_END
+                "=" -> GrammarValidator.TokenType.ASSIGNMENT
+                else -> GrammarValidator.TokenType.UNTYPED
             }
             Token(token.value, type)
         }.toMutableList()
@@ -52,7 +52,7 @@ class ScriptTokenizer {
         preparedToken: MutableList<Token>,
         nextProcessor: (preparedToken: MutableList<Token>) -> MutableList<Token>
     ): MutableList<Token> {
-        val indexOfAssignmentOperation = preparedToken.indexOfFirst { it.type == GrammarMatcher.TokenType.ASSIGNMENT }
+        val indexOfAssignmentOperation = preparedToken.indexOfFirst { it.type == GrammarValidator.TokenType.ASSIGNMENT }
 
         if (indexOfAssignmentOperation <= 0) {
             val message = "Assignment operation can not exist without left side value"
@@ -66,17 +66,17 @@ class ScriptTokenizer {
         val leftAssignmentToken = preparedToken[indexOfAssignmentOperation - 1]
         val rightAssignmentToken = preparedToken[indexOfAssignmentOperation + 1]
 
-        if (leftAssignmentToken.type == GrammarMatcher.TokenType.UNTYPED) {
+        if (leftAssignmentToken.type == GrammarValidator.TokenType.UNTYPED) {
             preparedToken[indexOfAssignmentOperation - 1] = Token(
                 leftAssignmentToken.value,
-                GrammarMatcher.TokenType.OBJECT_ID
+                GrammarValidator.TokenType.OBJECT_ID
             )
         }
 
-        if (rightAssignmentToken.type == GrammarMatcher.TokenType.UNTYPED) {
+        if (rightAssignmentToken.type == GrammarValidator.TokenType.UNTYPED) {
             preparedToken[indexOfAssignmentOperation + 1] = Token(
                 rightAssignmentToken.value,
-                GrammarMatcher.TokenType.ATTRIBUTE_VALUE
+                GrammarValidator.TokenType.ATTRIBUTE_VALUE
             )
         }
 
@@ -94,22 +94,22 @@ class ScriptTokenizer {
         preparedToken: MutableList<Token>,
         nextProcessor: (preparedToken: MutableList<Token>) -> MutableList<Token>
     ): MutableList<Token> {
-        val sectionBlockStart = preparedToken.indexOfFirst { it.type == GrammarMatcher.TokenType.BLOCK_START }
-        val sectionBlockEnd = preparedToken.indexOfFirst { it.type == GrammarMatcher.TokenType.BLOCK_END }
+        val sectionBlockStart = preparedToken.indexOfFirst { it.type == GrammarValidator.TokenType.BLOCK_START }
+        val sectionBlockEnd = preparedToken.indexOfFirst { it.type == GrammarValidator.TokenType.BLOCK_END }
 
         // check for assignment operations within the section
         val assignmentIndices = mutableListOf<Int>()
         (sectionBlockStart..sectionBlockEnd).forEach { index ->
             val (value, type) = preparedToken[index]
-            if (type == GrammarMatcher.TokenType.ASSIGNMENT) {
+            if (type == GrammarValidator.TokenType.ASSIGNMENT) {
                 assignmentIndices.add(index)
             }
         }
 
         assignmentIndices.forEach { indexOfAssignment ->
             val token = preparedToken[indexOfAssignment - 1]
-            if (token.type == GrammarMatcher.TokenType.UNTYPED) {
-                preparedToken[indexOfAssignment - 1] = Token(token.value, GrammarMatcher.TokenType.ATTRIBUTE_ID)
+            if (token.type == GrammarValidator.TokenType.UNTYPED) {
+                preparedToken[indexOfAssignment - 1] = Token(token.value, GrammarValidator.TokenType.ATTRIBUTE_ID)
             }
         }
         return nextProcessor(preparedToken)
@@ -123,22 +123,22 @@ class ScriptTokenizer {
     *
     */
     private fun resolveAttributeValue(preparedToken: MutableList<Token>): MutableList<Token> {
-        val sectionBlockStart = preparedToken.indexOfFirst { it.type == GrammarMatcher.TokenType.BLOCK_START }
-        val sectionBlockEnd = preparedToken.indexOfFirst { it.type == GrammarMatcher.TokenType.BLOCK_END }
+        val sectionBlockStart = preparedToken.indexOfFirst { it.type == GrammarValidator.TokenType.BLOCK_START }
+        val sectionBlockEnd = preparedToken.indexOfFirst { it.type == GrammarValidator.TokenType.BLOCK_END }
 
         // check for assignment operations within the section
         val assignmentIndices = mutableListOf<Int>()
         (sectionBlockStart..sectionBlockEnd).forEach { index ->
             val (value, type) = preparedToken[index]
-            if (type == GrammarMatcher.TokenType.ASSIGNMENT) {
+            if (type == GrammarValidator.TokenType.ASSIGNMENT) {
                 assignmentIndices.add(index)
             }
         }
 
         assignmentIndices.forEach { indexOfAssignment ->
             val token = preparedToken[indexOfAssignment + 1]
-            if (token.type == GrammarMatcher.TokenType.UNTYPED) {
-                preparedToken[indexOfAssignment + 1] = Token(token.value, GrammarMatcher.TokenType.ATTRIBUTE_VALUE)
+            if (token.type == GrammarValidator.TokenType.UNTYPED) {
+                preparedToken[indexOfAssignment + 1] = Token(token.value, GrammarValidator.TokenType.ATTRIBUTE_VALUE)
             }
         }
 
@@ -147,7 +147,7 @@ class ScriptTokenizer {
 
     data class Token(
         val value: String,
-        val type: GrammarMatcher.TokenType
+        val type: GrammarValidator.TokenType
     )
 
     companion object {

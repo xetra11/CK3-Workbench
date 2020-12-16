@@ -1,6 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.importer
 
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -12,7 +12,7 @@ import java.io.File
  * @author Patrick C. Höfer
  */
 class ScriptValidator(
-    private val grammarMatcher: GrammarMatcher,
+    private val grammarValidator: GrammarValidator,
     private val grammarParser: GrammarParser
 ) {
     fun validate(script: File, type: String): Boolean {
@@ -24,7 +24,7 @@ class ScriptValidator(
             return false
         }
         return grammars.all { grammar ->
-            !grammarMatcher.rule(grammar, script.readLines()).hasError
+            !grammarValidator.rule(grammar, script.readLines()).hasError
         }
     }
 

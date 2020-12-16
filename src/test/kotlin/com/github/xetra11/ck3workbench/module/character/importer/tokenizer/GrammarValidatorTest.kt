@@ -1,18 +1,18 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.OptionalTokenType
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ASSIGNMENT
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ATTRIBUTE_ID
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.ATTRIBUTE_VALUE
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.BLOCK_END
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.BLOCK_START
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarMatcher.TokenType.OBJECT_ID
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.OptionalTokenType
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.ASSIGNMENT
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.ATTRIBUTE_ID
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.ATTRIBUTE_VALUE
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.BLOCK_END
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.BLOCK_START
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.OBJECT_ID
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class GrammarMatcherTest {
-    private val grammarMatcher: GrammarMatcher = GrammarMatcher()
+internal class GrammarValidatorTest {
+    private val grammarValidator: GrammarValidator = GrammarValidator()
 
     @Test
     fun `should return matched grammar for different order position`() {
@@ -29,7 +29,7 @@ internal class GrammarMatcherTest {
             )
         )
 
-        val actual = grammarMatcher.rule(grammar, SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.split("\n"))
+        val actual = grammarValidator.rule(grammar, SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.split("\n"))
 
         assertThat(actual.hasError).isFalse
     }
@@ -46,7 +46,7 @@ internal class GrammarMatcherTest {
             )
         )
 
-        val actual = grammarMatcher.rule(grammar, SCRIPT_WITH_OPTIONAL_EXCLUSIVE.split("\n"))
+        val actual = grammarValidator.rule(grammar, SCRIPT_WITH_OPTIONAL_EXCLUSIVE.split("\n"))
         assertThat(actual.hasError).isFalse
     }
 
@@ -62,7 +62,7 @@ internal class GrammarMatcherTest {
             )
         )
 
-        val actual = grammarMatcher.rule(grammar, SCRIPT_WITH_OPTIONAL_INCLUSIVE.split("\n"))
+        val actual = grammarValidator.rule(grammar, SCRIPT_WITH_OPTIONAL_INCLUSIVE.split("\n"))
         assertThat(actual.hasError).isFalse
     }
 
@@ -80,7 +80,7 @@ internal class GrammarMatcherTest {
                 BLOCK_END // }
             )
         )
-        val actual = grammarMatcher.rule(grammar, SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.split("\n"))
+        val actual = grammarValidator.rule(grammar, SCRIPT_FULL_EXAMPLE_WITH_SUBOBJECT.split("\n"))
         assertThat(actual.hasError).isFalse
     }
 
@@ -109,7 +109,7 @@ internal class GrammarMatcherTest {
                 BLOCK_END
             )
         )
-        val actual = grammarMatcher.rule(grammar, SCRIPT_FULL_EXAMPLE.split("\n"))
+        val actual = grammarValidator.rule(grammar, SCRIPT_FULL_EXAMPLE.split("\n"))
         assertThat(actual.hasError).isFalse
     }
 
@@ -125,7 +125,7 @@ internal class GrammarMatcherTest {
                 BLOCK_END
             )
         )
-        val actual = grammarMatcher.rule(grammar, SCRIPT_EXAMPLE_2.split("\n"))
+        val actual = grammarValidator.rule(grammar, SCRIPT_EXAMPLE_2.split("\n"))
         assertThat(actual.hasError).isFalse
     }
 
@@ -135,7 +135,7 @@ internal class GrammarMatcherTest {
             "SCRIPT",
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START, ATTRIBUTE_ID, ASSIGNMENT, ATTRIBUTE_VALUE, BLOCK_END)
         )
-        val actual = grammarMatcher.rule(grammar, SCRIPT_EXAMPLE_1.split("\n"))
+        val actual = grammarValidator.rule(grammar, SCRIPT_EXAMPLE_1.split("\n"))
         assertThat(actual.hasError).isFalse
     }
 
@@ -145,7 +145,7 @@ internal class GrammarMatcherTest {
             "TEST",
             listOf(OBJECT_ID)
         )
-        val actual = grammarMatcher.rule(grammar, TEST_1.split("\n"))
+        val actual = grammarValidator.rule(grammar, TEST_1.split("\n"))
         assertThat(actual.hasError).isFalse
     }
 
@@ -155,7 +155,7 @@ internal class GrammarMatcherTest {
             "TEST",
             listOf(OBJECT_ID, ASSIGNMENT)
         )
-        val actual = grammarMatcher.rule(grammar, TEST_2.split("\n"))
+        val actual = grammarValidator.rule(grammar, TEST_2.split("\n"))
         assertThat(actual.hasError).isFalse
     }
 
@@ -165,7 +165,7 @@ internal class GrammarMatcherTest {
             "TEST",
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START)
         )
-        val actual = grammarMatcher.rule(grammar, TEST_3.split("\n"))
+        val actual = grammarValidator.rule(grammar, TEST_3.split("\n"))
         assertThat(actual.hasError).isFalse
     }
 
@@ -175,7 +175,7 @@ internal class GrammarMatcherTest {
             "TEST",
             listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START)
         )
-        val actual = grammarMatcher.rule(grammar, INVALID_1.split("\n"))
+        val actual = grammarValidator.rule(grammar, INVALID_1.split("\n"))
         assertThat(actual.hasError).isTrue
     }
 
@@ -185,7 +185,7 @@ internal class GrammarMatcherTest {
             "SCRIPT",
             listOf()
         )
-        val actual = grammarMatcher.rule(grammar, SCRIPT_EXAMPLE_1.split("\n"))
+        val actual = grammarValidator.rule(grammar, SCRIPT_EXAMPLE_1.split("\n"))
         assertThat(actual.hasError).isTrue
     }
 
