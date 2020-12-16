@@ -12,7 +12,6 @@ import java.io.File
 class CharacterScriptImporter {
     fun importCharactersScript(
         file: MutableState<File>,
-        validationErrors: SnapshotStateList<ScriptValidator.ValidationError>,
         hasAlert: MutableState<Boolean>,
         characterState: SnapshotStateList<Character>
     ) {
@@ -25,10 +24,10 @@ class CharacterScriptImporter {
             val characterScriptReader = CharacterScriptReader()
             val character = characterScriptReader.readCharacterScript(file.value.absoluteFile)
             character?.let {
-                if ((characterState.indexOf(it) == -1)) {
-                    characterState.add(it)
+                if (characterState.contains(it)) {
+                    LOG.info("""Character with name "${it.name}" already exists""")
                 } else {
-                    LOG.info("Character $it already exists")
+                    characterState.add(it)
                 }
             }
         }

@@ -61,7 +61,7 @@ fun main() = invokeLater {
                         val file = openScriptFile(window)
                         val characterScriptImporter = CharacterScriptImporter()
                         characterScriptImporter
-                            .importCharactersScript(file, validationErrors, hasAlert, characterState)
+                            .importCharactersScript(file, hasAlert, characterState)
                     }
                 ),
                 MenuItem("Dynasties", onClick = {})
