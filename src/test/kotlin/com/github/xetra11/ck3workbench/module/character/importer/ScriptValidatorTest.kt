@@ -1,7 +1,7 @@
 package com.github.xetra11.ck3workbench.module.character.importer
 
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.MatcherResult
+import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.GrammarValidation
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.ASSIGNMENT
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.BLOCK_START
 import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType.OBJECT_ID
@@ -24,7 +24,7 @@ internal class ScriptValidatorTest {
         val characterScript = File("src/test/resources/fixtures/character/test_character_simple.txt")
         val grammarDefinitionFile = File("grammars/character_grammar.grm")
         val expectedGrammar = Grammar("Character", listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START))
-        val expectedResult = MatcherResult("", hasError = false, "")
+        val expectedResult = GrammarValidation(hasError = false, "")
 
         given(mockedGrammarParser.process(grammarDefinitionFile.readText())).willReturn(expectedGrammar)
         given(mockedGrammarValidator.rule(expectedGrammar, characterScript.readLines())).willReturn(expectedResult)
@@ -39,7 +39,7 @@ internal class ScriptValidatorTest {
         val characterScript = File("src/test/resources/fixtures/character/test_character_simple.txt")
         val grammarDefinitionFile = File("grammars/character_grammar.grm")
         val expectedGrammar = Grammar("Character", listOf(OBJECT_ID, ASSIGNMENT, BLOCK_START))
-        val expectedResult = MatcherResult("", hasError = false, "")
+        val expectedResult = GrammarValidation(hasError = false, "")
 
         given(mockedGrammarParser.process(grammarDefinitionFile.readText())).willReturn(expectedGrammar)
         given(mockedGrammarValidator.rule(expectedGrammar, characterScript.readLines())).willReturn(expectedResult)

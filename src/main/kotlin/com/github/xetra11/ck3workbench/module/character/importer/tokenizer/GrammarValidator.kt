@@ -26,9 +26,9 @@ open class GrammarValidator {
         OptionalTokenType.BLOCK_END to Regex("^}")
     )
 
-    open fun rule(grammar: Grammar, scriptLines: List<String>): MatcherResult {
+    open fun rule(grammar: Grammar, scriptLines: List<String>): GrammarValidation {
         return if (grammar.tokenDefinition.isEmpty()) {
-            MatcherResult("", hasError = true, errorReason = "Grammar was undefined")
+            GrammarValidation(hasError = true, errorReason = "Grammar was undefined")
         } else {
             val formattedLines = scriptLines.prepareScriptString()
             val nestedGrammar = nestGrammar(grammar)
@@ -59,11 +59,11 @@ open class GrammarValidator {
                 }
             }
             if (!scriptValid) {
-                MatcherResult("", true, "Some token are not matching the given grammar")
+                GrammarValidation(true, "Some token are not matching the given grammar")
             } else if (mandatoryTokenToFulfill > 0) {
-                MatcherResult("", true, "Not all mandatory token were matched. $mandatoryTokenToFulfill were left out")
+                GrammarValidation(true, "Not all mandatory token were matched. $mandatoryTokenToFulfill were left out")
             } else {
-                MatcherResult("")
+                GrammarValidation()
             }
         }
     }
@@ -83,8 +83,7 @@ open class GrammarValidator {
             .toMutableList()
     }
 
-    data class MatcherResult(
-        val match: String,
+    data class GrammarValidation(
         val hasError: Boolean = false,
         val errorReason: String = ""
     )
