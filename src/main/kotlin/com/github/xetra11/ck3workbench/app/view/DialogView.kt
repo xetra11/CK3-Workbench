@@ -1,0 +1,17 @@
+package com.github.xetra11.ck3workbench.app.view
+
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.window.Dialog
+import com.github.xetra11.ck3workbench.app.DialogManager
+
+@Composable
+fun DialogView() {
+    if (DialogManager.currentDialog.value == DialogManager.Dialog.CREATE_CHARACTER) {
+        Dialog(onDismissRequest = {
+            DialogManager.currentDialog.value = DialogManager.Dialog.NO_DIALOG
+        }){
+            Text("Create New Character")
+        }
+    }
+}

@@ -21,6 +21,7 @@ import com.github.xetra11.ck3workbench.app.DialogManager
 import com.github.xetra11.ck3workbench.app.DialogManager.Dialog.*
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
+import com.github.xetra11.ck3workbench.app.view.DialogView
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
 import com.github.xetra11.ck3workbench.module.character.view.CurrentView
 import org.slf4j.Logger
@@ -67,15 +68,7 @@ fun main() = invokeLater {
             colors = workbenchLightColors(),
             shapes = workBenchShapes()
         ) {
-
-            if (DialogManager.currentDialog.value == CREATE_CHARACTER) {
-                Dialog(onDismissRequest = {
-                    DialogManager.currentDialog.value = NO_DIALOG
-                }){
-                    Text("Create New Character")
-                }
-            }
-
+            DialogView() // is only rendered when dialog is toggled true
             Column(Modifier.fillMaxSize()) {
                 MainUiComponents.MainLayoutRow { CurrentView() }
                 MainUiComponents.NotificationPanelRow { NotificationPanel() }
