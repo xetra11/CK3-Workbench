@@ -23,6 +23,7 @@ fun WorkbenchPanel() {
     val squareImage = imageResource("$panzerImagesPath/BG_Square_Brown.png")
     val crownImage = imageResource("$panzerImagesPath/Piece_Crown_Rusty.png")
     val bloodImage = imageResource("$panzerImagesPath/Piece_Blood.png")
+    val plusIconImage = imageResource("icons/plus.png")
 
     Column(Modifier.fillMaxHeight(0.8F), verticalArrangement = Arrangement.SpaceBetween) {
         Box(
@@ -33,7 +34,15 @@ fun WorkbenchPanel() {
             Image(crownImage, modifier = Modifier.fillMaxSize(0.7F))
         }
         Box(
-            boxModifier.clickable(onClick = { ViewManager.currentView.value = ViewManager.View.OTHER_VIEW }),
+            boxModifier.clickable(onClick = { ViewManager.currentView.value = ViewManager.View.CHARACTER_CREATE_VIEW }),
+            contentAlignment = Alignment.Companion.Center,
+        ) {
+            Image(squareImage)
+            Image(crownImage, modifier = Modifier.fillMaxSize(0.7F))
+            Image(plusIconImage, modifier = Modifier.fillMaxSize(0.4F).align(Alignment.BottomEnd))
+        }
+        Box(
+            boxModifier.clickable(onClick = { ViewManager.currentView.value = ViewManager.View.DYNASTY_VIEW }),
             contentAlignment = Alignment.Companion.Center,
         ) {
             Image(squareImage)
