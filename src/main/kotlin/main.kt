@@ -1,19 +1,16 @@
 import androidx.compose.desktop.AppManager
 import androidx.compose.desktop.AppWindow
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
-import androidx.compose.material.Text
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
@@ -24,11 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
-import com.github.xetra11.ck3workbench.module.character.app.NotificationsService
-import com.github.xetra11.ck3workbench.module.character.app.NotificationsService.NotificationType.ERROR
-import com.github.xetra11.ck3workbench.module.character.app.NotificationsService.NotificationType.NOTIFICATION
-import com.github.xetra11.ck3workbench.module.character.app.NotificationsService.NotificationType.WARNING
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
+import com.github.xetra11.ck3workbench.module.character.ui.MainComponents
 import com.github.xetra11.ck3workbench.module.character.ui.NotificationPanel
 import com.github.xetra11.ck3workbench.module.character.ui.WorkbenchFunctions
 import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
@@ -85,7 +79,9 @@ fun main() = invokeLater {
                         CharacterModuleView()
                     }
                 }
-                NotificationPanel()
+                MainComponents.NotificationPanelRow {
+                    NotificationPanel()
+                }
             }
         }
     }
