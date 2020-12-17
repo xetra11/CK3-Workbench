@@ -87,14 +87,6 @@ fun main() = invokeLater {
     }
 }
 
-private fun percWindowWidth(width: Int, percentage: Int): Int {
-    return width.div(100).times(percentage)
-}
-
-private fun percWindowHeight(height: Int, percentage: Int): Int {
-    return height.div(100).times(percentage)
-}
-
 private fun openScriptFile(window: AppWindow): MutableState<File> {
     val file = mutableStateOf(File(""))
 
