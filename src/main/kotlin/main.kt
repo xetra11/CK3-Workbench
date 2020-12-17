@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Colors
@@ -16,9 +15,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
 import androidx.compose.material.Text
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,8 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
-import com.github.xetra11.ck3workbench.module.character.Character
-import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import com.github.xetra11.ck3workbench.module.character.app.NotificationsService
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
 import com.github.xetra11.ck3workbench.module.character.ui.WorkbenchFunctions
@@ -43,13 +38,6 @@ fun main() = invokeLater {
     lateinit var window: AppWindow
     val hasAlert = mutableStateOf(false)
     val windowSize = mutableStateOf(IntSize.Zero)
-
-    val characterState: SnapshotStateList<Character> =
-        mutableStateListOf(
-            CharacterTemplate.DEFAULT_CHARACTER,
-            CharacterTemplate.DEFAULT_CHARACTER,
-            CharacterTemplate.DEFAULT_CHARACTER
-        )
 
     window = AppWindow(
         title = "CK3 Mod Workbench v0.0.1-a",
@@ -91,7 +79,7 @@ fun main() = invokeLater {
                         WorkbenchFunctions()
                     }
                     Box(Modifier.border(5.dp, Color.Red).fillMaxWidth()) {
-                        CharacterModuleView(characterState)
+                        CharacterModuleView()
                     }
                 }
                 Row(
