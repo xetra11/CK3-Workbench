@@ -16,6 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import com.github.xetra11.ck3workbench.app.NotificationsService
+import com.github.xetra11.ck3workbench.app.ViewManager
 
 @Composable
 fun WorkbenchPanel() {
@@ -27,7 +28,9 @@ fun WorkbenchPanel() {
     Column(Modifier.fillMaxHeight(0.8F), verticalArrangement = Arrangement.SpaceBetween) {
         Box(
             boxModifier.clickable(
-                onClick = { NotificationsService.notify("CLICK") }
+                onClick = {
+                    ViewManager.currentView.value = ViewManager.View.CHARACTER_VIEW
+                }
             ),
             contentAlignment = Alignment.Companion.Center,
         ) {
@@ -36,7 +39,9 @@ fun WorkbenchPanel() {
         }
         Box(boxModifier
             .clickable(
-                onClick = { NotificationsService.notify("CLICK 2") }
+                onClick = {
+                    ViewManager.currentView.value = ViewManager.View.OTHER_VIEW
+                }
             )
         ) {
             Image(squareImage)
