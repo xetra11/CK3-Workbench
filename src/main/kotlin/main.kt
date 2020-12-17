@@ -15,12 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
-import com.github.xetra11.ck3workbench.app.ViewManager
+import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
-import com.github.xetra11.ck3workbench.module.character.ui.NotificationPanel
-import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
-import com.github.xetra11.ck3workbench.module.character.view.DynastieModuleView
+import com.github.xetra11.ck3workbench.module.character.view.CurrentView
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.awt.FileDialog
@@ -55,24 +53,14 @@ fun main() = invokeLater {
     )
 
     window.show {
-        window.events.onResize = {
-            windowSize.value = it
-        }
+        window.events.onResize = { windowSize.value = it }
         MaterialTheme(
             colors = workbenchLightColors(),
             shapes = workBenchShapes()
         ) {
             Column(Modifier.fillMaxSize()) {
-                MainUiComponents.MainLayoutRow {
-                    //CharacterModuleView()
-                    when(ViewManager.currentView.value) {
-                        ViewManager.View.CHARACTER_VIEW -> CharacterModuleView()
-                        ViewManager.View.OTHER_VIEW -> DynastieModuleView()
-                    }
-                }
-                MainUiComponents.NotificationPanelRow {
-                    NotificationPanel()
-                }
+                MainUiComponents.MainLayoutRow { CurrentView() }
+                MainUiComponents.NotificationPanelRow { NotificationPanel() }
             }
         }
     }

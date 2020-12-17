@@ -1,6 +1,5 @@
-package com.github.xetra11.ck3workbench.module.character.ui
+package com.github.xetra11.ck3workbench.app.notifications
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +15,7 @@ import com.github.xetra11.ck3workbench.app.NotificationsService
 @Composable
 fun NotificationPanel() {
     Row(
-        Modifier.border(3.dp, Color.Yellow)
+        Modifier
             .fillMaxSize()
             .padding(end = 10.dp),
         horizontalArrangement = Arrangement.End,

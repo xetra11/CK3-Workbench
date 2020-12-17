@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.github.xetra11.ck3workbench.module.character.ui.WorkbenchPanel
 
 object MainUiComponents {
     @Composable
@@ -23,7 +22,7 @@ object MainUiComponents {
         content: @Composable RowScope.() -> Unit
     ) {
         Row(
-            Modifier.border(3.dp, Color.Yellow)
+            Modifier
                 .fillMaxSize()
                 .padding(end = 10.dp),
             horizontalArrangement = Arrangement.End,
@@ -31,18 +30,32 @@ object MainUiComponents {
             content = content
         )
     }
+
     @Composable
     fun MainLayoutRow(
         view: @Composable BoxScope.() -> Unit
     ) {
-        Row(modifier = Modifier.fillMaxWidth().fillMaxHeight(0.95F).border(3.dp, Color.Green)) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.975F)
+                .border(2.dp, Color.LightGray)
+        ) {
             Box(
-                Modifier.border(5.dp, Color.Black).fillMaxWidth(0.05F).fillMaxHeight(),
+                Modifier
+                    .border(2.dp, Color.LightGray)
+                    .fillMaxWidth(0.05F)
+                    .fillMaxHeight(),
                 contentAlignment = Alignment.Center
             ) {
                 WorkbenchPanel()
             }
-            Box(Modifier.border(5.dp, Color.Red).fillMaxWidth(), content = view)
+            Box(
+                Modifier
+                    .border(2.dp, Color.LightGray)
+                    .fillMaxWidth(),
+                content = view
+            )
         }
     }
 }
