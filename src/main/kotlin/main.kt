@@ -1,19 +1,13 @@
 import androidx.compose.desktop.AppManager
 import androidx.compose.desktop.AppWindow
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntSize
@@ -24,7 +18,6 @@ import androidx.compose.ui.window.MenuItem
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
 import com.github.xetra11.ck3workbench.module.character.ui.NotificationPanel
-import com.github.xetra11.ck3workbench.module.character.ui.WorkbenchFunctions
 import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -68,16 +61,8 @@ fun main() = invokeLater {
             shapes = workBenchShapes()
         ) {
             Column(Modifier.fillMaxSize()) {
-                Row(modifier = Modifier.fillMaxWidth().fillMaxHeight(0.95F).border(3.dp, Color.Green)) {
-                    Box(
-                        Modifier.border(5.dp, Color.Black).fillMaxWidth(0.2F).fillMaxHeight(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        WorkbenchFunctions()
-                    }
-                    Box(Modifier.border(5.dp, Color.Red).fillMaxWidth()) {
-                        CharacterModuleView()
-                    }
+                MainUiComponents.MainLayoutRow {
+                    CharacterModuleView()
                 }
                 MainUiComponents.NotificationPanelRow {
                     NotificationPanel()
