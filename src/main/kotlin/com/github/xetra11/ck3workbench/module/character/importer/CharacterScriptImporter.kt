@@ -23,6 +23,7 @@ class CharacterScriptImporter {
                 if (characterState.contains(it)) {
                     NotificationsService.error("""Character with name "${it.name}" already exists""")
                 } else {
+                    NotificationsService.notify("""New Character "${it.name}" added!""")
                     characterState.add(it)
                 }
             }
