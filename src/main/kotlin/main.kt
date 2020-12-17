@@ -6,15 +6,19 @@ import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
+import androidx.compose.material.Text
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
+import com.github.xetra11.ck3workbench.app.DialogManager
+import com.github.xetra11.ck3workbench.app.DialogManager.Dialog.*
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
@@ -27,7 +31,7 @@ import javax.swing.SwingUtilities.invokeLater
 
 fun main() = invokeLater {
     lateinit var window: AppWindow
-    val hasAlert = mutableStateOf(false)
+    val toggleDialog = mutableStateOf(false)
     val windowSize = mutableStateOf(IntSize.Zero)
 
     window = AppWindow(
@@ -40,24 +44,38 @@ fun main() = invokeLater {
             Menu(
                 "Characters",
                 MenuItem(
+                    "Create Character",
+                    onClick = { DialogManager.currentDialog.value = CREATE_CHARACTER }
+                ),
+                MenuItem(
                     "Import Characters",
                     onClick = {
                         val file = openScriptFile(window)
                         val characterScriptImporter = CharacterScriptImporter()
                         characterScriptImporter.importCharactersScript(file)
                     }
-                ),
-                MenuItem("Dynasties", onClick = {})
+                )
             ),
+            Menu( "Dynasties" )
         )
     )
 
     window.show {
         window.events.onResize = { windowSize.value = it }
+
         MaterialTheme(
             colors = workbenchLightColors(),
             shapes = workBenchShapes()
         ) {
+
+            if (DialogManager.currentDialog.value == CREATE_CHARACTER) {
+                Dialog(onDismissRequest = {
+                    DialogManager.currentDialog.value = NO_DIALOG
+                }){
+                    Text("Create New Character")
+                }
+            }
+
             Column(Modifier.fillMaxSize()) {
                 MainUiComponents.MainLayoutRow { CurrentView() }
                 MainUiComponents.NotificationPanelRow { NotificationPanel() }
