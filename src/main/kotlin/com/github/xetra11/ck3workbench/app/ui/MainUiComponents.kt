@@ -37,7 +37,7 @@ object MainUiComponents {
     ) {
         Row(modifier = Modifier.fillMaxWidth().fillMaxHeight(0.95F).border(3.dp, Color.Green)) {
             Box(
-                Modifier.border(5.dp, Color.Black).fillMaxWidth(0.2F).fillMaxHeight(),
+                Modifier.border(5.dp, Color.Black).fillMaxWidth(0.05F).fillMaxHeight(),
                 contentAlignment = Alignment.Center
             ) {
                 WorkbenchPanel()
