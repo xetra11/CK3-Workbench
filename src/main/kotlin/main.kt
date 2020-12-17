@@ -25,7 +25,11 @@ import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
 import com.github.xetra11.ck3workbench.module.character.app.NotificationsService
+import com.github.xetra11.ck3workbench.module.character.app.NotificationsService.NotificationType.ERROR
+import com.github.xetra11.ck3workbench.module.character.app.NotificationsService.NotificationType.NOTIFICATION
+import com.github.xetra11.ck3workbench.module.character.app.NotificationsService.NotificationType.WARNING
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
+import com.github.xetra11.ck3workbench.module.character.ui.NotificationPanel
 import com.github.xetra11.ck3workbench.module.character.ui.WorkbenchFunctions
 import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
 import org.slf4j.Logger
@@ -71,7 +75,6 @@ fun main() = invokeLater {
         ) {
             Column(Modifier.fillMaxSize()) {
                 Row(modifier = Modifier.fillMaxWidth().fillMaxHeight(0.95F).border(3.dp, Color.Green)) {
-                    val widthBlack = percWindowWidth(windowSize.value.width, 20)
                     Box(
                         Modifier.border(5.dp, Color.Black).fillMaxWidth(0.2F).fillMaxHeight(),
                         contentAlignment = Alignment.Center
@@ -82,15 +85,7 @@ fun main() = invokeLater {
                         CharacterModuleView()
                     }
                 }
-                Row(
-                    Modifier.border(3.dp, Color.Yellow)
-                        .fillMaxSize()
-                        .padding(end = 10.dp),
-                    horizontalArrangement = Arrangement.End,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(NotificationsService.latestMessage())
-                }
+                NotificationPanel()
             }
         }
     }

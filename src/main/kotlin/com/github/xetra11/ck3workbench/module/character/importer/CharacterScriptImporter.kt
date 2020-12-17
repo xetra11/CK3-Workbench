@@ -13,14 +13,14 @@ class CharacterScriptImporter {
     ) {
         val scriptValidator = ScriptValidatorFactory.createScriptValidator()
         if (!scriptValidator.validate(file.value, "Character")) {
-            NotificationsService.notify("""Script to be imported is invalid""")
+            NotificationsService.error("""Script to be imported is invalid""")
         } else {
             val characterScriptReader = CharacterScriptReader()
             val character = characterScriptReader.readCharacterScript(file.value.absoluteFile)
             val characterState = StateManager.characters
             character?.let {
                 if (characterState.contains(it)) {
-                    NotificationsService.notify("""Character with name "${it.name}" already exists""")
+                    NotificationsService.error("""Character with name "${it.name}" already exists""")
                 } else {
                     characterState.add(it)
                 }
