@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import com.github.xetra11.ck3workbench.app.ViewManager
 
 @Composable
-fun CurrentView() {
+fun CurrentMainView() {
     when (ViewManager.currentView.value) {
         ViewManager.View.CHARACTER_VIEW -> CharacterModuleView()
         ViewManager.View.OTHER_VIEW -> DynastieModuleView()

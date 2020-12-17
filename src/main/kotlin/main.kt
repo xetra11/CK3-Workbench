@@ -6,14 +6,12 @@ import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
-import androidx.compose.material.Text
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
@@ -23,7 +21,7 @@ import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
-import com.github.xetra11.ck3workbench.module.character.view.CurrentView
+import com.github.xetra11.ck3workbench.module.character.view.CurrentMainView
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.awt.FileDialog
@@ -70,7 +68,7 @@ fun main() = invokeLater {
         ) {
             DialogView() // is only rendered when dialog is toggled true
             Column(Modifier.fillMaxSize()) {
-                MainUiComponents.MainLayoutRow { CurrentView() }
+                MainUiComponents.MainLayoutRow { CurrentMainView() }
                 MainUiComponents.NotificationPanelRow { NotificationPanel() }
             }
         }

@@ -7,11 +7,17 @@ import com.github.xetra11.ck3workbench.app.DialogManager
 
 @Composable
 fun DialogView() {
-    if (DialogManager.currentDialog.value == DialogManager.Dialog.CREATE_CHARACTER) {
-        Dialog(onDismissRequest = {
-            DialogManager.currentDialog.value = DialogManager.Dialog.NO_DIALOG
-        }){
-            Text("Create New Character")
-        }
+    when (DialogManager.currentDialog.value) {
+        DialogManager.Dialog.CREATE_CHARACTER -> CreateCharacterDialog()
+        DialogManager.Dialog.NO_DIALOG -> {}
+    }
+}
+
+@Composable
+private fun CreateCharacterDialog(){
+    Dialog(onDismissRequest = {
+        DialogManager.currentDialog.value = DialogManager.Dialog.NO_DIALOG
+    }){
+        Text("Create New Character")
     }
 }
