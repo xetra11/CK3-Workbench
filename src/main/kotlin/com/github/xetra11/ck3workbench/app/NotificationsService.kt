@@ -1,4 +1,4 @@
-package com.github.xetra11.ck3workbench.module.character.app
+package com.github.xetra11.ck3workbench.app
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList

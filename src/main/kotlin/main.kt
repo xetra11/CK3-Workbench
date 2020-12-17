@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
+import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
-import com.github.xetra11.ck3workbench.module.character.ui.MainComponents
 import com.github.xetra11.ck3workbench.module.character.ui.NotificationPanel
 import com.github.xetra11.ck3workbench.module.character.ui.WorkbenchFunctions
 import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
@@ -79,7 +79,7 @@ fun main() = invokeLater {
                         CharacterModuleView()
                     }
                 }
-                MainComponents.NotificationPanelRow {
+                MainUiComponents.NotificationPanelRow {
                     NotificationPanel()
                 }
             }

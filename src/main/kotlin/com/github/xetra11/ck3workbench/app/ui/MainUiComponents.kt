@@ -1,4 +1,4 @@
-package com.github.xetra11.ck3workbench.module.character.ui
+package com.github.xetra11.ck3workbench.app.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-object MainComponents {
+object MainUiComponents {
     @Composable
     fun NotificationPanelRow(
         content: @Composable RowScope.() -> Unit

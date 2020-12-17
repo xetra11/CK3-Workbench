@@ -1,8 +1,9 @@
 package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
 
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.OptionalTokenType
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType
+import com.github.xetra11.ck3workbench.app.validation.grammar.GrammarParser
+import com.github.xetra11.ck3workbench.app.validation.grammar.GrammarParser.Grammar
+import com.github.xetra11.ck3workbench.app.validation.grammar.GrammarValidator.OptionalTokenType
+import com.github.xetra11.ck3workbench.app.validation.grammar.GrammarValidator.TokenType
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

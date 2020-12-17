@@ -1,4 +1,4 @@
-package com.github.xetra11.ck3workbench.styles
+package com.github.xetra11.ck3workbench.app.styles
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.InteractionState

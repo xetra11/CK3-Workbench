@@ -1,7 +1,7 @@
-package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
+package com.github.xetra11.ck3workbench.app.validation.grammar
 
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenDefinition
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator.TokenType
+import com.github.xetra11.ck3workbench.app.validation.grammar.GrammarValidator.TokenDefinition
+import com.github.xetra11.ck3workbench.app.validation.grammar.GrammarValidator.TokenType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 

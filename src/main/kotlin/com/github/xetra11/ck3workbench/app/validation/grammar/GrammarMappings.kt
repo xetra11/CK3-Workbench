@@ -1,4 +1,4 @@
-package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
+package com.github.xetra11.ck3workbench.app.validation.grammar
 
 object GrammarMappings {
     fun mapGrammar(token: String): GrammarValidator.TokenDefinition {

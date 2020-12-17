@@ -1,7 +1,7 @@
-package com.github.xetra11.ck3workbench.module.character.importer
+package com.github.xetra11.ck3workbench.app.validation
 
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarValidator
+import com.github.xetra11.ck3workbench.app.validation.grammar.GrammarParser
+import com.github.xetra11.ck3workbench.app.validation.grammar.GrammarValidator
 
 /**
  * Creates instances of [ScriptValidator]

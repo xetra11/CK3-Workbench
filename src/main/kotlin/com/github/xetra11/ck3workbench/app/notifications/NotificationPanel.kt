@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.github.xetra11.ck3workbench.module.character.app.NotificationsService
+import com.github.xetra11.ck3workbench.app.NotificationsService
 
 @Composable
 fun NotificationPanel() {

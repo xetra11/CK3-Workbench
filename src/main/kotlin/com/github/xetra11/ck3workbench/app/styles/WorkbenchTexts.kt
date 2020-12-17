@@ -1,4 +1,4 @@
-package com.github.xetra11.ck3workbench.styles
+package com.github.xetra11.ck3workbench.app.styles
 
 import androidx.compose.material.AmbientTextStyle
 import androidx.compose.material.ExperimentalMaterialApi

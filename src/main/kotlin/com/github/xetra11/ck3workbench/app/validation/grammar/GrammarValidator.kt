@@ -1,6 +1,6 @@
-package com.github.xetra11.ck3workbench.module.character.importer.tokenizer
+package com.github.xetra11.ck3workbench.app.validation.grammar
 
-import com.github.xetra11.ck3workbench.module.character.importer.tokenizer.GrammarParser.Grammar
+import com.github.xetra11.ck3workbench.app.validation.grammar.GrammarParser.Grammar
 
 /**
  * The grammar parser takes a grammar definition and a list of [Token]
@@ -89,7 +89,7 @@ open class GrammarValidator {
 
     data class Token(
         val value: String,
-        val type: GrammarValidator.TokenType
+        val type: TokenType
     )
 
     companion object {
