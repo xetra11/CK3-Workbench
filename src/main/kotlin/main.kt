@@ -51,7 +51,27 @@ fun main() = invokeLater {
             CharacterTemplate.DEFAULT_CHARACTER
         )
 
-    window = initializeAppWindow(window, characterState)
+    window = AppWindow(
+        title = "CK3 Mod Workbench v0.0.1-a",
+        menuBar = MenuBar(
+            Menu(
+                "File",
+                MenuItem("Exit", onClick = { AppManager.exit() })
+            ),
+            Menu(
+                "Characters",
+                MenuItem(
+                    "Import Characters",
+                    onClick = {
+                        val file = openScriptFile(window)
+                        val characterScriptImporter = CharacterScriptImporter()
+                        characterScriptImporter.importCharactersScript(file)
+                    }
+                ),
+                MenuItem("Dynasties", onClick = {})
+            ),
+        )
+    )
 
     window.show {
         window.events.onResize = {
@@ -87,31 +107,6 @@ fun main() = invokeLater {
         }
     }
 }
-
-private fun initializeAppWindow(
-    window: AppWindow,
-    characterState: SnapshotStateList<Character>
-) = AppWindow(
-    title = "CK3 Mod Workbench v0.0.1-a",
-    menuBar = MenuBar(
-        Menu(
-            "File",
-            MenuItem("Exit", onClick = { AppManager.exit() })
-        ),
-        Menu(
-            "Characters",
-            MenuItem(
-                "Import Characters",
-                onClick = {
-                    val file = openScriptFile(window)
-                    val characterScriptImporter = CharacterScriptImporter()
-                    characterScriptImporter.importCharactersScript(file, characterState)
-                }
-            ),
-            MenuItem("Dynasties", onClick = {})
-        ),
-    )
-)
 
 private fun percWindowWidth(width: Int, percentage: Int): Int {
     return width.div(100).times(percentage)
