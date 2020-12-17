@@ -7,10 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.preferredWidth
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Colors
@@ -35,6 +33,7 @@ import com.github.xetra11.ck3workbench.ScriptValidator.ValidationError
 import com.github.xetra11.ck3workbench.module.character.Character
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
+import com.github.xetra11.ck3workbench.module.character.ui.WorkbenchFunctions
 import com.github.xetra11.ck3workbench.module.character.view.CharacterModuleView
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -85,11 +84,13 @@ fun main() = invokeLater {
             if (hasAlert.value) {
                 CharacterValidationErrorAlert(hasAlert, validationErrors)
             }
-            Row(modifier = Modifier.fillMaxSize()) {
+            Row(modifier = Modifier.fillMaxWidth().fillMaxHeight(0.9F).border(3.dp, Color.Green)) {
                 val widthBlack = percWindowWidth(windowSize.value.width, 20)
-                Box(Modifier.border(5.dp, Color.Black).preferredWidth(widthBlack.dp).fillMaxHeight()) {
+                Box(Modifier.border(5.dp, Color.Black).fillMaxWidth(0.2F).fillMaxHeight(),
+                contentAlignment = Alignment.Center) {
+                    WorkbenchFunctions()
                 }
-                Box(Modifier.border(5.dp, Color.Red).fillMaxSize()) {
+                Box(Modifier.border(5.dp, Color.Red).fillMaxWidth()) {
                     CharacterModuleView(characterState)
                 }
             }
