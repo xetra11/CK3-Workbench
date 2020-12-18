@@ -6,10 +6,5 @@ import com.github.xetra11.ck3workbench.module.character.CK3Character
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 
 object StateManager {
-    val characters: SnapshotStateList<CK3Character> =
-        mutableStateListOf(
-            CharacterTemplate.DEFAULT_CHARACTER,
-            CharacterTemplate.DEFAULT_CHARACTER,
-            CharacterTemplate.DEFAULT_CHARACTER
-        )
+    val characters: SnapshotStateList<CK3Character> = mutableStateListOf()
 }
