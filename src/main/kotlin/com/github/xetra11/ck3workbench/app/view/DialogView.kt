@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,12 +17,17 @@ import androidx.compose.ui.platform.WindowManager
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.github.xetra11.ck3workbench.app.DialogManager
+import com.github.xetra11.ck3workbench.app.NotificationsService
+import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
+import com.github.xetra11.ck3workbench.app.styles.WorkbenchButtons.BasicButton
+import com.github.xetra11.ck3workbench.module.character.exporter.CharacterScriptExporter
 import com.github.xetra11.ck3workbench.module.character.view.CharacterCreateView
 
 @Composable
 fun DialogView() {
     when (DialogManager.activeDialog()) {
         DialogManager.Dialog.CREATE_CHARACTER -> CreateCharacterDialog()
+        DialogManager.Dialog.CHARACTER_EXPORT -> ExportCharacterDialog()
         else -> {}
     }
 }
@@ -42,4 +48,21 @@ private fun CreateCharacterDialog() {
 */
         }
     }
+}
+
+@Composable
+private fun ExportCharacterDialog() {
+    AlertDialog(
+        onDismissRequest = { DialogManager.closeDialog() },
+        confirmButton = {
+            BasicButton(onClick = {
+                val characterScriptExporter = CharacterScriptExporter()
+                characterScriptExporter.export()
+                NotificationsService.notify("""Characters have been exported to "character.txt"""")
+            }) { Text("Export") }
+        },
+        dismissButton = {
+            BasicButton(onClick = { }) { Text("Cancel") }
+        }
+    )
 }

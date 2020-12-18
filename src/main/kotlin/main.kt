@@ -60,7 +60,7 @@ fun main() = invokeLater {
                 MenuItem(
                     "Export Character Scripts",
                     onClick = {
-
+                       DialogManager.openDialog(DialogManager.Dialog.CHARACTER_EXPORT)
                     }
                 ),
             ),

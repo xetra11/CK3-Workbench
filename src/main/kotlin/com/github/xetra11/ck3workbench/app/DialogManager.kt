@@ -30,6 +30,7 @@ object DialogManager {
 
     enum class Dialog {
         CREATE_CHARACTER,
+        CHARACTER_EXPORT,
         NO_DIALOG
     }
 }
