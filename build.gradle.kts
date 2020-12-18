@@ -56,7 +56,7 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "ck3-workbench"
             windows {
-                iconFile.set(File("/assets/icons/ck3.ico"))
+                iconFile.set(File("src/main/resources/icons/ck3.ico"))
                 shortcut = true
                 dirChooser = true
             }

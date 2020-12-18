@@ -1,5 +1,6 @@
 package com.github.xetra11.ck3workbench.app.view
 
+import androidx.compose.desktop.AppManager
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -66,7 +67,7 @@ private fun ExportCharacterDialog() {
                 }) { BasicButtonText("Export") }
         },
         dismissButton = {
-            BasicButton(onClick = { DialogManager.closeDialog() }) { BasicButtonText("Cancel") }
+            BasicButton(onClick = { AppManager.focusedWindow?.close() }) { BasicButtonText("Cancel") }
         }
     )
 }
