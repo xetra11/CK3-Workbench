@@ -1,5 +1,6 @@
 package com.github.xetra11.ck3workbench.app
 
+import androidx.compose.desktop.AppManager
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.collections.shouldHaveSize
@@ -67,7 +68,6 @@ class SessionManagerTest : ShouldSpec({
         val projectFile = File("test.wbp")
 
         sessionManager.initialize()
-
         StateManager.characters.addAll(
             listOf(
                 CharacterTemplate.DEFAULT_CHARACTER,

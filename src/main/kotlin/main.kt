@@ -56,7 +56,13 @@ fun main() = invokeLater {
                         val characterScriptImporter = CharacterScriptImporter()
                         characterScriptImporter.importCharactersScript(file)
                     }
-                )
+                ),
+                MenuItem(
+                    "Export Character Scripts",
+                    onClick = {
+
+                    }
+                ),
             ),
             Menu("Dynasties")
         )
