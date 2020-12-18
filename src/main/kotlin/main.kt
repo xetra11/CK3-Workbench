@@ -55,7 +55,7 @@ fun main() = invokeLater {
                 "Characters",
                 MenuItem(
                     "Create Character",
-                    onClick = { DialogManager.currentDialog.value = DialogManager.Dialog.CREATE_CHARACTER }
+                    onClick = { DialogManager.openDialog(DialogManager.Dialog.CREATE_CHARACTER) }
                 ),
                 MenuItem(
                     "Import Characters",

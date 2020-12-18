@@ -6,7 +6,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
-import java.nio.channels.FileChannel
 
 /**
  * Deals with loading project files and assets to persist the state of the application
@@ -53,4 +52,3 @@ data class Project(
     var name: String = "default",
     var characters: List<CK3Character> = listOf()
 )
-

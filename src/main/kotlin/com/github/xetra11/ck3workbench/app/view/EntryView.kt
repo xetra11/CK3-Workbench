@@ -19,7 +19,8 @@ fun EntryView() {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            "Welcome to CK3-Workbench", fontSize = TextUnit.Companion.Sp(15),
+            "Welcome to CK3-Workbench",
+            fontSize = TextUnit.Companion.Sp(15),
             modifier = Modifier.padding(bottom = 5.dp)
         )
         Text("On the left panel you can choose a function category", fontSize = TextUnit.Companion.Sp(10))

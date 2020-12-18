@@ -36,7 +36,7 @@ object WorkbenchPanel {
     @Composable
     private fun dynastyListIcon() {
         Box(
-            boxModifier.clickable(onClick = { ViewManager.currentView.value = ViewManager.View.DYNASTY_VIEW }),
+            boxModifier.clickable(onClick = { ViewManager.changeView(ViewManager.View.DYNASTY_VIEW) }),
             contentAlignment = Alignment.Center,
         ) {
             Image(squareImage)
@@ -47,7 +47,7 @@ object WorkbenchPanel {
     @Composable
     private fun addCharacterIcon() {
         Box(
-            boxModifier.clickable(onClick = { ViewManager.currentView.value = ViewManager.View.CHARACTER_CREATE_VIEW }),
+            boxModifier.clickable(onClick = { ViewManager.changeView(ViewManager.View.CHARACTER_CREATE_VIEW) }),
             contentAlignment = Alignment.Center,
         ) {
             Image(squareImage)
@@ -59,7 +59,7 @@ object WorkbenchPanel {
     @Composable
     private fun characterListIcon() {
         Box(
-            boxModifier.clickable(onClick = { ViewManager.currentView.value = ViewManager.View.CHARACTER_VIEW }),
+            boxModifier.clickable(onClick = { ViewManager.changeView(ViewManager.View.CHARACTER_VIEW) }),
             contentAlignment = Alignment.Center,
         ) {
             Image(squareImage)

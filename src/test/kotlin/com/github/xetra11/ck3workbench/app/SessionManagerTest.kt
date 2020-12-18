@@ -7,7 +7,6 @@ import io.kotest.matchers.shouldBe
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.File
-import kotlin.math.exp
 
 class SessionManagerTest : ShouldSpec({
     val sessionManager = SessionManager("test")
@@ -53,11 +52,12 @@ class SessionManagerTest : ShouldSpec({
 
         val projectFromFile = Json.decodeFromString<Project>(projectFile.readText())
         val (_, expectedCharacters) = Project(
-            "default", characters =
-            listOf(
-                CharacterTemplate.DEFAULT_CHARACTER,
-                CharacterTemplate.DEFAULT_CHARACTER
-            )
+            "default",
+            characters =
+                listOf(
+                    CharacterTemplate.DEFAULT_CHARACTER,
+                    CharacterTemplate.DEFAULT_CHARACTER
+                )
         )
 
         projectFromFile.characters shouldBe expectedCharacters
