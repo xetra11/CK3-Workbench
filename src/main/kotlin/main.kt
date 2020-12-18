@@ -30,16 +30,8 @@ import javax.swing.SwingUtilities.invokeLater
 
 fun main() = invokeLater {
     lateinit var window: AppWindow
-    val sessionManager = SessionManager()
 
-    AppManager.setEvents(
-        onAppStart = {
-            sessionManager.initialize()
-        },
-        onAppExit = {
-            sessionManager.onExit()
-        }
-    )
+    initializeApp()
 
     val toggleDialog = mutableStateOf(false)
     val windowSize = mutableStateOf(IntSize.Zero)
@@ -84,6 +76,18 @@ fun main() = invokeLater {
             }
         }
     }
+}
+
+private fun initializeApp() {
+    val sessionManager = SessionManager()
+    AppManager.setEvents(
+        onAppStart = {
+            sessionManager.initialize()
+        },
+        onAppExit = {
+            sessionManager.onExit()
+        }
+    )
 }
 
 private fun openScriptFile(window: AppWindow): MutableState<File> {
