@@ -24,6 +24,7 @@ jobs:
         run: ./gradlew build
 
   debian_release:
+    needs: build
     name: Debian Release
     runs-on: ubuntu-latest
     steps:
@@ -58,6 +59,7 @@ jobs:
           asset_content_type: application/zip
 
   windows-release:
+    needs: build
     name: Windows Release
     runs-on: windows-latest
     steps:
