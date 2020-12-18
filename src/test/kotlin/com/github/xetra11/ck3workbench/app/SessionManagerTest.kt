@@ -6,7 +6,12 @@ import io.kotest.engine.spec.tempfile
 import io.kotest.matchers.paths.exist
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.io.File
+import kotlin.math.exp
 
 class SessionManagerTest : ShouldSpec({
     val sessionManager = SessionManager()
@@ -17,7 +22,7 @@ class SessionManagerTest : ShouldSpec({
         }
     }
 
-    should("have a file created") {
+    should("create a project file on initializaton") {
         val expected = File("project.wbp")
 
         sessionManager.initialize()
@@ -25,6 +30,15 @@ class SessionManagerTest : ShouldSpec({
         expected.exists() shouldBe true
         expected.isDirectory shouldBe false
         expected.extension shouldBe "wbp"
+    }
+
+    should("initialize project file with json projects array") {
+        val projectFile = File("project.wbp")
+
+        sessionManager.initialize()
+        val projectFromFile = Json.decodeFromString<Project>(projectFile.readText())
+
+        projectFromFile shouldBe Project()
     }
 
 })

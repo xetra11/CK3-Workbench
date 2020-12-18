@@ -1,11 +1,14 @@
 package com.github.xetra11.ck3workbench.module.character
 
+import kotlinx.serialization.Serializable
+
 /**
  * Representation of a CK3 script history/character
  *
  * @author Patrick C. Höfer
  */
 
+@Serializable
 data class CK3Character(
     var name: String,
     var dna: String,

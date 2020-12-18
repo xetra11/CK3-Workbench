@@ -11,6 +11,7 @@ buildscript {
 
 plugins {
     kotlin("jvm") version "1.4.21"
+    kotlin("plugin.serialization") version "1.4.21"
     id("org.jetbrains.compose") version "0.3.0-build135"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
     id("io.gitlab.arturbosch.detekt") version "1.15.0-RC2"
@@ -28,6 +29,7 @@ repositories {
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation("org.slf4j:slf4j-simple:2.0.0-alpha1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
 
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
