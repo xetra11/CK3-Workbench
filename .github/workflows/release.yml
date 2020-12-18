@@ -71,7 +71,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Create Windows Distribution
-        run: ./gradlew packageMsi
+        run: ./gradlew packageMsi --stacktrace
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -89,8 +89,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./build/compose/binaries/main/msi/ck3-workbench_0.0.1-1_amd64.msi
-          asset_name: ck3-workbench_0.0.1-1_amd64.msi
+          asset_path: .\build\compose\binaries\main\msi\ck3-workbench-0.0.1.msi
+          asset_name: ck3-workbench-0.0.1.msi
           asset_content_type: application/zip
 
   macos-release:
@@ -105,8 +105,8 @@ jobs:
           java-version: 14
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Create Windows Distribution
-        run: ./gradlew packageMsi
+      - name: Create macOS Distribution
+        run: ./gradlew packageDmg
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
