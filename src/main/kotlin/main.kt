@@ -16,7 +16,6 @@ import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
 import com.github.xetra11.ck3workbench.app.DialogManager
-import com.github.xetra11.ck3workbench.app.DialogManager.Dialog.*
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
@@ -44,7 +43,7 @@ fun main() = invokeLater {
                 "Characters",
                 MenuItem(
                     "Create Character",
-                    onClick = { DialogManager.currentDialog.value = CREATE_CHARACTER }
+                    onClick = { DialogManager.currentDialog.value = DialogManager.Dialog.CREATE_CHARACTER }
                 ),
                 MenuItem(
                     "Import Characters",
@@ -55,7 +54,7 @@ fun main() = invokeLater {
                     }
                 )
             ),
-            Menu( "Dynasties" )
+            Menu("Dynasties")
         )
     )
 

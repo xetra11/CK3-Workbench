@@ -48,7 +48,7 @@ object MainUiComponents {
                     .fillMaxHeight(),
                 contentAlignment = Alignment.Center
             ) {
-                WorkbenchPanel()
+                WorkbenchPanel.Functions()
             }
             Box(
                 Modifier

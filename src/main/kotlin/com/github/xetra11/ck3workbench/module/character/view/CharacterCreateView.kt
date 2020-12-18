@@ -9,6 +9,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -39,30 +40,73 @@ fun CharacterCreateView() {
         Text("In here you can create new characters", fontSize = TextUnit.Sp(10))
         Row {
             Column {
-                TextField(value = name.value, label = { Text("Name") }, onValueChange = {
-                    name.value = it
-                })
-                TextField(value = dna.value, label = { Text("dna") }, onValueChange = {
-                    dna.value = it
-                })
-                TextField(value = dynasty.value, label = { Text("dynasty") }, onValueChange = {
-                    dynasty.value = it
-                })
-                TextField(value = religion.value, label = { Text("religion") }, onValueChange = {
-                    religion.value = it
-                })
-                TextField(value = culture.value, label = { Text("culture") }, onValueChange = {
-                    culture.value = it
-                })
-                TextField(value = birth.value, label = { Text("birth") }, onValueChange = {
-                    birth.value = it
-                })
-                TextField(value = death.value, label = { Text("death") }, onValueChange = {
-                    death.value = it
-                })
+                TextField(
+                    value = name.value,
+                    label = { Text("Name") },
+                    onValueChange = {
+                        name.value = it
+                    }
+                )
+                TextField(
+                    value = dna.value,
+                    label = { Text("dna") },
+                    onValueChange = {
+                        dna.value = it
+                    }
+                )
+                TextField(
+                    value = dynasty.value,
+                    label = { Text("dynasty") },
+                    onValueChange = {
+                        dynasty.value = it
+                    }
+                )
+                TextField(
+                    value = religion.value,
+                    label = { Text("religion") },
+                    onValueChange = {
+                        religion.value = it
+                    }
+                )
+                TextField(
+                    value = culture.value,
+                    label = { Text("culture") },
+                    onValueChange = {
+                        culture.value = it
+                    }
+                )
+                TextField(
+                    value = birth.value,
+                    label = { Text("birth") },
+                    onValueChange = {
+                        birth.value = it
+                    }
+                )
+                TextField(
+                    value = death.value,
+                    label = { Text("death") },
+                    onValueChange = {
+                        death.value = it
+                    }
+                )
             }
         }
-        Button(onClick = {
+        CreateButton(name, dna, religion, dynasty, culture, birth, death)
+    }
+}
+
+@Composable
+private fun CreateButton(
+    name: MutableState<String>,
+    dna: MutableState<String>,
+    religion: MutableState<String>,
+    dynasty: MutableState<String>,
+    culture: MutableState<String>,
+    birth: MutableState<String>,
+    death: MutableState<String>
+) {
+    Button(
+        onClick = {
             val characterValues = mapOf(
                 "name" to name.value,
                 "dna" to dna.value,
@@ -78,9 +122,9 @@ fun CharacterCreateView() {
             } else {
                 NotificationsService.error("""Can not create character. Some fields were empty""")
             }
-        }) {
-            Text("Create")
         }
+    ) {
+        Text("Create")
     }
 }
 

@@ -11,66 +11,59 @@ import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.graphics.imageFromResource
 import androidx.compose.ui.unit.dp
-import com.github.xetra11.ck3workbench.app.NotificationsService
 import com.github.xetra11.ck3workbench.app.ViewManager
 
-@Composable
-fun WorkbenchPanel() {
-    val boxModifier = Modifier.preferredSize(50.dp)
-    val panzerImagesPath = "icons/thepinkpanzer"
-    val squareImage = imageResource("$panzerImagesPath/BG_Square_Brown.png")
-    val crownImage = imageResource("$panzerImagesPath/Piece_Crown_Rusty.png")
-    val bloodImage = imageResource("$panzerImagesPath/Piece_Blood.png")
-    val plusIconImage = imageResource("icons/plus.png")
+object WorkbenchPanel {
+    private const val PANZER_IMG_PATH = "icons/thepinkpanzer"
+    private val boxModifier = Modifier.preferredSize(50.dp)
+    val squareImage = imageFromResource("$PANZER_IMG_PATH/BG_Square_Brown.png")
+    val crownImage = imageFromResource("$PANZER_IMG_PATH/Piece_Crown_Rusty.png")
+    val bloodImage = imageFromResource("$PANZER_IMG_PATH/Piece_Blood.png")
+    val plusIconImage = imageFromResource("icons/plus.png")
 
-    Column(Modifier.fillMaxHeight(0.8F), verticalArrangement = Arrangement.SpaceBetween) {
+    @Composable
+    fun Functions() {
+
+        Column(Modifier.fillMaxHeight(0.8F), verticalArrangement = Arrangement.SpaceBetween) {
+            characterListIcon()
+            addCharacterIcon()
+            dynastyListIcon()
+        }
+    }
+
+    @Composable
+    private fun dynastyListIcon() {
         Box(
-            boxModifier.clickable(onClick = { ViewManager.currentView.value = ViewManager.View.CHARACTER_VIEW }),
-            contentAlignment = Alignment.Companion.Center,
+            boxModifier.clickable(onClick = { ViewManager.currentView.value = ViewManager.View.DYNASTY_VIEW }),
+            contentAlignment = Alignment.Center,
         ) {
             Image(squareImage)
-            Image(crownImage, modifier = Modifier.fillMaxSize(0.7F))
+            Image(bloodImage, modifier = Modifier.fillMaxSize(0.7F))
         }
+    }
+
+    @Composable
+    private fun addCharacterIcon() {
         Box(
             boxModifier.clickable(onClick = { ViewManager.currentView.value = ViewManager.View.CHARACTER_CREATE_VIEW }),
-            contentAlignment = Alignment.Companion.Center,
+            contentAlignment = Alignment.Center,
         ) {
             Image(squareImage)
             Image(crownImage, modifier = Modifier.fillMaxSize(0.7F))
             Image(plusIconImage, modifier = Modifier.fillMaxSize(0.4F).align(Alignment.BottomEnd))
         }
+    }
+
+    @Composable
+    private fun characterListIcon() {
         Box(
-            boxModifier.clickable(onClick = { ViewManager.currentView.value = ViewManager.View.DYNASTY_VIEW }),
-            contentAlignment = Alignment.Companion.Center,
+            boxModifier.clickable(onClick = { ViewManager.currentView.value = ViewManager.View.CHARACTER_VIEW }),
+            contentAlignment = Alignment.Center,
         ) {
             Image(squareImage)
-            Image(bloodImage, modifier = Modifier.fillMaxSize(0.7F))
-        }
-        Box(
-            boxModifier
-                .clickable(
-                    onClick = { NotificationsService.notify("CLICK 3") }
-                )
-        ) {
-            Image(squareImage)
-        }
-        Box(
-            boxModifier
-                .clickable(
-                    onClick = { NotificationsService.notify("CLICK") }
-                )
-        ) {
-            Image(squareImage)
-        }
-        Box(
-            boxModifier
-                .clickable(
-                    onClick = { NotificationsService.notify("CLICK") }
-                )
-        ) {
-            Image(squareImage)
+            Image(crownImage, modifier = Modifier.fillMaxSize(0.7F))
         }
     }
 }

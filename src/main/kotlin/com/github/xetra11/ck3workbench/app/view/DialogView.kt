@@ -1,6 +1,5 @@
 package com.github.xetra11.ck3workbench.app.view
 
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.Dialog
 import com.github.xetra11.ck3workbench.app.DialogManager
@@ -15,10 +14,12 @@ fun DialogView() {
 }
 
 @Composable
-private fun CreateCharacterDialog(){
-    Dialog(onDismissRequest = {
-        DialogManager.currentDialog.value = DialogManager.Dialog.NO_DIALOG
-    }){
+private fun CreateCharacterDialog() {
+    Dialog(
+        onDismissRequest = {
+            DialogManager.currentDialog.value = DialogManager.Dialog.NO_DIALOG
+        }
+    ) {
         CharacterCreateView()
     }
 }
