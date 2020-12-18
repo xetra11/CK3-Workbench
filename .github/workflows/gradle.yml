@@ -23,6 +23,6 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Test
-      run: ./gradlew test
+      run: ./gradlew test --stacktrace
     - name: Build with Gradle
       run: ./gradlew build
