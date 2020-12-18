@@ -26,6 +26,11 @@ class SessionManager(
             val projectData = Json.encodeToString(project)
             projectFile.writeText(projectData)
             NotificationsService.notify("Project ${project.name} has been initialized")
+        } else {
+            NotificationsService.notify("Loading project file...")
+            val projectFromFile = Json.decodeFromString<Project>(projectFile.readText())
+            StateManager.characters.addAll(projectFromFile.characters)
+            NotificationsService.notify("Project file loaded")
         }
     }
 

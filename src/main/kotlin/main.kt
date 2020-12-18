@@ -16,6 +16,7 @@ import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
 import com.github.xetra11.ck3workbench.app.DialogManager
+import com.github.xetra11.ck3workbench.app.SessionManager
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
@@ -29,6 +30,17 @@ import javax.swing.SwingUtilities.invokeLater
 
 fun main() = invokeLater {
     lateinit var window: AppWindow
+    val sessionManager = SessionManager()
+
+    AppManager.setEvents(
+        onAppStart = {
+            sessionManager.initialize()
+        },
+        onAppExit = {
+            sessionManager.onExit()
+        }
+    )
+
     val toggleDialog = mutableStateOf(false)
     val windowSize = mutableStateOf(IntSize.Zero)
 

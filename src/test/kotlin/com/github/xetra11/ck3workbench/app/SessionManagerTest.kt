@@ -2,6 +2,7 @@ package com.github.xetra11.ck3workbench.app
 
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import io.kotest.core.spec.style.ShouldSpec
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -62,4 +63,24 @@ class SessionManagerTest : ShouldSpec({
         projectFromFile.characters shouldBe expectedCharacters
     }
 
+    should("load character state from file into state manager") {
+        val projectFile = File("test.wbp")
+
+        sessionManager.initialize()
+
+        StateManager.characters.addAll(
+            listOf(
+                CharacterTemplate.DEFAULT_CHARACTER,
+                CharacterTemplate.DEFAULT_CHARACTER,
+                CharacterTemplate.DEFAULT_CHARACTER
+            )
+        )
+
+        sessionManager.onExit()
+        StateManager.characters.clear()
+
+        sessionManager.initialize()
+
+        StateManager.characters shouldHaveSize 3
+    }
 })
