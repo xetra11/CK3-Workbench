@@ -4,7 +4,6 @@ import com.github.xetra11.ck3workbench.app.StateManager
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.string.shouldContain
 import java.io.File
 
 class CharacterScriptExporterTest : ShouldSpec({
@@ -25,4 +24,3 @@ class CharacterScriptExporterTest : ShouldSpec({
         exportFile.readText() shouldBe expectedExportFile.readText()
     }
 })
-

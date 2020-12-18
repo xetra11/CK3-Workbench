@@ -34,7 +34,7 @@ $index = {
     ${character.birth.toDateAttribute("birth")}
     ${character.death.toDateAttribute("death")}
 }
-""".trimIndent()
+            """.trimIndent()
         }.joinToString(separator = "") { it + "\n\n" }
     }
 

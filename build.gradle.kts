@@ -44,10 +44,10 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
     testLogging {
-        events ("passed", "skipped", "failed") //, "standardOut", "standardError"
+        events("passed", "skipped", "failed") // , "standardOut", "standardError"
 
         showExceptions = true
-        //exceptionFormat = "full"
+        // exceptionFormat = "full"
         showCauses = true
         showStackTraces = true
         showStandardStreams = false

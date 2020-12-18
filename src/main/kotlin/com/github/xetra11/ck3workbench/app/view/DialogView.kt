@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -64,7 +63,8 @@ private fun ExportCharacterDialog() {
                     val characterScriptExporter = CharacterScriptExporter()
                     characterScriptExporter.export()
                     NotificationsService.notify("""Characters have been exported to "character.txt"""")
-                }) { BasicButtonText("Export") }
+                }
+            ) { BasicButtonText("Export") }
         },
         dismissButton = {
             BasicButton(onClick = { AppManager.focusedWindow?.close() }) { BasicButtonText("Cancel") }
