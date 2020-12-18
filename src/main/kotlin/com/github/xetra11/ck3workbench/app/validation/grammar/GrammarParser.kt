@@ -19,8 +19,6 @@ open class GrammarParser {
             .trim()
             .split("---")
 
-        val processedGrammars = mutableListOf<Grammar>()
-
         rawGrammars.forEach { grammar ->
             val lines = extractGrammarInputLines(grammar)
             val definitionValueName = extractDefinitionValueName(lines)

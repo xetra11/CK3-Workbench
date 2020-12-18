@@ -65,8 +65,6 @@ class SessionManagerTest : ShouldSpec({
     }
 
     should("load character state from file into state manager") {
-        val projectFile = File("test.wbp")
-
         sessionManager.initialize()
         StateManager.characters.addAll(
             listOf(

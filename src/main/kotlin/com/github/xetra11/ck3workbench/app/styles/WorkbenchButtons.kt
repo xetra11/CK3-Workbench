@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonConstants
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.ButtonElevation
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -28,11 +28,11 @@ object WorkbenchButtons {
         modifier: Modifier = Modifier.preferredSize(width = 70.dp, height = 25.dp),
         enabled: Boolean = true,
         interactionState: InteractionState = remember { InteractionState() },
-        elevation: ButtonElevation? = ButtonConstants.defaultElevation(),
+        elevation: ButtonElevation? = ButtonDefaults.elevation(),
         shape: Shape = MaterialTheme.shapes.small,
         border: BorderStroke? = null,
-        colors: ButtonColors = ButtonConstants.defaultButtonColors(),
-        contentPadding: PaddingValues = ButtonConstants.DefaultContentPadding,
+        colors: ButtonColors = ButtonDefaults.buttonColors(),
+        contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
         content: @Composable RowScope.() -> Unit
     ) {
         Button(

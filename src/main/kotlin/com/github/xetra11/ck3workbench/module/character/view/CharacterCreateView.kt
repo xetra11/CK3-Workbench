@@ -41,59 +41,72 @@ fun CharacterCreateView() {
         Text("In here you can create new characters", fontSize = TextUnit.Sp(10))
         Row {
             Column {
-                TextField(
-                    value = name.value,
-                    label = { Text("Name") },
-                    onValueChange = {
-                        name.value = it
-                    }
-                )
-                TextField(
-                    value = dna.value,
-                    label = { Text("dna") },
-                    onValueChange = {
-                        dna.value = it
-                    }
-                )
-                TextField(
-                    value = dynasty.value,
-                    label = { Text("dynasty") },
-                    onValueChange = {
-                        dynasty.value = it
-                    }
-                )
-                TextField(
-                    value = religion.value,
-                    label = { Text("religion") },
-                    onValueChange = {
-                        religion.value = it
-                    }
-                )
-                TextField(
-                    value = culture.value,
-                    label = { Text("culture") },
-                    onValueChange = {
-                        culture.value = it
-                    }
-                )
-                TextField(
-                    value = birth.value,
-                    label = { Text("birth") },
-                    onValueChange = {
-                        birth.value = it
-                    }
-                )
-                TextField(
-                    value = death.value,
-                    label = { Text("death") },
-                    onValueChange = {
-                        death.value = it
-                    }
-                )
+                InputFields(name, dna, dynasty, religion, culture, birth, death)
             }
         }
         CreateButton(name, dna, religion, dynasty, culture, birth, death)
     }
+}
+
+@Composable
+private fun InputFields(
+    name: MutableState<String>,
+    dna: MutableState<String>,
+    dynasty: MutableState<String>,
+    religion: MutableState<String>,
+    culture: MutableState<String>,
+    birth: MutableState<String>,
+    death: MutableState<String>
+) {
+    TextField(
+        value = name.value,
+        label = { Text("Name") },
+        onValueChange = {
+            name.value = it
+        }
+    )
+    TextField(
+        value = dna.value,
+        label = { Text("dna") },
+        onValueChange = {
+            dna.value = it
+        }
+    )
+    TextField(
+        value = dynasty.value,
+        label = { Text("dynasty") },
+        onValueChange = {
+            dynasty.value = it
+        }
+    )
+    TextField(
+        value = religion.value,
+        label = { Text("religion") },
+        onValueChange = {
+            religion.value = it
+        }
+    )
+    TextField(
+        value = culture.value,
+        label = { Text("culture") },
+        onValueChange = {
+            culture.value = it
+        }
+    )
+    TextField(
+        value = birth.value,
+        label = { Text("birth") },
+        onValueChange = {
+            birth.value = it
+        }
+    )
+    TextField(
+        value = death.value,
+        label = { Text("death") },
+        onValueChange = {
+            death.value = it
+        }
+    )
 }
 
 @Composable
