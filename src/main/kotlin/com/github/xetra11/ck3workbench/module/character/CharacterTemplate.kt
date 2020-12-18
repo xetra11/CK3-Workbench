@@ -11,18 +11,18 @@ package com.github.xetra11.ck3workbench.module.character
  * @author Patrick C. Höfer
  */
 object CharacterTemplate {
-    val DEFAULT_CHARACTER = Character(
+    val DEFAULT_CHARACTER = CK3Character(
         "Thorak",
         "thorak_dna",
         "my_dynastie",
         "asatru",
         "cheruscii",
         skills = mapOf(
-            Character.Skill.DIPLOMACY to 5,
-            Character.Skill.MARTIAL to 5,
-            Character.Skill.STEWARDSHIP to 5,
-            Character.Skill.INTRIGUE to 5,
-            Character.Skill.LEARNING to 5,
+            CK3Character.Skill.DIPLOMACY to 5,
+            CK3Character.Skill.MARTIAL to 5,
+            CK3Character.Skill.STEWARDSHIP to 5,
+            CK3Character.Skill.INTRIGUE to 5,
+            CK3Character.Skill.LEARNING to 5,
         ),
         traits = listOf(
             "ambitious",

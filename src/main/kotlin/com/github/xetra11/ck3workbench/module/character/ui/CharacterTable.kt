@@ -14,7 +14,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.github.xetra11.ck3workbench.module.character.Character
+import com.github.xetra11.ck3workbench.module.character.CK3Character
 
 /**
  * custom table component for characters
@@ -24,7 +24,7 @@ import com.github.xetra11.ck3workbench.module.character.Character
 @Composable
 fun CharacterTable(
     modifier: Modifier = Modifier,
-    characterState: SnapshotStateList<Character>
+    characterState: SnapshotStateList<CK3Character>
 ) {
     val scrollState = rememberScrollState(0f)
 

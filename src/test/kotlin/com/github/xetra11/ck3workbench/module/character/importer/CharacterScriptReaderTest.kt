@@ -1,6 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.importer
 
-import com.github.xetra11.ck3workbench.module.character.Character
+import com.github.xetra11.ck3workbench.module.character.CK3Character
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -11,7 +11,7 @@ internal class CharacterScriptReaderTest {
     @Test
     fun `should parse txt file and convert it into character object`() {
         val file = File("src/test/resources/fixtures/character/test_character.txt")
-        val actual: Character? = characterScriptReader.readCharacterScript(file)
+        val actual: CK3Character? = characterScriptReader.readCharacterScript(file)
 
         assertThat(actual!!).isNotNull
         assertThat(actual.name).isEqualTo("Thorak")
@@ -21,7 +21,7 @@ internal class CharacterScriptReaderTest {
     fun `should log error if file does not exist`() {
         val file = File("does/not/exist.txt")
 
-        val actual: Character? = characterScriptReader.readCharacterScript(file)
+        val actual: CK3Character? = characterScriptReader.readCharacterScript(file)
 
         assertThat(actual).isNull()
     }

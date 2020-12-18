@@ -6,16 +6,16 @@ package com.github.xetra11.ck3workbench.module.character
  * @author Patrick C. Höfer
  */
 
-data class Character(
-    val name: String,
-    val dna: String,
-    val dynasty: String,
-    val religion: String,
-    val culture: String,
-    val skills: Map<Skill, Short>,
-    val traits: List<String>,
-    val birth: String,
-    val death: String
+data class CK3Character(
+    var name: String,
+    var dna: String,
+    var dynasty: String,
+    var religion: String,
+    var culture: String,
+    var skills: Map<Skill, Short>,
+    var traits: List<String>,
+    var birth: String,
+    var death: String
 ) {
     enum class Skill {
         MARTIAL,
@@ -25,14 +25,14 @@ data class Character(
         LEARNING
     }
     companion object {
-        fun from(map: Map<String, String>): Character {
+        fun from(map: Map<String, String>): CK3Character {
             val name by map
             val dna by map
             val dynasty by map
             val religion by map
             val culture by map
 
-            return Character(
+            return CK3Character(
                 name,
                 dna,
                 dynasty,

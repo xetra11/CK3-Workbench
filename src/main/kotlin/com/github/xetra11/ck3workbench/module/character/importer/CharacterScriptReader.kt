@@ -1,6 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.importer
 
-import com.github.xetra11.ck3workbench.module.character.Character
+import com.github.xetra11.ck3workbench.module.character.CK3Character
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -11,13 +11,13 @@ import java.io.File
  * @author Patrick C. Höfer
  */
 class CharacterScriptReader {
-    fun readCharacterScript(file: File): Character? {
+    fun readCharacterScript(file: File): CK3Character? {
         return if (file.exists()) {
             val lines = file.readLines()
             val characterDefinition = extractCharacterDefinition(lines)
             removeScriptSections(characterDefinition)
             val characterAttributes = transformToAttributes(characterDefinition)
-            Character.from(characterAttributes)
+            CK3Character.from(characterAttributes)
         } else {
             LOG.error("File ${file.absoluteFile} could not be found")
             null

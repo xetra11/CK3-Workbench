@@ -22,10 +22,10 @@ class CharacterScriptImporter {
             character?.let {
                 if (characterState.contains(it)) {
                     NotificationsService.error("""Character with name "${it.name}" already exists""")
-                } else {
-                    NotificationsService.notify("""New Character "${it.name}" added!""")
-                    characterState.add(it)
+                    return
                 }
+                NotificationsService.notify("""New Character "${it.name}" added!""")
+                characterState.add(it)
             }
         }
     }
