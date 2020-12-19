@@ -49,15 +49,18 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: macos-distribution
-        path: distributions
+        path: distribution
+    - name: Latest Tag
+      id: latest_tag
+      uses: "WyriHaximus/github-action-get-previous-tag@master"
     - name: Upload Debian Asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: distributions/ck3-workbench_${{ github.ref }}-1_amd64.deb
-        asset_name: ck3-workbench_${{ github.ref }}-1_amd64.deb
+        asset_path: distributions/ck3-workbench_${{ steps.latest_tag.output.tag }}-1_amd64.deb
+        asset_name: ck3-workbench_${{ steps.latest_tag.output.tag }}-1_amd64.deb
         asset_content_type: application/zip
     - name: Upload macOS Asset
       uses: actions/upload-release-asset@v1
@@ -65,8 +68,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: distributions/ck3-workbench-${{ github.ref }}.dmg
-        asset_name: ck3-workbench-${{ github.ref }}.dmg
+        asset_path: distributions/ck3-workbench-${{ steps.latest_tag.output.tag }}.dmg
+        asset_name: ck3-workbench-${{ steps.latest_tag.output.tag }}.dmg
         asset_content_type: application/zip
 
   debian_build:
@@ -83,11 +86,14 @@ jobs:
         run: chmod +x gradlew
       - name: Create Debian Distribution
         run: ./gradlew packageDeb
+      - name: Latest Tag
+        id: latest_tag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
       - name: Upload Debian Artifact
         uses: actions/upload-artifact@v2
         with:
           name: debian-distribution
-          path: ./build/compose/binaries/main/deb/ck3-workbench_${{ github.ref }}-1_amd64.deb
+          path: ./build/compose/binaries/main/deb/ck3-workbench_${{ steps.latest_tag.output.tag }}-1_amd64.deb
 
   macos_build:
     needs: build
@@ -103,8 +109,11 @@ jobs:
         run: chmod +x gradlew
       - name: Create macOS Distribution
         run: ./gradlew packageDmg
+      - name: Latest Tag
+        id: latest_tag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
       - name: Upload macOS Artifact
         uses: actions/upload-artifact@v2
         with:
           name: macos-distribution
-          path: ./build/compose/binaries/main/dmg/ck3-workbench-${{ github.ref }}.dmg
+          path: ./build/compose/binaries/main/dmg/ck3-workbench-${{ steps.latest_tag.output.tag }}.dmg
