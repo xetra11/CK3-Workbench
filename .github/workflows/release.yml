@@ -27,7 +27,7 @@ jobs:
     needs:
       - debian_release
       - macos_release
-      - windows_release
+      #- windows_release
     name: Release
     runs-on: ubuntu-latest
     steps:
