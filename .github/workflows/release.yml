@@ -90,21 +90,6 @@ jobs:
           name: debian-distribution
           path: ./build/compose/binaries/main/deb/ck3-workbench_0.0.1-1_amd64.deb
 
-  windows_build:
-    needs: build
-    name: Windows Build
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: 14
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Create Windows Distribution
-        run: ./gradlew packageMsi --info
-
   macos_build:
     needs: build
     name: macOS Build
