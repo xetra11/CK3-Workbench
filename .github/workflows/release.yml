@@ -50,7 +50,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: macos-distribution
-        path: distribution
+        path: distributions
     - name: Latest Tag
       id: latest_tag
       uses: "WyriHaximus/github-action-get-previous-tag@master"
