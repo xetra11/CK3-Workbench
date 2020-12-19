@@ -25,9 +25,9 @@ jobs:
 
   release:
     needs:
-      - debian_release
-      - macos_release
-      #- windows_release
+      - debian_build
+      - macos_build
+      #- windows_build
     name: Release
     runs-on: ubuntu-latest
     steps:
@@ -70,9 +70,9 @@ jobs:
         asset_name: ck3-workbench-0.0.1.dmg
         asset_content_type: application/zip
 
-  debian_release:
+  debian_build:
     needs: build
-    name: Debian Release
+    name: Debian Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -90,9 +90,9 @@ jobs:
           name: debian-distribution
           path: ./build/compose/binaries/main/deb/ck3-workbench_0.0.1-1_amd64.deb
 
-  windows_release:
+  windows_build:
     needs: build
-    name: Windows Release
+    name: Windows Build
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -105,9 +105,9 @@ jobs:
       - name: Create Windows Distribution
         run: ./gradlew packageMsi --info
 
-  macos_release:
+  macos_build:
     needs: build
-    name: macOS Release
+    name: macOS Build
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
