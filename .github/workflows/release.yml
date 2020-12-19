@@ -23,6 +23,37 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: true
+        prerelease: false
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: debian-distribution
+        path: distributions
+    - name: Display structure of downloaded files
+      run: ls -R
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+        asset_path: ./build/compose/binaries/main/deb/ck3-workbench_0.0.1-1_amd64.deb
+        asset_name: ck3-workbench_0.0.1-1_amd64.deb
+
   debian_release:
     needs: build
     name: Debian Release
@@ -37,26 +68,11 @@ jobs:
         run: chmod +x gradlew
       - name: Create Debian Distribution
         run: ./gradlew packageDeb
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Debian Artifact
+        uses: actions/upload-artifact@v2
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: true
-          prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./build/compose/binaries/main/deb/ck3-workbench_0.0.1-1_amd64.deb
-          asset_name: ck3-workbench_0.0.1-1_amd64.deb
-          asset_content_type: application/zip
+          name: debian-distribution
+          path: ./build/compose/binaries/main/deb/ck3-workbench_0.0.1-1_amd64.deb
 
   windows-release:
     needs: build
@@ -112,6 +128,7 @@ jobs:
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
