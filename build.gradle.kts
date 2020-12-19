@@ -15,10 +15,10 @@ plugins {
     id("org.jetbrains.compose") version "0.3.0-build135"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
     id("io.gitlab.arturbosch.detekt") version "1.15.0-RC2"
+    id("nebula.release") version "15.2.0"
 }
 
 group = "com.github.xetra11"
-version = "0.0.1"
 
 repositories {
     jcenter()
