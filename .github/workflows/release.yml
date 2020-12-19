@@ -24,6 +24,8 @@ jobs:
         run: ./gradlew build
 
   release:
+    needs:
+      - debian_release
     name: Release
     runs-on: ubuntu-latest
     steps:
