@@ -52,7 +52,6 @@ jobs:
         name: macos-distribution
         path: distributions
     - name: Upload Debian Asset
-      id: upload-release-asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -62,7 +61,6 @@ jobs:
         asset_name: ck3-workbench_0.0.1-1_amd64.deb
         asset_content_type: application/zip
     - name: Upload macOS Asset
-      id: upload-release-asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
