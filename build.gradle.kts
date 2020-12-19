@@ -18,7 +18,7 @@ plugins {
 }
 
 group = "com.github.xetra11"
-version = "0.0.1"
+version = "v0.0.4-alpha"
 
 repositories {
     jcenter()
