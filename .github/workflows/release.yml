@@ -78,7 +78,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 14
+          java-version: 15
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Create Debian Distribution
@@ -87,7 +87,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: debian-distribution
-          path: ./build/compose/binaries/main/deb/ck3-workbench_0.0.1-1_amd64.deb
+          path: ./build/compose/binaries/main/deb/ck3-workbench_${{ github.ref }}-1_amd64.deb
 
   macos_build:
     needs: build
@@ -107,4 +107,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: macos-distribution
-          path: ./build/compose/binaries/main/dmg/ck3-workbench-0.0.1.dmg
+          path: ./build/compose/binaries/main/dmg/ck3-workbench-${{ github.ref }}.dmg
