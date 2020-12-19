@@ -1,4 +1,4 @@
-# CK3-Workbench
+# CK3-Workbench ![Release](https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg)
 CK3 Modding Tool
 
 
