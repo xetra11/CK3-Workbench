@@ -78,8 +78,8 @@ jobs:
     - name: Add Release Notes
       env:
         GREN_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-     - run: npm install github-release-notes@0.17.1
-     - run: gren release --token=$(echo $GREN_GITHUB_TOKEN) -P
+    - run: npm install github-release-notes@0.17.1
+    - run: gren release --token=$(echo $GREN_GITHUB_TOKEN) -P
 
   debian_build:
     needs: build
