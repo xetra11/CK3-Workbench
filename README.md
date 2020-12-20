@@ -17,6 +17,11 @@ you'd like to see in this tool in the future.
 * See [Changelog](https://github.com/xetra11/CK3-Workbench/blob/main/CHANGELOG.md) for preceding changes.
 
 ### Current Features
+
+**Attention**: Ugly UI :pensive:
+
+![image](https://user-images.githubusercontent.com/8149023/102721730-f7b5a300-42fc-11eb-9755-49f323326086.png)
+
 * Create new characters (without traits and skills yet)
 * Export all created characters to a file characters.txt
 * Import character script files (unstable)
