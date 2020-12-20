@@ -96,14 +96,14 @@ jobs:
         uses: "WyriHaximus/github-action-get-previous-tag@master"
       - name: Publish Debian Distribution to Discord
         uses: sinshutu/upload-to-discord@master
-          env:
-            DISCORD_WEBHOOK: ${{ secrets.DISCORD_ANNOUNCEMENTS }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_ANNOUNCEMENTS }}
         with:
           args: distributions/ck3-workbench_${{ steps.latest_tag.outputs.tag }}-1_amd64.deb
       - name: Publish macOS Distribution to Discord
         uses: sinshutu/upload-to-discord@master
-          env:
-            DISCORD_WEBHOOK: ${{ secrets.DISCORD_ANNOUNCEMENTS }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_ANNOUNCEMENTS }}
         with:
           args: distributions/ck3-workbench-${{ steps.latest_tag.outputs.tag }}.dmg
 
