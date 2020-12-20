@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.0.36 (20/12/2020)
+- [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/19a882bf42c51fca2337d81b7332da0f7f581c87) - @xetra11
+- [github(release): fix syntax bs again](https://github.com/xetra11/CK3-Workbench/commit/e9492079aee7f9d0d823dec427b42d748cde0098) - @xetra11
+
+---
+
 ## v0.0.34 (20/12/2020)
 - [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/3db54b8b04795c1ad9e86dddfdb0a4bd07878370) - @xetra11
 - [chore(scripts): add echo for git status](https://github.com/xetra11/CK3-Workbench/commit/a84e43fb27ba2833fe466eb9b7fd6c0e74667dab) - @xetra11
