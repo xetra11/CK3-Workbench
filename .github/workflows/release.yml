@@ -94,18 +94,16 @@ jobs:
       - name: Latest Tag
         id: latest_tag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
-      - name: Publish Debian Distribution to Discord
-        uses: sinshutu/upload-to-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_ANNOUNCEMENTS }}
+      - name: Publish Debian Release
+        uses: tsickert/discord-webhook@v0.0.7
         with:
-          args: distributions/ck3-workbench_${{ steps.latest_tag.outputs.tag }}-1_amd64.deb
-      - name: Publish macOS Distribution to Discord
-        uses: sinshutu/upload-to-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_ANNOUNCEMENTS }}
-        with:
-          args: distributions/ck3-workbench-${{ steps.latest_tag.outputs.tag }}.dmg
+          webhook-url: ${{ secrets.DISCORD_ANNOUNCEMENTS }}
+          username: CK3-Workbench-Release
+          content: |
+            :rocket: New Release v${{ steps.latest_tag.outputs.tag }}
+            Download for [Linux](https://github.com/xetra11/CK3-Workbench/releases/download/${{ steps.latest_tag.outputs.tag }}/ck3-workbench_${{ steps.latest_tag.outputs.tag }}-1_amd64.deb)
+            Download for [macOS](https://github.com/xetra11/CK3-Workbench/releases/download/${{ steps.latest_tag.outputs.tag }}/ck3-workbench-${{ steps.latest_tag.outputs.tag }}.dmg)
+            See Changelog: https://github.com/xetra11/CK3-Workbench/releases/tag/${{ steps.latest_tag.outputs.tag }}
 
   debian_build:
     needs: build
