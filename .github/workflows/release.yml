@@ -75,10 +75,11 @@ jobs:
         asset_path: distributions/ck3-workbench-${{ steps.latest_tag.outputs.tag }}.dmg
         asset_name: ck3-workbench-${{ steps.latest_tag.outputs.tag }}.dmg
         asset_content_type: application/zip
+    - name: Install gren
+    - run: npm install github-release-notes@0.17.1
     - name: Add Release Notes
       env:
         GREN_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: npm install github-release-notes@0.17.1
     - run: gren release --token=$(echo $GREN_GITHUB_TOKEN) -P
 
   debian_build:
