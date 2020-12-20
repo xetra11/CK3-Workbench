@@ -7,13 +7,13 @@ a potential user and discuss features
 ([*Discussions*](https://github.com/xetra11/CK3-Workbench/discussions))
 you'd like to see in this tool in the future.
 
-### Release v0.0.27 ![Release](https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.27)
+### Release v0.0.28 ![Release](https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.28)
 * Windows: *Out of Order*
-* Linux: [v0.0.27](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.27/ck3-workbench_0.0.27-1_amd64.deb)
-* macOs: [v0.0.27](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.27/ck3-workbench-0.0.27.dmg)
+* Linux: [v0.0.28](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.28/ck3-workbench_0.0.28-1_amd64.deb)
+* macOs: [v0.0.28](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.28/ck3-workbench-0.0.28.dmg)
 
 #### Changes
-* See [Latest Release](https://github.com/xetra11/CK3-Workbench/releases/tag/0.0.27) to see what's new.
+* See [Latest Release](https://github.com/xetra11/CK3-Workbench/releases/tag/0.0.28) to see what's new.
 * See [Changelog](https://github.com/xetra11/CK3-Workbench/blob/main/CHANGELOG.md) for preceding changes.
 
 ### Current Features
