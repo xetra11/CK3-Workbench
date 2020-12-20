@@ -80,6 +80,33 @@ jobs:
         GREN_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npx github-release-notes@0.17.1 release --token=$(echo $GREN_GITHUB_TOKEN) -P --override
 
+  publish:
+    needs: release
+    name: publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Debian Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: debian-distribution
+          path: distributions
+      - name: Latest Tag
+        id: latest_tag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
+      - name: Publish Debian Distribution to Discord
+        uses: sinshutu/upload-to-discord@master
+          env:
+            DISCORD_WEBHOOK: ${{ secrets.DISCORD_ANNOUNCEMENTS }}
+        with:
+          args: distributions/ck3-workbench_${{ steps.latest_tag.outputs.tag }}-1_amd64.deb
+      - name: Publish macOS Distribution to Discord
+        uses: sinshutu/upload-to-discord@master
+          env:
+            DISCORD_WEBHOOK: ${{ secrets.DISCORD_ANNOUNCEMENTS }}
+        with:
+          args: distributions/ck3-workbench-${{ steps.latest_tag.outputs.tag }}.dmg
+
   debian_build:
     needs: build
     name: Debian Build
