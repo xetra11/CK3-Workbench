@@ -1,8 +1,8 @@
+import com.palantir.gradle.gitversion.GitVersionPlugin
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.palantir.gradle.gitversion.GitVersionPlugin
 
 buildscript {
     repositories {
