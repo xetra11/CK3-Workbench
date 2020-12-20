@@ -86,11 +86,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Download Debian Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: debian-distribution
-          path: distributions
       - name: Latest Tag
         id: latest_tag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -99,11 +94,7 @@ jobs:
         with:
           webhook-url: ${{ secrets.DISCORD_ANNOUNCEMENTS }}
           username: CK3-Workbench-Release
-          content: |
-            :rocket: New Release v${{ steps.latest_tag.outputs.tag }}
-            Download for [Linux](https://github.com/xetra11/CK3-Workbench/releases/download/${{ steps.latest_tag.outputs.tag }}/ck3-workbench_${{ steps.latest_tag.outputs.tag }}-1_amd64.deb)
-            Download for [macOS](https://github.com/xetra11/CK3-Workbench/releases/download/${{ steps.latest_tag.outputs.tag }}/ck3-workbench-${{ steps.latest_tag.outputs.tag }}.dmg)
-            See Changelog: https://github.com/xetra11/CK3-Workbench/releases/tag/${{ steps.latest_tag.outputs.tag }}
+          content: ":rocket: New Release v${{ steps.latest_tag.outputs.tag }}\\nDownload for [Linux](https://github.com/xetra11/CK3-Workbench/releases/download/${{ steps.latest_tag.outputs.tag }}/ck3-workbench_${{ steps.latest_tag.outputs.tag }}-1_amd64.deb)\\nDownload for [macOS](https://github.com/xetra11/CK3-Workbench/releases/download/${{ steps.latest_tag.outputs.tag }}/ck3-workbench-${{ steps.latest_tag.outputs.tag }}.dmg)\\nSee Changelog: https://github.com/xetra11/CK3-Workbench/releases/tag/${{ steps.latest_tag.outputs.tag }}"
 
   debian_build:
     needs: build
