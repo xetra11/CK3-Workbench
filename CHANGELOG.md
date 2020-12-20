@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.0.34 (20/12/2020)
+- [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/3db54b8b04795c1ad9e86dddfdb0a4bd07878370) - @xetra11
+- [chore(scripts): add echo for git status](https://github.com/xetra11/CK3-Workbench/commit/a84e43fb27ba2833fe466eb9b7fd6c0e74667dab) - @xetra11
+
+---
+
 ## v0.0.32 (20/12/2020)
 - [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/bf6d23997b53bbed072175c47cb512b02ef4dc62) - @xetra11
 - [chore(deps): bump junit-jupiter-api from 5.6.0 to 5.7.0](https://github.com/xetra11/CK3-Workbench/commit/626718101879f195212ba47616a9d833ca080bbd) - @dependabot[bot]
