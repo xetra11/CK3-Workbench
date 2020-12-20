@@ -78,7 +78,7 @@ jobs:
     - name: Add Release Notes
       env:
         GREN_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npx github-release-notes@0.17.1 release --token=$(echo $GREN_GITHUB_TOKEN) -P
+      run: npx github-release-notes@0.17.1 release --token=$(echo $GREN_GITHUB_TOKEN) -P --override
 
   debian_build:
     needs: build
