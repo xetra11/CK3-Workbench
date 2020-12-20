@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.0.31 (20/12/2020)
+- [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/73212d16e319e2f236f1da6e17be496b8e46618f) - @xetra11
+
+---
+
+## WIP Release 0.0.30 (01/01/1970)
+
+---
+
 ## WIP Release 0.0.29 (01/01/1970)
 
 ---
