@@ -28,6 +28,21 @@ you'd like to see in this tool in the future.
 All of the bugs we already know of are mentioned there
 
 ### Credits
+Thanks to people who helped the project in different ways
 
-#### ThePinkPanzer
-For providing an awesome amount of ingame icons from the game plus his own custom creations! 
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/kgsherman"><img src="https://avatars3.githubusercontent.com/u/8732558?s=460&u=8b7dd3ce0be7aa1d18a9a9901154520df31cce18&v=4" width="100px;" alt=""/><br /><sub><b>
+Kevin Sherman</b></sub></a><br />Testing</td>
+    <td align="center"><br /><sub><b>
+ThePinkPanzer</b></sub></a><br />Icons</td>
+  </tr>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
