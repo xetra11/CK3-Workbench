@@ -1,15 +1,18 @@
 # Changelog
 
+## v0.0.32 (20/12/2020)
+- [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/bf6d23997b53bbed072175c47cb512b02ef4dc62) - @xetra11
+- [chore(deps): bump junit-jupiter-api from 5.6.0 to 5.7.0](https://github.com/xetra11/CK3-Workbench/commit/626718101879f195212ba47616a9d833ca080bbd) - @dependabot[bot]
+- [chore(deps): bump junit-jupiter-engine from 5.6.0 to 5.7.0](https://github.com/xetra11/CK3-Workbench/commit/378c57814ff809c64f76b39accb09593bd47e0da) - @dependabot[bot]
+- [chore(deps): bump io.gitlab.arturbosch.detekt from 1.15.0-RC2 to 1.15.0](https://github.com/xetra11/CK3-Workbench/commit/ce8d99c01c89410e9e3fb368dc910573c2c2e8c0) - @dependabot[bot]
+- [github(bot): add dependabot](https://github.com/xetra11/CK3-Workbench/commit/5e45cf48e20dffd636dd9797ccaa466695317b3a) - @xetra11
+- [github(template): add feature template](https://github.com/xetra11/CK3-Workbench/commit/9ac39f134cdaf7a79dac77828d6c9a90cd4758d3) - @xetra11
+- [github(template): change bug template and adjust release script](https://github.com/xetra11/CK3-Workbench/commit/0034b2561c7a0895c9b190a399e73572e3dbabc8) - @xetra11
+
+---
+
 ## v0.0.31 (20/12/2020)
 - [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/73212d16e319e2f236f1da6e17be496b8e46618f) - @xetra11
-
----
-
-## WIP Release 0.0.30 (01/01/1970)
-
----
-
-## WIP Release 0.0.29 (01/01/1970)
 
 ---
 
