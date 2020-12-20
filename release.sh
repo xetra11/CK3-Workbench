@@ -7,6 +7,7 @@ new_version=`bump patch --dry-run --allow-dirty`
 echo "new version (bump): $new_version"
 echo "update README.md with new versions"
 sed -i "s/$last_version/$new_version/g" README.md
+sed -i "s/$last_version/$new_version/g" .github/ISSUE_TEMPLATE/bug_report.md
 
 git tag $new_version
 npx github-release-notes@0.17.1 changelog --token=$(echo $GITHUB_TOKEN) --override
