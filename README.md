@@ -21,11 +21,13 @@ you'd like to see in this tool in the future.
 * Export all created characters to a file characters.txt
 * Import character script files (unstable)
   * can only contain one character script file for now and has a very strict
-
+  
+### <img src="https://discord.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" alt="" data-canonical-src="https://discord.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="40" height="30" /> Discord 
+Join discussions here: https://discord.gg/YMVb4mjKpa
 
 ---
-### [**Known Issues**](https://github.com/xetra11/CK3-Workbench/discussions/categories/known-issues)
-All of the bugs we already know of are mentioned there
+Be sure to take a look into the [**Known Issues**](https://github.com/xetra11/CK3-Workbench/discussions/categories/known-issues)
+section to see if bugs you came along are already known to us.
 
 ### Credits
 Thanks to people who helped the project in different ways
