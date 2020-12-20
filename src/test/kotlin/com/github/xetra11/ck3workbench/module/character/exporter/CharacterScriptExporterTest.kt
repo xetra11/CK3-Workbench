@@ -21,6 +21,6 @@ class CharacterScriptExporterTest : ShouldSpec({
         )
         characterScriptExporter.export()
 
-        exportFile.readText() shouldBe expectedExportFile.readText()
+        exportFile.readText(Charsets.UTF_8) shouldBe expectedExportFile.readText(Charsets.UTF_8)
     }
 })
