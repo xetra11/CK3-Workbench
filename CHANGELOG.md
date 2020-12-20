@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.0.39 (20/12/2020)
+- [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/8d9348858166c30a839470547da9c2aba1a76f99) - @xetra11
+- [chore(readme): update discord channel](https://github.com/xetra11/CK3-Workbench/commit/a391d1ef45302c672375eaafacb121301e76d194) - @xetra11
+
+---
+
 ## v0.0.38 (20/12/2020)
 - [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/466ae687dea424a551ac8d55806e5b1762ebc2cb) - @xetra11
 - [github(release): fix discord content string issue](https://github.com/xetra11/CK3-Workbench/commit/983296ae0f5297f20a64833f732fedb024d1b4ce) - @xetra11
