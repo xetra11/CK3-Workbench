@@ -15,6 +15,6 @@ git add *CHANGELOG.md
 git commit -m "chore(version): update version"
 git tag $new_version -f
 
-#git push && git push --tag
+git push && git push --tag
 
 #npx github-release-notes@0.17.1 release --token=$(echo $GREN_GITHUB_TOKEN) -P
