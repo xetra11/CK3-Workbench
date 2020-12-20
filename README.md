@@ -3,8 +3,8 @@ This tool is currently in a prototype phase.
 I want to see what modders of Crusader Kings 3 (or other Paradox Games) might need.
 
 This project is heavily feedback and suggestion driven. So please take your time if you are 
-a potential user and discuss things
-(*to* [*Discussions*](https://github.com/xetra11/CK3-Workbench/discussions))
+a potential user and discuss features
+([*Discussions*](https://github.com/xetra11/CK3-Workbench/discussions))
 you'd like to see in this tool in the future.
 
 ### Release v0.0.16 ![Release](https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.16)
