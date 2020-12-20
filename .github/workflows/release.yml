@@ -30,6 +30,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
+    - uses: mikeal/npx@master
     - uses: actions/checkout@v2
     - name: Create Release
       id: create_release
@@ -73,7 +74,6 @@ jobs:
         asset_name: ck3-workbench-${{ steps.latest_tag.outputs.tag }}.dmg
         asset_content_type: application/zip
     - name: Add Release Notes
-      uses: mikeal/npx@master
       env:
         GREN_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npx github-release-notes@0.17.1 release --token=$(echo $GREN_GITHUB_TOKEN) -P
