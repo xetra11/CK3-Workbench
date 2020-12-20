@@ -38,7 +38,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        release_name: WIP Release ${{ github.ref }}
         draft: true
         prerelease: false
     - name: Download Debian Artifact
@@ -72,6 +72,11 @@ jobs:
         asset_path: distributions/ck3-workbench-${{ steps.latest_tag.outputs.tag }}.dmg
         asset_name: ck3-workbench-${{ steps.latest_tag.outputs.tag }}.dmg
         asset_content_type: application/zip
+    - name: Add Release Notes
+      uses: mikeal/npx@master
+      env:
+        GREN_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npx github-release-notes@0.17.1 release --token=$(echo $GREN_GITHUB_TOKEN) -P
 
   debian_build:
     needs: build
