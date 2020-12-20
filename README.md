@@ -2,7 +2,7 @@
 This tool is currently in a prototype phase.
 I want to see what modders of Crusader Kings 3 (or other Paradox Games) might need.
 
-This project is heavily feedback and suggestion driven. So please take your time if you are 
+This project is heavily feedback and suggestion driven. So please take your time if you are
 a potential user and discuss features
 ([*Discussions*](https://github.com/xetra11/CK3-Workbench/discussions))
 you'd like to see in this tool in the future.
@@ -11,6 +11,10 @@ you'd like to see in this tool in the future.
 * Windows: *Out of Order*
 * Linux: [v0.0.22](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.22/ck3-workbench_0.0.22-1_amd64.deb)
 * macOs: [v0.0.22](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.22/ck3-workbench-0.0.22.dmg)
+
+#### Changes
+* See [Latest Release](https://github.com/xetra11/CK3-Workbench/releases/tag/0.0.22) to see what's new.
+* See [Changelog](https://github.com/xetra11/CK3-Workbench/blob/main/CHANGELOG.md) for preceding changes.
 
 ### Current Features
 * Create new characters (without traits and skills yet)
