@@ -1,4 +1,4 @@
-# CK3-Workbench ![Development Build](https://github.com/xetra11/CK3-Workbench/workflows/Development%20Build/badge.svg)
+# CK3-Workbench ![Development Build](https://github.com/xetra11/CK3-Workbench/workflows/Development%20Build/badge.svg) [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)
 This tool is currently in a prototype phase.
 I want to see what modders of Crusader Kings 3 (or other Paradox Games) might need.
 
