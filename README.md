@@ -7,10 +7,10 @@ a potential user and discuss things
 (*to* [*Discussions*](https://github.com/xetra11/CK3-Workbench/discussions))
 you'd like to see in this tool in the future.
 
-### Release v0.0.15 ![Release](https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.15)
+### Release v0.0.16 ![Release](https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.16)
 * Windows: *Out of Order*
-* Linux: [v0.0.15](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.15/ck3-workbench_0.0.15-1_amd64.deb)
-* macOs: [v0.0.15](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.15/ck3-workbench-0.0.15.dmg)
+* Linux: [v0.0.16](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.16/ck3-workbench_0.0.16-1_amd64.deb)
+* macOs: [v0.0.16](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.16/ck3-workbench-0.0.16.dmg)
 
 ### Current Features
 * Create new characters (without traits and skills yet)
