@@ -14,6 +14,7 @@ npx github-release-notes@0.17.1 changelog --token=$(echo $GITHUB_TOKEN) --overri
 git add *README.md
 git add *CHANGELOG.md
 git add *bug_report.md
+echo `git status`
 git commit -m "chore(version): update version"
 git tag $new_version -f
 
