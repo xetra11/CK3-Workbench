@@ -12,6 +12,7 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+          token: ${{ secrets.REPO_ADMIN }}
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
@@ -20,7 +21,6 @@ jobs:
           go-version: '^1.13.1' # The Go version to download (if necessary) and use.
       - name: Run Release Script (Patch)
         env:
-          GITHUB_TOKEN: ${{ secrets.REPO_ADMIN }}
           GREN_GITHUB_TOKEN: ${{ secrets.GREN_GITHUB_TOKEN }}
         run: |-
           git config user.name github-actions
