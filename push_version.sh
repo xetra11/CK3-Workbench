@@ -7,7 +7,7 @@ new_version=`bump patch --dry-run --allow-dirty`
 echo "new version (bump): $new_version"
 git tag $new_version
 echo "update README.md with new versions"
-sed -i "s/v$last_version/v$new_version/g" README.md
+sed -i "s/$last_version/$new_version/g" README.md
 
 git add *README.md
 git commit -m "chore(version): update version"
