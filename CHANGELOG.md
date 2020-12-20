@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.0.37 (20/12/2020)
+- [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/12323e5a6359c9f60bd1f265ca35a35e955f40de) - @xetra11
+- [github(release): add step to publish download link](https://github.com/xetra11/CK3-Workbench/commit/8f7f42e71915f4a888a1167b15b37a9350a8dba6) - @xetra11
+- [github(release): fix typo](https://github.com/xetra11/CK3-Workbench/commit/39c8467d5b45c31546bef62ea514f553dd200978) - @xetra11
+- [chore(readme): add ugly ui preview](https://github.com/xetra11/CK3-Workbench/commit/4d8254a2fd47663e6c714ceddccb2357548d0bb6) - @xetra11
+
+---
+
 ## v0.0.36 (20/12/2020)
 - [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/19a882bf42c51fca2337d81b7332da0f7f581c87) - @xetra11
 - [github(release): fix syntax bs again](https://github.com/xetra11/CK3-Workbench/commit/e9492079aee7f9d0d823dec427b42d748cde0098) - @xetra11
