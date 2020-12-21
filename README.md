@@ -4,7 +4,7 @@
 
 <p align="center">
   <img width="200" src="https://github.com/xetra11/CK3-Workbench/workflows/Development%20Build/badge.svg" />
-  <img width="120" src="https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg" />
+  <img href="https://github.com/xetra11/CK3-Workbench/blob/main/CHANGELOG.md" width="120" src="https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg" />
 </p>
 
 This tool is currently in a prototype phase.
