@@ -1,4 +1,12 @@
-# CK3-Workbench ![Development Build](https://github.com/xetra11/CK3-Workbench/workflows/Development%20Build/badge.svg) [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)
+<p align="center">
+  <img width="200" src="https://user-images.githubusercontent.com/8149023/102781998-e0c48e80-4398-11eb-95fb-69b68f392b23.png" />
+</p>
+
+<p align="center">
+  <img width="200" src="https://github.com/xetra11/CK3-Workbench/workflows/Development%20Build/badge.svg" />
+  <img width="120" src="https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg" />
+</p>
+
 This tool is currently in a prototype phase.
 I want to see what modders of Crusader Kings 3 (or other Paradox Games) might need.
 
@@ -43,7 +51,7 @@ Thanks to people who helped the project in different ways
 <table>
   <tr>
     <td align="center"><a href="https://github.com/kgsherman"><img src="https://avatars3.githubusercontent.com/u/8732558?s=460&u=8b7dd3ce0be7aa1d18a9a9901154520df31cce18&v=4" width="100px;" alt=""/><br /><sub><b>
-Kevin Sherman</b></sub></a><br />Testing</td>
+Kevin Sherman</b></sub></a><br />Testing & Logo</td>
     <td align="center"><br /><sub><b>
 ThePinkPanzer</b></sub></a><br />Icons</td>
   </tr>
