@@ -15,7 +15,8 @@ a potential user and discuss features
 ([*Discussions*](https://github.com/xetra11/CK3-Workbench/discussions))
 you'd like to see in this tool in the future.
 
-### Release v0.0.40 ![Release](https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.40)
+### Release v0.0.40 
+![Release](https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.40)
 * Windows: *Out of Order*
 * Linux: [v0.0.40](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.40/ck3-workbench_0.0.40-1_amd64.deb)
 * macOs: [v0.0.40](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.40/ck3-workbench-0.0.40.dmg)
