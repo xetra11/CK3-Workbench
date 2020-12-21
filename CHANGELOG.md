@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.0.40 (21/12/2020)
+- [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/6892ddad611f6a5662d462fffe1caccfa1a1f627) - undefined
+- [github(release): try adding to checkout action token property](https://github.com/xetra11/CK3-Workbench/commit/1cf03be4eb35545062d3c88aa8425e2308e6c84f) - @xetra11
+- [github(release): add repo admin token](https://github.com/xetra11/CK3-Workbench/commit/ede692a22b17d3deae9c5d1e76f1a7eb36255ee7) - @xetra11
+- [github(release): add release minor workflow](https://github.com/xetra11/CK3-Workbench/commit/8784e6dac71193d9e1c3bcbd4d314a71b4b5c1b1) - @xetra11
+- [fix(test): add utf-8 standard to avoid windows test failure](https://github.com/xetra11/CK3-Workbench/commit/3c2963ef2871321dd350cf94a7c83fe6cbe31667) - @xetra11
+- [chore(scripts): adjust token stuff](https://github.com/xetra11/CK3-Workbench/commit/3f1271208bdf734703f735c5691a85cb5e573f53) - @xetra11
+- [chore(scripts): disable git push for testing reasons](https://github.com/xetra11/CK3-Workbench/commit/195840317c42df0f8d3cc021b4b8051bccc4f776) - @xetra11
+
+---
+
 ## v0.0.39 (20/12/2020)
 - [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/8d9348858166c30a839470547da9c2aba1a76f99) - @xetra11
 - [chore(readme): update discord channel](https://github.com/xetra11/CK3-Workbench/commit/a391d1ef45302c672375eaafacb121301e76d194) - @xetra11
