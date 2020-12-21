@@ -1,15 +1,15 @@
 <p align="center">
   <img width="200" src="https://user-images.githubusercontent.com/8149023/102781998-e0c48e80-4398-11eb-95fb-69b68f392b23.png" />
 </p>
+<p align="center">
+  <img width="50" src="https://user-images.githubusercontent.com/8149023/102794331-8680f900-43ab-11eb-9e52-f48c3fadd911.png" alt="Crusader Kings 3" />
+</p>
+
+---
 
 <p align="center">
   <img width="200" src="https://github.com/xetra11/CK3-Workbench/workflows/Development%20Build/badge.svg" />
   <a href="https://github.com/xetra11/CK3-Workbench/blob/main/CHANGELOG.md"><img width="120" src="https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg" /></a>
-</p>
-
-<p align="center">Mod Tool for</p>
-<p align="center">
-  <img width="50" src="https://user-images.githubusercontent.com/8149023/102794331-8680f900-43ab-11eb-9e52-f48c3fadd911.png" alt="Crusader Kings 3" />
 </p>
 
 This tool is currently in a prototype phase.
