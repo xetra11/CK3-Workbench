@@ -120,10 +120,10 @@ jobs:
           path: ./build/compose/binaries/main/deb/ck3-workbench_${{ steps.latest_tag.outputs.tag }}-1_amd64.deb
 
   windows_build-16:
-    if: "false"
     needs: build
     name: Windows Build 2016
     runs-on: windows-2016
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK

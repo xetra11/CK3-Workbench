@@ -25,6 +25,7 @@ jobs:
   test-windows-16:
     name: Test Windows 2016
     runs-on: windows-2016
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
@@ -39,6 +40,7 @@ jobs:
   test-windows-19:
     name: Test Windows 2019
     runs-on: windows-2019
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
