@@ -119,6 +119,30 @@ jobs:
           name: debian-distribution
           path: ./build/compose/binaries/main/deb/ck3-workbench_${{ steps.latest_tag.outputs.tag }}-1_amd64.deb
 
+  windows_build-16:
+    if: "false"
+    needs: build
+    name: Windows Build 2016
+    runs-on: windows-2016
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Create Debian Distribution
+        run: ./gradlew packageMsi
+      - name: Latest Tag
+        id: latest_tag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
+      - name: Upload Windows Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-distribution
+          path: build\compose\binaries\main\msi\ck3-workbench-${{ steps.latest_tag.outputs.tag }}.msi
+
   macos_build:
     needs: build
     name: macOS Build
