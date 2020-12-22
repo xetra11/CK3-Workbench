@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.0.42 (22/12/2020)
+- [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/425930e4bc5643652b3e0666c041a5970fee33c7) - undefined
+- [github(workflow): add continue on error](https://github.com/xetra11/CK3-Workbench/commit/b5d8476807b220ab387845f25ec24e504aa7a4a9) - @xetra11
+- [github(workflow): add test cases for different environments](https://github.com/xetra11/CK3-Workbench/commit/f94df80dc5a0cd0aaa928db380595986d223b9bb) - @xetra11
+- [chore(update): yes](https://github.com/xetra11/CK3-Workbench/commit/f55be14f6b00f6d1a776f5f6c15281e603866a4a) - @xetra11
+- [chore(readme): rearrange](https://github.com/xetra11/CK3-Workbench/commit/918813fade948dfc892bac259f81dd38d1d06018) - @xetra11
+- [chore(readme): add mod support banner](https://github.com/xetra11/CK3-Workbench/commit/75f4b13ad1541e2fc8352e69e804db2cff25ae3f) - @xetra11
+
+---
+
 ## v0.0.41 (21/12/2020)
 - [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/f288f263fcdb5e6023230bb7548d5c4e460bb9f3) - undefined
 - [chore(readme): add href with anchor](https://github.com/xetra11/CK3-Workbench/commit/55b7ea75d8d11447f598a4d105dc6f4b247a34a4) - @xetra11
