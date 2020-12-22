@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.0.43 (22/12/2020)
+- [**bug**] [BUG] Test Bug for gren [#11](https://github.com/xetra11/CK3-Workbench/issues/11)
+- [**enhancement**] [FEATURE] Test Feature for Gren [#10](https://github.com/xetra11/CK3-Workbench/issues/10)
+
+---
+
 ## v0.0.42 (22/12/2020)
 - [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/425930e4bc5643652b3e0666c041a5970fee33c7) - undefined
 - [github(workflow): add continue on error](https://github.com/xetra11/CK3-Workbench/commit/b5d8476807b220ab387845f25ec24e504aa7a4a9) - @xetra11
