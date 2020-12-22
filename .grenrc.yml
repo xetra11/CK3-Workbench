@@ -5,3 +5,6 @@
   changelogFilename: "CHANGELOG.md"
   ignoreCommitsWith: ["chore", "github"]
   ignoreIssuesWith: "continues deployment"
+  groupBy:
+    Enhancements: ["enhancement", "feature"]
+    Bug Fixes: ["bug"]

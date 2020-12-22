@@ -1,7 +1,7 @@
 ---
 name: Feature
 about: Add a new feature to CK3 Workbench
-title: "[FEATURE]"
+title: ""
 labels: enhancement
 assignees: xetra11
 
