@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.0.41 (21/12/2020)
+- [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/f288f263fcdb5e6023230bb7548d5c4e460bb9f3) - undefined
+- [chore(readme): add href with anchor](https://github.com/xetra11/CK3-Workbench/commit/55b7ea75d8d11447f598a4d105dc6f4b247a34a4) - @xetra11
+- [chore(readme): release logs href](https://github.com/xetra11/CK3-Workbench/commit/cd5510eadc1d7539f68030f8496d5eaf78071d10) - @xetra11
+- [chore(readme): realign](https://github.com/xetra11/CK3-Workbench/commit/a625a654c03317158a4451742a9463278c943e0c) - @xetra11
+- [chore(readme): add logo](https://github.com/xetra11/CK3-Workbench/commit/c9d00499426ebd8a81e67774bceef0bcae17f90c) - @xetra11
+- [github(template): adjust feature template](https://github.com/xetra11/CK3-Workbench/commit/54fa0721d5ef236852632aa115a89cadb2c02106) - @xetra11
+- [fix(test): disable test so windows build can run](https://github.com/xetra11/CK3-Workbench/commit/8b91340450ea836d3cb7d245729767bdf862d1da) - @xetra11
+
+---
+
 ## v0.0.40 (21/12/2020)
 - [chore(version): update version](https://github.com/xetra11/CK3-Workbench/commit/6892ddad611f6a5662d462fffe1caccfa1a1f627) - undefined
 - [github(release): try adding to checkout action token property](https://github.com/xetra11/CK3-Workbench/commit/1cf03be4eb35545062d3c88aa8425e2308e6c84f) - @xetra11
