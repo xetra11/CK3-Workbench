@@ -1,5 +1,7 @@
 ---
-  dataSource: "commits"
+  dataSource: "issues"
   prefix: "v"
   includeMessages: "commits"
   changelogFilename: "CHANGELOG.md"
+  ignoreCommitsWith: ["chore", "github"]
+  ignoreIssuesWith: "continues deployment"

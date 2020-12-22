@@ -42,8 +42,8 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: WIP Release ${{ github.ref }}
-        draft: true
-        prerelease: false
+        draft: false
+        prerelease: true
     - name: Download Debian Artifact
       uses: actions/download-artifact@v2
       with:
@@ -78,7 +78,7 @@ jobs:
     - name: Add Release Notes
       env:
         GREN_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npx github-release-notes@0.17.1 release --token=$(echo $GREN_GITHUB_TOKEN) -P --override
+      run: npx github-release-notes@0.17.1 release --token=$(echo $GREN_GITHUB_TOKEN) --override
 
   publish:
     needs: release
