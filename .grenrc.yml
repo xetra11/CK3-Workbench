@@ -6,8 +6,9 @@
   ignoreCommitsWith: ["chore", "github"]
   ignoreIssuesWith: "continues deployment"
   groupBy:
-    Enhancements: ["enhancement", "feature"]
-    Bug Fixes: ["bug"]
+    New Features: ["enhancement", "feature"]
+    Fixes: ["bug"]
+    Improvements: ["refactoring", "improvement"]
   template:
       commit: "({ message, url, author, name }) => `- [${message}](${url}) - ${author ? `@${author}` : name}`"
       issue: "- {{name}} [{{text}}]({{url}})"
