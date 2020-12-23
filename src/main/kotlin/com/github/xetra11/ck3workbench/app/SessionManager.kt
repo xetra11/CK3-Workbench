@@ -10,9 +10,8 @@ import java.nio.file.Paths
 /**
  * Deals with loading project files and assets to persist the state of the application
  */
-class SessionManager(
+class SessionManager {
     private val fileName: String = "session"
-) {
     private val filePath = Paths.get("$fileName.wbp").toAbsolutePath()
     private val sessionFile = filePath.toFile()
 

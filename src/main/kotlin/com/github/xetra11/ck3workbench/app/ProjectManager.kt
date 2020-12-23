@@ -4,16 +4,15 @@ import com.github.xetra11.ck3workbench.module.character.CK3Character
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
 
 /**
  * Manages project files to load/save different projects
  */
-class ProjectManager {
+class ProjectManager(sessionManager: SessionManager) {
 
-    fun createProject(name: String, path: Path, description: String) {
+    fun saveNewProject(name: String, path: Path, description: String) {
         val newProject = Project(name, description)
 
         val projectData = Json.encodeToString(newProject)
@@ -24,6 +23,10 @@ class ProjectManager {
 
     fun projects(): List<Project> {
         return listOf()
+    }
+
+    fun saveCurrentProject() {
+        TODO("Not yet implemented")
     }
 }
 

@@ -9,17 +9,17 @@ import kotlinx.serialization.json.Json
 import java.io.File
 
 class SessionManagerTest : ShouldSpec({
-    val sessionManager = SessionManager("test")
+    val sessionManager = SessionManager()
 
     afterTest {
-        if (File("test.wbp").exists()) {
-            File("test.wbp").delete()
+        if (File("session.wbp").exists()) {
+            File("session.wbp").delete()
         }
         StateManager.characters.clear()
     }
 
-    should("create a project file on initializaton") {
-        val expected = File("test.wbp")
+    should("create a session file on initialization") {
+        val expected = File("session.wbp")
 
         sessionManager.initialize()
 
@@ -29,7 +29,7 @@ class SessionManagerTest : ShouldSpec({
     }
 
     should("initialize project file with json projects array") {
-        val projectFile = File("test.wbp")
+        val projectFile = File("session.wbp")
 
         sessionManager.initialize()
         val projectFromFile = Json.decodeFromString<Session>(projectFile.readText())
@@ -45,7 +45,7 @@ class SessionManagerTest : ShouldSpec({
             )
         )
 
-        val projectFile = File("test.wbp")
+        val projectFile = File("session.wbp")
 
         sessionManager.initialize()
         sessionManager.onExit()
