@@ -80,16 +80,16 @@ jobs:
         GREN_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npx github-release-notes@0.17.1 release --token=$(echo $GREN_GITHUB_TOKEN) --override
 
-  publish:
+  announce:
     needs: release
-    name: Publish
+    name: Announce Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Latest Tag
         id: latest_tag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
-      - name: Publish Debian Release
+      - name: Announce on Discord
         uses: tsickert/discord-webhook@v0.0.7
         with:
           webhook-url: ${{ secrets.DISCORD_ANNOUNCEMENTS }}
