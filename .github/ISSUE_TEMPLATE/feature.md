@@ -2,7 +2,7 @@
 name: Feature
 about: Add a new feature to CK3 Workbench
 title: ""
-labels: enhancement
+labels: feature
 assignees: xetra11
 
 ---
