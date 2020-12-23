@@ -8,3 +8,12 @@
   groupBy:
     Enhancements: ["enhancement", "feature"]
     Bug Fixes: ["bug"]
+  template:
+      commit: "({ message, url, author, name }) => `- [${message}](${url}) - ${author ? `@${author}` : name}`"
+      issue: "- {{name}} [{{text}}]({{url}})"
+      label: "[**{{label}}**]"
+      noLabel: "closed"
+      group: "\n#### {{heading}}:\n"
+      changelogTitle: "# Changelog\n\n"
+      release: "## {{release}} ({{date}})\n{{body}}"
+      releaseSeparator: "\n---\n\n"
