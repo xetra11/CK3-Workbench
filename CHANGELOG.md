@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.47 (23/12/2020)
+
+#### Enhancements:
+
+- test bug 3 [#15](https://github.com/xetra11/CK3-Workbench/issues/15)
+
+#### Bug Fixes:
+
+- test bug 3 [#14](https://github.com/xetra11/CK3-Workbench/issues/14)
+
+---
+
 ## v0.0.46 (23/12/2020)
 *No changelog for this release.*
 
