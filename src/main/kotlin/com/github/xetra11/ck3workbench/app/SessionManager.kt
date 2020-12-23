@@ -6,6 +6,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
+import java.nio.file.Paths
 
 /**
  * Deals with loading project files and assets to persist the state of the application
@@ -13,7 +14,8 @@ import java.io.File
 class SessionManager(
     private val fileName: String = "session"
 ) {
-    private val sessionFile = File("$fileName.wbp")
+    private val filePath = Paths.get("$fileName.wbp").toAbsolutePath()
+    private val sessionFile = filePath.toFile()
 
     /**
      * Initializes the session by creating a fresh session file
