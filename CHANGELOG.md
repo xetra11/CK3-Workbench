@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.44 (22/12/2020)
+
+#### Enhancements
+
+- [**enhancement**] test feature number 2 [#12](https://github.com/xetra11/CK3-Workbench/issues/12)
+
+#### Bug Fixes
+
+- [**bug**] test bug number 2 [#13](https://github.com/xetra11/CK3-Workbench/issues/13)
+
+---
+
 ## v0.0.43 (22/12/2020)
 - [**bug**] [BUG] Test Bug for gren [#11](https://github.com/xetra11/CK3-Workbench/issues/11)
 - [**enhancement**] [FEATURE] Test Feature for Gren [#10](https://github.com/xetra11/CK3-Workbench/issues/10)
