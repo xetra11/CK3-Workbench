@@ -9,6 +9,7 @@
     New Features: ["enhancement", "feature"]
     Fixes: ["bug"]
     Improvements: ["refactoring", "improvement"]
+    Documentation: ["documentation"]
   template:
       commit: "({ message, url, author, name }) => `- [${message}](${url}) - ${author ? `@${author}` : name}`"
       issue: "- {{name}} [{{text}}]({{url}})"
