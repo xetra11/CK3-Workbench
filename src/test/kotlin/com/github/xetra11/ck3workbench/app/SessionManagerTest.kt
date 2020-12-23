@@ -32,9 +32,9 @@ class SessionManagerTest : ShouldSpec({
         val projectFile = File("test.wbp")
 
         sessionManager.initialize()
-        val projectFromFile = Json.decodeFromString<Project>(projectFile.readText())
+        val projectFromFile = Json.decodeFromString<Session>(projectFile.readText())
 
-        projectFromFile shouldBe Project()
+        projectFromFile shouldBe Session()
     }
 
     should("save character state on exit") {
@@ -50,8 +50,8 @@ class SessionManagerTest : ShouldSpec({
         sessionManager.initialize()
         sessionManager.onExit()
 
-        val projectFromFile = Json.decodeFromString<Project>(projectFile.readText())
-        val (_, expectedCharacters) = Project(
+        val projectFromFile = Json.decodeFromString<Session>(projectFile.readText())
+        val (_, expectedCharacters) = Session(
             "default",
             characters =
                 listOf(

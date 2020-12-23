@@ -13,21 +13,21 @@ import java.io.File
 class SessionManager(
     private val fileName: String = "session"
 ) {
-    private val sessionFile = File("$fileName.wbp")
+    private val projectFile = File("$fileName.wbp")
 
     /**
      * Initializes the session by creating a fresh session file
      */
     fun initialize() {
-        if (!sessionFile.exists()) {
-            sessionFile.createNewFile()
-            val project = Session()
+        if (!projectFile.exists()) {
+            projectFile.createNewFile()
+            val project = Project()
             val projectData = Json.encodeToString(project)
-            sessionFile.writeText(projectData)
+            projectFile.writeText(projectData)
             NotificationsService.notify("Project ${project.name} has been initialized")
         } else {
             NotificationsService.notify("Loading project file...")
-            val projectFromFile = Json.decodeFromString<Session>(sessionFile.readText())
+            val projectFromFile = Json.decodeFromString<Project>(projectFile.readText())
             StateManager.characters.addAll(projectFromFile.characters)
             NotificationsService.notify("Project file loaded")
         }
@@ -39,16 +39,16 @@ class SessionManager(
      * in the project file
      */
     fun onExit() {
-        val projectFromFile = Json.decodeFromString<Session>(sessionFile.readText())
+        val projectFromFile = Json.decodeFromString<Project>(projectFile.readText())
         projectFromFile.characters = StateManager.characters
         val updatedProjectData = Json.encodeToString(projectFromFile)
-        sessionFile.writeText(updatedProjectData)
+        projectFile.writeText(updatedProjectData)
         NotificationsService.notify("Character state saved to project file")
     }
 }
 
 @Serializable
-data class Session(
+data class Project(
     var name: String = "default",
     var characters: List<CK3Character> = listOf()
 )
