@@ -12,13 +12,14 @@ import java.nio.file.Paths
  */
 class ProjectManager(sessionManager: SessionManager) {
 
-    fun saveNewProject(name: String, path: Path, description: String) {
-        val newProject = Project(name, description)
+    fun saveNewProject(name: String, path: Path, description: String): Project {
+        val newProject = Project(name, path.toAbsolutePath().toString(), description)
 
         val projectData = Json.encodeToString(newProject)
-        val projectFile = Paths.get(path.toString(), "$name.wbp").toFile()
+        val projectFile = path.toFile()
 
-        projectFile.writeText(projectData)
+        projectFile.writeText(projectData, Charsets.UTF_8)
+        return newProject
     }
 
     fun projects(): List<Project> {
@@ -33,6 +34,7 @@ class ProjectManager(sessionManager: SessionManager) {
 @Serializable
 data class Project(
     var name: String = "default",
+    var location: String = "",
     var description: String = "",
     var state: ProjectState = ProjectState()
 )

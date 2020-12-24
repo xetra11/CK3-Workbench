@@ -18,8 +18,8 @@ class ProjectManagerTest : ShouldSpec({
     }
 
     should("save as project with name") {
-        val workDir = Paths.get("").toAbsolutePath()
-        projectManager.saveNewProject("test", workDir, "my description")
+        val workDir = Paths.get("test.wbp").toAbsolutePath()
+        projectManager.saveNewProject("Test Project", workDir, "my description")
 
         val expected = File("test.wbp")
 
@@ -39,7 +39,14 @@ class ProjectManagerTest : ShouldSpec({
         projectManager.saveCurrentProject()
     }
 
-    xshould("open an existing project") { }
+    should("have project data structure containing filepath to project file") {
+        val projectPath = Paths.get("test.wbp").toAbsolutePath()
+        val newProject = projectManager.saveNewProject("New Project", projectPath, "This is a project")
+
+        newProject.location shouldBe Paths.get( "test.wbp" ).toAbsolutePath().toString()
+    }
+
+    xshould("open an existing project and init character list") { }
     xshould("list recent projects that are saved in session") { }
 })
 
