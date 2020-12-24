@@ -27,7 +27,7 @@ class SessionManagerTest : ShouldSpec({
         sessionFromFile shouldBe Session()
     }
 
-    should("load saved session file") {
+    should("save current project on exit") {
         val sessionFile = File("session.wbp")
         val currentProject = Project("myProject", "The description")
 
@@ -42,6 +42,18 @@ class SessionManagerTest : ShouldSpec({
         sessionFromFile.activeProject shouldBe currentProject.name
     }
 
-    should("save current project on exit") {}
+    should("load saved session file into sessionholder") {
+        val sessionFile = File("session.wbp")
+        val currentProject = Project("myProject", "The description")
+
+        sessionManager.initialize()
+        sessionManager.exit(currentProject)
+        sessionManager.initialize()
+
+        val currentSession: Session = SessionHolder.activeSession
+
+        currentSession.activeProject shouldBe currentProject.name
+    }
+
     should("save recent projects") {}
 })

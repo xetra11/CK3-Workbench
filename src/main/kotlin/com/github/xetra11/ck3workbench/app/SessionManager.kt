@@ -27,7 +27,8 @@ class SessionManager {
         } else {
             NotificationsService.notify("Loading last session...")
             val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
-            NotificationsService.notify("Session loaded")
+            SessionHolder.activeSession = sessionFromFile
+            NotificationsService.notify("Session loaded and set in SessionHolder")
         }
     }
 
