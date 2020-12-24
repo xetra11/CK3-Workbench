@@ -91,7 +91,7 @@ private fun initializeApp() {
             sessionManager.initialize()
         },
         onAppExit = {
-            sessionManager.onExit()
+            sessionManager.exit(null)
         }
     )
 }

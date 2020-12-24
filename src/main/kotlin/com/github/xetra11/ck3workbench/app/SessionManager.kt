@@ -1,6 +1,5 @@
 package com.github.xetra11.ck3workbench.app
 
-import com.github.xetra11.ck3workbench.module.character.CK3Character
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -21,34 +20,38 @@ class SessionManager {
     fun initialize() {
         if (!sessionFile.exists()) {
             sessionFile.createNewFile()
-            val project = Session()
-            val projectData = Json.encodeToString(project)
-            sessionFile.writeText(projectData)
-            NotificationsService.notify("Project ${project.name} has been initialized")
+            val session = Session()
+            val sessionData = Json.encodeToString(session)
+            sessionFile.writeText(sessionData)
+            NotificationsService.notify("Session has been initialized")
         } else {
-            NotificationsService.notify("Loading project file...")
-            val projectFromFile = Json.decodeFromString<Session>(sessionFile.readText())
-            StateManager.characters.addAll(projectFromFile.characters)
-            NotificationsService.notify("Project file loaded")
+            NotificationsService.notify("Loading last session...")
+            val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
+            NotificationsService.notify("Session loaded")
         }
     }
 
     /**
      * This call should be hooked to the application onExit event.
      * It runs through state and other memory saved data to save them
-     * in the project file
+     * in the session file
      */
-    fun onExit() {
-        val projectFromFile = Json.decodeFromString<Session>(sessionFile.readText())
-        projectFromFile.characters = StateManager.characters
-        val updatedProjectData = Json.encodeToString(projectFromFile)
+    fun exit(currentProject: Project?) {
+        val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
+        currentProject?.let { project ->
+            sessionFromFile.activeProject = project.name
+            NotificationsService.notify("Save session with project ${project.name}")
+        } ?: run {
+            sessionFromFile.activeProject = ""
+           NotificationsService.notify("Save session without active project")
+        }
+        val updatedProjectData = Json.encodeToString(sessionFromFile)
         sessionFile.writeText(updatedProjectData)
-        NotificationsService.notify("Character state saved to project file")
+        NotificationsService.notify("Session saved on exit")
     }
 }
 
 @Serializable
 data class Session(
-    var name: String = "default",
-    var characters: List<CK3Character> = listOf()
+    var activeProject: String = ""
 )

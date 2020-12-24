@@ -1,8 +1,6 @@
 package com.github.xetra11.ck3workbench.app
 
-import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import io.kotest.core.spec.style.ShouldSpec
-import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -15,69 +13,35 @@ class SessionManagerTest : ShouldSpec({
         if (File("session.wbp").exists()) {
             File("session.wbp").delete()
         }
-        StateManager.characters.clear()
     }
 
-    should("create a session file on initialization") {
-        val expected = File("session.wbp")
+    should("initialize new session file") {
+        val sessionFile = File("session.wbp")
 
         sessionManager.initialize()
+        val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
 
-        expected.exists() shouldBe true
-        expected.isDirectory shouldBe false
-        expected.extension shouldBe "wbp"
+        sessionFile.exists() shouldBe true
+        sessionFile.isDirectory shouldBe false
+        sessionFile.extension shouldBe "wbp"
+        sessionFromFile shouldBe Session()
     }
 
-    should("initialize project file with json projects array") {
-        val projectFile = File("session.wbp")
+    should("load saved session file") {
+        val sessionFile = File("session.wbp")
+        val currentProject = Project("myProject", "The description")
 
         sessionManager.initialize()
-        val projectFromFile = Json.decodeFromString<Session>(projectFile.readText())
+        sessionManager.exit(currentProject)
 
-        projectFromFile shouldBe Session()
+        val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
+
+        sessionFile.exists() shouldBe true
+        sessionFile.isDirectory shouldBe false
+        sessionFile.extension shouldBe "wbp"
+        sessionFromFile.activeProject shouldBe currentProject.name
     }
 
-    should("save character state on exit") {
-        StateManager.characters.addAll(
-            listOf(
-                CharacterTemplate.DEFAULT_CHARACTER,
-                CharacterTemplate.DEFAULT_CHARACTER
-            )
-        )
-
-        val projectFile = File("session.wbp")
-
-        sessionManager.initialize()
-        sessionManager.onExit()
-
-        val projectFromFile = Json.decodeFromString<Session>(projectFile.readText())
-        val (_, expectedCharacters) = Session(
-            "default",
-            characters =
-                listOf(
-                    CharacterTemplate.DEFAULT_CHARACTER,
-                    CharacterTemplate.DEFAULT_CHARACTER
-                )
-        )
-
-        projectFromFile.characters shouldBe expectedCharacters
-    }
-
-    should("load character state from file into state manager") {
-        sessionManager.initialize()
-        StateManager.characters.addAll(
-            listOf(
-                CharacterTemplate.DEFAULT_CHARACTER,
-                CharacterTemplate.DEFAULT_CHARACTER,
-                CharacterTemplate.DEFAULT_CHARACTER
-            )
-        )
-
-        sessionManager.onExit()
-        StateManager.characters.clear()
-
-        sessionManager.initialize()
-
-        StateManager.characters shouldHaveSize 3
-    }
+    should("save current project on exit") {}
+    should("save recent projects") {}
 })
