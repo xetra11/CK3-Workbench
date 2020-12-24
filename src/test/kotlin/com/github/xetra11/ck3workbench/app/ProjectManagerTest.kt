@@ -3,20 +3,16 @@ package com.github.xetra11.ck3workbench.app
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
-import io.mockk.clearMocks
-import io.mockk.mockk
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.nio.file.Paths
 
 class ProjectManagerTest : ShouldSpec({
-    val sessionManager: SessionManager = mockk()
-    val projectManager: ProjectManager = ProjectManager(sessionManager)
+    val projectManager = ProjectManager()
 
     afterTest {
         deleteTestFile()
-        clearMocks(sessionManager)
     }
 
     should("save as project with name") {
@@ -36,7 +32,7 @@ class ProjectManagerTest : ShouldSpec({
             )
         )
         val projectFilePath = Paths.get("test.wbp").toAbsolutePath()
-        SessionHolder.activeSession = Session(Project("Test Project", projectFilePath.toString(), "descripto"))
+        SessionHolder.activeSession = Session(Project("Test Project", projectFilePath.toString()))
 
         projectManager.saveCurrentProject()
 
@@ -50,11 +46,25 @@ class ProjectManagerTest : ShouldSpec({
         val projectPath = Paths.get("test.wbp").toAbsolutePath()
         val newProject = projectManager.saveNewProject("New Project", projectPath, "This is a project")
 
-        newProject.location shouldBe Paths.get( "test.wbp" ).toAbsolutePath().toString()
+        newProject.location shouldBe Paths.get("test.wbp").toAbsolutePath().toString()
     }
 
-    xshould("open an existing project and init character list") { }
-    xshould("list recent projects that are saved in session") { }
+    should("open an existing project and init character list") {
+        val expectedCharacters = listOf(
+            CharacterTemplate.DEFAULT_CHARACTER,
+            CharacterTemplate.DEFAULT_CHARACTER
+        )
+        val testProject = Project(
+            "My Project",
+            Paths.get("test.wbp").toAbsolutePath().toString(),
+            state = ProjectState(expectedCharacters)
+        )
+
+        projectManager.saveProject(testProject)
+        val loadedProject = projectManager.loadProject(testProject)
+
+        loadedProject.state.characters shouldBe expectedCharacters
+    }
 })
 
 private fun deleteTestFile() {
