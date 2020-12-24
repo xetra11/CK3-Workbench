@@ -27,7 +27,19 @@ class ProjectManager(sessionManager: SessionManager) {
     }
 
     fun saveCurrentProject() {
-        TODO("Not yet implemented")
+        NotificationsService.notify("Saving current project")
+        SessionHolder.activeSession?.activeProject?.let { project ->
+            project.state.characters = StateHolder.characters
+            saveProject(project)
+        } ?: run {
+            NotificationsService.error("No active project could be found")
+        }
+    }
+
+    private fun saveProject(project: Project) {
+        val projectData = Json.encodeToString(project)
+        Paths.get(project.location).toFile().writeText(projectData, Charsets.UTF_8)
+        NotificationsService.notify("Saving project at ${project.location}")
     }
 }
 

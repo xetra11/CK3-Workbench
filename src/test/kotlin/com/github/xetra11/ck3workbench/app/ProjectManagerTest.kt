@@ -5,6 +5,8 @@ import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.clearMocks
 import io.mockk.mockk
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.io.File
 import java.nio.file.Paths
 
@@ -26,17 +28,22 @@ class ProjectManagerTest : ShouldSpec({
         expected.exists() shouldBe true
     }
 
-    xshould("save current project") {
+    should("save current project") {
         StateHolder.characters.addAll(
             listOf(
                 CharacterTemplate.DEFAULT_CHARACTER,
                 CharacterTemplate.DEFAULT_CHARACTER
             )
         )
-
-        //every { sessionManager }
+        val projectFilePath = Paths.get("test.wbp").toAbsolutePath()
+        SessionHolder.activeSession = Session(Project("Test Project", projectFilePath.toString(), "descripto"))
 
         projectManager.saveCurrentProject()
+
+        val projectFromFile = Json.decodeFromString<Project>(projectFilePath.toFile().readText())
+        val expectedProject = SessionHolder.activeSession!!.activeProject
+
+        projectFromFile shouldBe expectedProject
     }
 
     should("have project data structure containing filepath to project file") {
