@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.github.xetra11.ck3workbench.app.DialogManager
 import com.github.xetra11.ck3workbench.app.NotificationsService
-import com.github.xetra11.ck3workbench.app.StateManager
+import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.app.styles.WorkbenchButtons.BasicButton
 import com.github.xetra11.ck3workbench.app.styles.WorkbenchTexts.BasicButtonText
 import com.github.xetra11.ck3workbench.module.character.exporter.CharacterScriptExporter
@@ -55,7 +55,7 @@ private fun CreateCharacterDialog() {
 private fun ExportCharacterDialog() {
     AlertDialog(
         title = { Text("Character Export") },
-        text = { Text("Do you want to export all ${StateManager.characters.size} character entries?") },
+        text = { Text("Do you want to export all ${StateHolder.characters.size} character entries?") },
         onDismissRequest = { DialogManager.closeDialog() },
         confirmButton = {
             BasicButton(

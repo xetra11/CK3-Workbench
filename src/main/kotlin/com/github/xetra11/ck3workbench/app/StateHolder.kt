@@ -4,6 +4,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.github.xetra11.ck3workbench.module.character.CK3Character
 
-object StateManager {
+object StateHolder {
     val characters: SnapshotStateList<CK3Character> = mutableStateListOf()
 }

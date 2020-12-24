@@ -50,7 +50,7 @@ class SessionManagerTest : ShouldSpec({
         sessionManager.exit(currentProject)
         sessionManager.initialize()
 
-        val currentSession: Session = SessionHolder.activeSession
+        val currentSession: Session = SessionHolder.activeSession ?: Session()
 
         currentSession.activeProject shouldBe currentProject.name
     }

@@ -2,7 +2,7 @@ package com.github.xetra11.ck3workbench.module.character.importer
 
 import androidx.compose.runtime.MutableState
 import com.github.xetra11.ck3workbench.app.NotificationsService
-import com.github.xetra11.ck3workbench.app.StateManager
+import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.app.validation.ScriptValidatorFactory
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -18,7 +18,7 @@ class CharacterScriptImporter {
         } else {
             val characterScriptReader = CharacterScriptReader()
             val character = characterScriptReader.readCharacterScript(file.value.absoluteFile)
-            val characterState = StateManager.characters
+            val characterState = StateHolder.characters
             character?.let {
                 if (characterState.contains(it)) {
                     NotificationsService.error("""Character with name "${it.name}" already exists""")

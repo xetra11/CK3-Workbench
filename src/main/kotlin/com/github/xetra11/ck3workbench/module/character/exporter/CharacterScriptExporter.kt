@@ -1,6 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.exporter
 
-import com.github.xetra11.ck3workbench.app.StateManager
+import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.app.exporter.ScriptExporter
 import com.github.xetra11.ck3workbench.module.character.CK3Character.Skill
 import java.io.File
@@ -20,7 +20,7 @@ class CharacterScriptExporter(
     }
 
     private fun characterData(): String {
-        return StateManager.characters.mapIndexed { index, character ->
+        return StateHolder.characters.mapIndexed { index, character ->
             """
 $index = {
     ${character.name.toScriptAttribute("name", true)}

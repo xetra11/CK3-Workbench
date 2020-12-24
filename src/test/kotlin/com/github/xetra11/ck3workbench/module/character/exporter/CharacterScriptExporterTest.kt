@@ -1,6 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.exporter
 
-import com.github.xetra11.ck3workbench.app.StateManager
+import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
@@ -14,7 +14,7 @@ class CharacterScriptExporterTest : ShouldSpec({
 
     // TODO: disabled but needs to be fixed for windows environment
     should("export characters from state manager to script txt file") {
-        StateManager.characters.addAll(
+        StateHolder.characters.addAll(
             listOf(
                 CharacterTemplate.DEFAULT_CHARACTER,
                 CharacterTemplate.DEFAULT_CHARACTER

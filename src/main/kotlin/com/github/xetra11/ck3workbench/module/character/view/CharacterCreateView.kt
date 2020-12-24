@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.github.xetra11.ck3workbench.app.NotificationsService
-import com.github.xetra11.ck3workbench.app.StateManager
+import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.app.ViewManager
 import com.github.xetra11.ck3workbench.app.ViewManager.View.CHARACTER_VIEW
 import com.github.xetra11.ck3workbench.module.character.CK3Character
@@ -155,12 +155,12 @@ private fun createNewCharacter(characterValues: Map<String, String>) {
         characterValues["birth"]!!,
         characterValues["death"]!!
     )
-    if (StateManager.characters.contains(newCharacter)) {
+    if (StateHolder.characters.contains(newCharacter)) {
         NotificationsService.error("""Character with name "${newCharacter.name}" already exists""")
         return
     }
 
-    StateManager.characters.add(newCharacter)
+    StateHolder.characters.add(newCharacter)
     ViewManager.changeView(CHARACTER_VIEW)
     NotificationsService.notify("""New character "${newCharacter.name}" created""")
 }

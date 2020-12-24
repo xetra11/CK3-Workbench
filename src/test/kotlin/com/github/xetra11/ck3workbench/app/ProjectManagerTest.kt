@@ -4,7 +4,6 @@ import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.clearMocks
-import io.mockk.every
 import io.mockk.mockk
 import java.io.File
 import java.nio.file.Paths
@@ -28,7 +27,7 @@ class ProjectManagerTest : ShouldSpec({
     }
 
     xshould("save current project") {
-        StateManager.characters.addAll(
+        StateHolder.characters.addAll(
             listOf(
                 CharacterTemplate.DEFAULT_CHARACTER,
                 CharacterTemplate.DEFAULT_CHARACTER
