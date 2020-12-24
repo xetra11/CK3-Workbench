@@ -35,7 +35,7 @@ class ProjectManager {
     fun saveProject(project: Project): Project {
         val projectData = Json.encodeToString(project)
         Paths.get(project.location).toFile().writeText(projectData, Charsets.UTF_8)
-        NotificationsService.notify("Save project at ${project.location}")
+        NotificationsService.notify("Save project to ${project.location}")
         return project
     }
 
@@ -47,6 +47,7 @@ class ProjectManager {
         NotificationsService.notify("Save current project")
         SessionHolder.activeSession?.activeProject?.let { project ->
             project.state.characters = StateHolder.characters
+            NotificationsService.notify("Save current project to ${project.location}")
             saveProject(project)
         } ?: run {
             NotificationsService.error("No active project could be found")
@@ -62,7 +63,15 @@ class ProjectManager {
     fun loadProject(project: Project): Project {
         val projectFilePath = Paths.get(project.location)
         NotificationsService.notify("Load project from ${project.location}")
-        return Json.decodeFromString(projectFilePath.toFile().readText(Charsets.UTF_8))
+        val loadedProject = Json.decodeFromString<Project>(projectFilePath.toFile().readText(Charsets.UTF_8))
+        SessionHolder.activeSession?.let { session ->
+            session.activeProject = loadedProject
+            session.recentProjects.add(loadedProject)
+            NotificationsService.notify("Make loaded project active project in session")
+        } ?: run {
+            NotificationsService.error("There is no active session")
+        }
+        return loadedProject
     }
 }
 

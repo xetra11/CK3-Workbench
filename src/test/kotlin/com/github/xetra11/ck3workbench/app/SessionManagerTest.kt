@@ -55,6 +55,4 @@ class SessionManagerTest : ShouldSpec({
 
         currentSession.activeProject shouldBe currentProject
     }
-
-    should("save recent projects") {}
 })
