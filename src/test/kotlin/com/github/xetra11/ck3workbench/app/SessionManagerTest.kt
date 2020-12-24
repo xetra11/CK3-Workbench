@@ -39,7 +39,7 @@ class SessionManagerTest : ShouldSpec({
         sessionFile.exists() shouldBe true
         sessionFile.isDirectory shouldBe false
         sessionFile.extension shouldBe "wbp"
-        sessionFromFile.activeProject shouldBe currentProject.name
+        sessionFromFile.activeProject shouldBe currentProject
     }
 
     should("load saved session file into sessionholder") {
@@ -52,7 +52,7 @@ class SessionManagerTest : ShouldSpec({
 
         val currentSession: Session = SessionHolder.activeSession ?: Session()
 
-        currentSession.activeProject shouldBe currentProject.name
+        currentSession.activeProject shouldBe currentProject
     }
 
     should("save recent projects") {}

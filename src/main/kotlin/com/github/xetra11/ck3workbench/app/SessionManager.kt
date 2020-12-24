@@ -40,10 +40,9 @@ class SessionManager {
     fun exit(currentProject: Project?) {
         val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
         currentProject?.let { project ->
-            sessionFromFile.activeProject = project.name
+            sessionFromFile.activeProject = project
             NotificationsService.notify("Save session with project ${project.name}")
         } ?: run {
-            sessionFromFile.activeProject = ""
            NotificationsService.notify("Save session without active project")
         }
         val updatedProjectData = Json.encodeToString(sessionFromFile)
@@ -54,5 +53,5 @@ class SessionManager {
 
 @Serializable
 data class Session(
-    var activeProject: String = ""
+    var activeProject: Project? = null
 )
