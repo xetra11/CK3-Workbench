@@ -16,17 +16,26 @@ import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
 import com.github.xetra11.ck3workbench.app.DialogManager
+import com.github.xetra11.ck3workbench.app.NotificationsService
+import com.github.xetra11.ck3workbench.app.Project
+import com.github.xetra11.ck3workbench.app.ProjectManager
 import com.github.xetra11.ck3workbench.app.SessionManager
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
 import com.github.xetra11.ck3workbench.module.character.view.CurrentMainView
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.awt.FileDialog
 import java.io.File
+import javax.swing.JFileChooser
+import javax.swing.JFileChooser.APPROVE_OPTION
+import javax.swing.JFileChooser.CANCEL_OPTION
 import javax.swing.SwingUtilities.invokeLater
+import javax.swing.filechooser.FileFilter
 
 fun main() = invokeLater {
     lateinit var window: AppWindow
@@ -41,6 +50,10 @@ fun main() = invokeLater {
         menuBar = MenuBar(
             Menu(
                 "File",
+                MenuItem(
+                    "Open Project",
+                    onClick = { loadProjectFile(window) }
+                ),
                 MenuItem("Exit", onClick = { AppManager.exit() })
             ),
             Menu(
@@ -96,10 +109,45 @@ private fun initializeApp() {
     )
 }
 
-private fun openScriptFile(window: AppWindow): MutableState<File> {
+private fun loadProjectFile(appWindow: AppWindow) {
     val file = mutableStateOf(File(""))
 
-    val fileDialog = FileDialog(window.window)
+    val fileChooser = JFileChooser()
+    fileChooser.addChoosableFileFilter(ProjectFileFilter())
+
+    when (fileChooser.showOpenDialog(appWindow.window)) {
+        APPROVE_OPTION -> {
+            val projectManager = ProjectManager()
+            val projectFile = fileChooser.selectedFile
+            val projectFromFile = Json.decodeFromString<Project>(projectFile.readText())
+            projectManager.loadProject(projectFromFile)
+        }
+        CANCEL_OPTION -> {
+            NotificationsService.warn("Cancel project file opening")
+        }
+    }
+}
+
+class ProjectFileFilter : FileFilter() {
+    override fun accept(file: File?): Boolean {
+        file?.let { f ->
+            if (f.isDirectory) { return true }
+            return f.extension == "wbp"
+        } ?: run {
+            NotificationsService.error("No file given")
+        }
+        return false
+    }
+
+    override fun getDescription(): String {
+        return "Workbench Project File"
+    }
+}
+
+private fun openScriptFile(appWindow: AppWindow): MutableState<File> {
+    val file = mutableStateOf(File(""))
+
+    val fileDialog = FileDialog(appWindow.window)
     fileDialog.mode = FileDialog.LOAD
     fileDialog.isVisible = true
     file.value = File(fileDialog.directory + fileDialog.file)
