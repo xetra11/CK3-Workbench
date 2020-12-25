@@ -1,16 +1,19 @@
 import androidx.compose.desktop.AppManager
 import androidx.compose.desktop.AppWindow
+import androidx.compose.desktop.AppWindowAmbient
+import androidx.compose.desktop.ComposeWindow
+import androidx.compose.desktop.Window
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
@@ -19,7 +22,9 @@ import com.github.xetra11.ck3workbench.app.DialogManager
 import com.github.xetra11.ck3workbench.app.NotificationsService
 import com.github.xetra11.ck3workbench.app.Project
 import com.github.xetra11.ck3workbench.app.ProjectManager
+import com.github.xetra11.ck3workbench.app.SessionHolder
 import com.github.xetra11.ck3workbench.app.SessionManager
+import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
@@ -34,25 +39,28 @@ import java.io.File
 import javax.swing.JFileChooser
 import javax.swing.JFileChooser.APPROVE_OPTION
 import javax.swing.JFileChooser.CANCEL_OPTION
-import javax.swing.SwingUtilities.invokeLater
 import javax.swing.filechooser.FileFilter
 
-fun main() = invokeLater {
-    lateinit var window: AppWindow
-
+fun main() {
     initializeApp()
+    loadProject()
 
-    val toggleDialog = mutableStateOf(false)
-    val windowSize = mutableStateOf(IntSize.Zero)
+/*
+    if (hasNoActiveProject()) {
+        if (DialogManager.activeDialog() == DialogManager.Dialog.NO_DIALOG) {
+            DialogManager.openDialog(DialogManager.Dialog.CREATE_PROJECT)
+        }
+    }
+*/
 
-    window = AppWindow(
-        title = "CK3 Mod Workbench v0.0.1-a",
+    Window(
+        title = "CK3 Mod Workbench",
         menuBar = MenuBar(
             Menu(
                 "File",
                 MenuItem(
                     "Open Project",
-                    onClick = { loadProjectFile(window) }
+                    onClick = { loadProjectFile(AppManager.focusedWindow!!.window) }
                 ),
                 MenuItem("Exit", onClick = { AppManager.exit() })
             ),
@@ -65,7 +73,7 @@ fun main() = invokeLater {
                 MenuItem(
                     "Import Characters",
                     onClick = {
-                        val file = openScriptFile(window)
+                        val file = openScriptFile(AppManager.focusedWindow!!.window)
                         val characterScriptImporter = CharacterScriptImporter()
                         characterScriptImporter.importCharactersScript(file)
                     }
@@ -79,11 +87,7 @@ fun main() = invokeLater {
             ),
             Menu("Dynasties")
         )
-    )
-
-    window.show {
-        window.events.onResize = { windowSize.value = it }
-
+    ) {
         MaterialTheme(
             colors = workbenchLightColors(),
             shapes = workBenchShapes()
@@ -97,25 +101,50 @@ fun main() = invokeLater {
     }
 }
 
+private fun hasNoActiveProject() = SessionHolder.activeSession?.activeProject == null
+
 private fun initializeApp() {
+    setSessionEvents()
+}
+
+/**
+ * Loads the project from the sessions active project
+ *
+ * @return true if the project was loaded successfully and false if not
+ */
+private fun loadProject() {
+    NotificationsService.notify("Load project from session")
+    SessionHolder.activeSession?.let { session ->
+        session.activeProject?.let { project ->
+            initializeCharacters(project)
+        }
+    }
+}
+
+private fun initializeCharacters(project: Project): Boolean {
+    StateHolder.characters.clear()
+    return StateHolder.characters.addAll(project.state.characters)
+}
+
+private fun setSessionEvents() {
     val sessionManager = SessionManager()
     AppManager.setEvents(
         onAppStart = {
             sessionManager.initialize()
         },
         onAppExit = {
-            sessionManager.exit(null)
+            sessionManager.exit()
         }
     )
 }
 
-private fun loadProjectFile(appWindow: AppWindow) {
+private fun loadProjectFile(window: ComposeWindow) {
     val file = mutableStateOf(File(""))
 
     val fileChooser = JFileChooser()
     fileChooser.addChoosableFileFilter(ProjectFileFilter())
 
-    when (fileChooser.showOpenDialog(appWindow.window)) {
+    when (fileChooser.showOpenDialog(window)) {
         APPROVE_OPTION -> {
             val projectManager = ProjectManager()
             val projectFile = fileChooser.selectedFile
@@ -131,7 +160,9 @@ private fun loadProjectFile(appWindow: AppWindow) {
 class ProjectFileFilter : FileFilter() {
     override fun accept(file: File?): Boolean {
         file?.let { f ->
-            if (f.isDirectory) { return true }
+            if (f.isDirectory) {
+                return true
+            }
             return f.extension == "wbp"
         } ?: run {
             NotificationsService.error("No file given")
@@ -144,10 +175,10 @@ class ProjectFileFilter : FileFilter() {
     }
 }
 
-private fun openScriptFile(appWindow: AppWindow): MutableState<File> {
+private fun openScriptFile(window: ComposeWindow): MutableState<File> {
     val file = mutableStateOf(File(""))
 
-    val fileDialog = FileDialog(appWindow.window)
+    val fileDialog = FileDialog(window)
     fileDialog.mode = FileDialog.LOAD
     fileDialog.isVisible = true
     file.value = File(fileDialog.directory + fileDialog.file)
