@@ -3,7 +3,7 @@
   prefix: "v"
   includeMessages: "commits"
   changelogFilename: "CHANGELOG.md"
-  ignoreCommitsWith: ["chore", "github"]
+  ignoreCommitsWith: ["chore", "github", "wip"]
   ignoreIssuesWith: "continues deployment"
   groupBy:
     New Features: ["enhancement", "feature"]

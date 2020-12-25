@@ -38,17 +38,12 @@ class SessionManager {
      * It runs through state and other memory saved data to save them
      * in the session file
      */
-    fun exit(currentProject: Project?) {
-        val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
-        currentProject?.let { project ->
-            sessionFromFile.activeProject = project
-            NotificationsService.notify("Save session with project ${project.name}")
-        } ?: run {
-           NotificationsService.notify("Save session without active project")
+    fun exit() {
+        SessionHolder.activeSession?.let { activeSession ->
+            val updatedProjectData = Json.encodeToString(activeSession)
+            sessionFile.writeText(updatedProjectData)
+            NotificationsService.notify("Session saved on exit")
         }
-        val updatedProjectData = Json.encodeToString(sessionFromFile)
-        sessionFile.writeText(updatedProjectData)
-        NotificationsService.notify("Session saved on exit")
     }
 }
 

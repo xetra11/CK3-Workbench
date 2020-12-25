@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.AlertDialog
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,8 +26,10 @@ import com.github.xetra11.ck3workbench.module.character.view.CharacterCreateView
 fun DialogView() {
     when (DialogManager.activeDialog()) {
         DialogManager.Dialog.CREATE_CHARACTER -> CreateCharacterDialog()
+        DialogManager.Dialog.CREATE_PROJECT -> CreateProjectDialog()
         DialogManager.Dialog.CHARACTER_EXPORT -> ExportCharacterDialog()
         else -> {
+            // none
         }
     }
 }
@@ -47,6 +50,24 @@ private fun CreateCharacterDialog() {
                 Text("Close")
             }
 */
+        }
+    }
+}
+
+@Composable
+private fun CreateProjectDialog() {
+    Dialog(
+        onDismissRequest = {
+            DialogManager.closeDialog()
+            AppManager.focusedWindow?.window?.parent?.close()
+        },
+    ) {
+        Column(
+            Modifier.fillMaxSize().border(2.dp, Color.Blue),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            ProjectCreateView()
         }
     }
 }

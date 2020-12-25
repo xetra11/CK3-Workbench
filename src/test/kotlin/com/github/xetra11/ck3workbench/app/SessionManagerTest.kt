@@ -33,7 +33,7 @@ class SessionManagerTest : ShouldSpec({
         val currentProject = Project("myProject", Paths.get("").toString(), "The description")
 
         sessionManager.initialize()
-        sessionManager.exit(currentProject)
+        sessionManager.exit()
 
         val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
 
@@ -48,7 +48,7 @@ class SessionManagerTest : ShouldSpec({
         val currentProject = Project("myProject", Paths.get("").toString(),"The description")
 
         sessionManager.initialize()
-        sessionManager.exit(currentProject)
+        sessionManager.exit()
         sessionManager.initialize()
 
         val currentSession: Session = SessionHolder.activeSession ?: Session()

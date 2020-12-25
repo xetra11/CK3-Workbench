@@ -1,6 +1,8 @@
 package com.github.xetra11.ck3workbench.app
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 object DialogManager {
     private val currentDialog = mutableStateOf(Dialog.NO_DIALOG)
@@ -29,6 +31,7 @@ object DialogManager {
     }
 
     enum class Dialog {
+        CREATE_PROJECT,
         CREATE_CHARACTER,
         CHARACTER_EXPORT,
         NO_DIALOG

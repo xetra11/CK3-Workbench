@@ -27,9 +27,14 @@ import com.github.xetra11.ck3workbench.app.SessionManager
 import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
+import com.github.xetra11.ck3workbench.app.view.CreateCharacterDialog
+import com.github.xetra11.ck3workbench.app.view.CreateProjectDialog
 import com.github.xetra11.ck3workbench.app.view.DialogView
+import com.github.xetra11.ck3workbench.app.view.ExportCharacterDialog
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
 import com.github.xetra11.ck3workbench.module.character.view.CurrentMainView
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.slf4j.Logger
@@ -44,14 +49,6 @@ import javax.swing.filechooser.FileFilter
 fun main() {
     initializeApp()
     loadProject()
-
-/*
-    if (hasNoActiveProject()) {
-        if (DialogManager.activeDialog() == DialogManager.Dialog.NO_DIALOG) {
-            DialogManager.openDialog(DialogManager.Dialog.CREATE_PROJECT)
-        }
-    }
-*/
 
     Window(
         title = "CK3 Mod Workbench",
@@ -88,6 +85,11 @@ fun main() {
             Menu("Dynasties")
         )
     ) {
+        if (hasNoActiveProject()) {
+            if (DialogManager.activeDialog() == DialogManager.Dialog.NO_DIALOG) {
+                DialogManager.openDialog(DialogManager.Dialog.CREATE_PROJECT)
+            }
+        }
         MaterialTheme(
             colors = workbenchLightColors(),
             shapes = workBenchShapes()
