@@ -45,7 +45,7 @@ class SessionManagerTest : ShouldSpec({
 
     should("load saved session file into sessionholder") {
         val sessionFile = File("session.wbs")
-        val currentProject = Project("myProject", Paths.get("").toString(),"The description")
+        val currentProject = Project("myProject", Paths.get("").toString(), "The description")
 
         sessionManager.initialize()
         sessionManager.exit()

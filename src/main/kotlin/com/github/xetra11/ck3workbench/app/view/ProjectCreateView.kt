@@ -15,10 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.github.xetra11.ck3workbench.app.DialogManager
 import com.github.xetra11.ck3workbench.app.NotificationsService
 import com.github.xetra11.ck3workbench.app.Project
-import com.github.xetra11.ck3workbench.app.ProjectManager
 import com.github.xetra11.ck3workbench.app.SessionHolder
 import java.nio.file.Paths
 

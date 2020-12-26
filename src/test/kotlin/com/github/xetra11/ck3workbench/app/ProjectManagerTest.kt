@@ -90,7 +90,6 @@ class ProjectManagerTest : ShouldSpec({
         SessionHolder.activeSession!!.recentProjects.size shouldBeExactly 2
         SessionHolder.activeSession!!.recentProjects shouldContainInOrder listOf(projectOne, projectTwo)
     }
-
 })
 
 private fun deleteTestFile() {

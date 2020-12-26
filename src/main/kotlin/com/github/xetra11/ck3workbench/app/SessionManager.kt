@@ -5,8 +5,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.nio.file.Paths
-import java.util.LinkedList
-import java.util.Queue
 
 /**
  * Deals with loading project files and assets to persist the state of the application

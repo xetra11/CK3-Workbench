@@ -1,12 +1,10 @@
 package com.github.xetra11.ck3workbench.app
 
-import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
-import kotlin.math.exp
 
 class AppInitializerTest : ShouldSpec({
     val sessionManager = SessionManager()
@@ -30,5 +28,4 @@ class AppInitializerTest : ShouldSpec({
 
         SessionHolder.activeSession shouldBe expectedSession
     }
-
 })
