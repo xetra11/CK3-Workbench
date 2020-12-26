@@ -40,7 +40,7 @@ import javax.swing.filechooser.FileFilter
 
 fun main() {
     val sessionManager = SessionManager()
-    sessionManager.initialize()
+    sessionManager.load()
     initializeEvents(sessionManager)
     loadProjectFromSession()
 

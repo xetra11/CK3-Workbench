@@ -10,51 +10,43 @@ import java.nio.file.Paths
 class SessionManagerTest : ShouldSpec({
     val sessionManager = SessionManager()
 
-    afterTest {
+    beforeTest() {
         if (File("session.wbs").exists()) {
             File("session.wbs").delete()
         }
     }
 
-    should("initialize new session file") {
+    should("create new session file if not existing") {
         val sessionFile = File("session.wbs")
 
-        sessionManager.initialize()
-        val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
+        sessionFile.exists() shouldBe false
+
+        sessionManager.load()
 
         sessionFile.exists() shouldBe true
         sessionFile.isDirectory shouldBe false
         sessionFile.extension shouldBe "wbs"
+
+        val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
         sessionFromFile shouldBe Session()
     }
 
     should("save current project on exit") {
+        val sessionFile = File("session.wbs")
         val currentProject = Project("myProject", Paths.get("").toString(), "The description")
 
-        sessionManager.initialize()
+        val session = sessionManager.load()
+        SessionHolder.activeSession = session
+        SessionHolder.activeSession!!.activeProject shouldBe null
+
         SessionHolder.activeSession!!.activeProject = currentProject
         sessionManager.exit()
 
-        val sessionFile = File("session.wbs")
         val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
 
         sessionFile.exists() shouldBe true
         sessionFile.isDirectory shouldBe false
         sessionFile.extension shouldBe "wbs"
         sessionFromFile.activeProject shouldBe currentProject
-    }
-
-    should("load saved session file into sessionholder") {
-        val sessionFile = File("session.wbs")
-        val currentProject = Project("myProject", Paths.get("").toString(), "The description")
-        val expectedSession = Session(activeProject = currentProject)
-
-        sessionManager.initialize()
-        SessionHolder.activeSession!!.activeProject = currentProject
-        sessionManager.exit()
-        SessionHolder.activeSession = null
-        sessionManager.initialize()
-
-        SessionHolder.activeSession shouldBe expectedSession
     }
 })

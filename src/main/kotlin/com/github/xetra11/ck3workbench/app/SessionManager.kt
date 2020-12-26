@@ -16,19 +16,19 @@ class SessionManager {
     /**
      * Initializes the session by creating a fresh session file
      */
-    fun initialize() {
-        if (!sessionFile.exists()) {
+    fun load(): Session {
+        return if (!sessionFile.exists()) {
             sessionFile.createNewFile()
             val session = Session()
             val sessionData = Json.encodeToString(session)
             sessionFile.writeText(sessionData)
-            SessionHolder.activeSession = session
             NotificationsService.notify("Session has been initialized")
+            session
         } else {
-            NotificationsService.notify("Loading last session...")
+            NotificationsService.notify("Load session from file ${sessionFile.absolutePath}")
             val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
-            SessionHolder.activeSession = sessionFromFile
             NotificationsService.notify("Session loaded and set in SessionHolder")
+            sessionFromFile
         }
     }
 
