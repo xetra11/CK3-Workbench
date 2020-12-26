@@ -2,5 +2,7 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
+    <ID>ReturnCount:main.kt$ProjectFileFilter$override fun accept(file: File?): Boolean</ID>
+    <ID>LongMethod:main.kt$fun main()</ID>
   </CurrentIssues>
 </SmellBaseline>
