@@ -81,7 +81,6 @@ private fun StartButton(
             )
             SessionHolder.activeSession?.activeProject = newProject
             NotificationsService.notify("New project has been set to active project")
-            DialogManager.closeDialog()
         }
     ) {
         Text("Start")

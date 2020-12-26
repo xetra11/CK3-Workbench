@@ -59,7 +59,6 @@ private fun CreateProjectDialog() {
     Dialog(
         onDismissRequest = {
             DialogManager.closeDialog()
-            AppManager.focusedWindow?.window?.parent?.close()
         },
     ) {
         Column(

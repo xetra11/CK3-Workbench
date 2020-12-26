@@ -1,6 +1,4 @@
 import androidx.compose.desktop.AppManager
-import androidx.compose.desktop.AppWindow
-import androidx.compose.desktop.AppWindowAmbient
 import androidx.compose.desktop.ComposeWindow
 import androidx.compose.desktop.Window
 import androidx.compose.foundation.layout.Column
@@ -9,7 +7,6 @@ import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
@@ -27,14 +24,9 @@ import com.github.xetra11.ck3workbench.app.SessionManager
 import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
-import com.github.xetra11.ck3workbench.app.view.CreateCharacterDialog
-import com.github.xetra11.ck3workbench.app.view.CreateProjectDialog
 import com.github.xetra11.ck3workbench.app.view.DialogView
-import com.github.xetra11.ck3workbench.app.view.ExportCharacterDialog
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
 import com.github.xetra11.ck3workbench.module.character.view.CurrentMainView
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.slf4j.Logger
@@ -47,14 +39,22 @@ import javax.swing.JFileChooser.CANCEL_OPTION
 import javax.swing.filechooser.FileFilter
 
 fun main() {
-    initializeApp()
-    loadProject()
+    val sessionManager = SessionManager()
+    sessionManager.initialize()
+    initializeEvents(sessionManager)
+    loadProjectFromSession()
 
     Window(
         title = "CK3 Mod Workbench",
         menuBar = MenuBar(
             Menu(
                 "File",
+                MenuItem(
+                    "New Project",
+                    onClick = {
+                        DialogManager.openDialog(DialogManager.Dialog.CREATE_PROJECT)
+                    }
+                ),
                 MenuItem(
                     "Open Project",
                     onClick = { loadProjectFile(AppManager.focusedWindow!!.window) }
@@ -105,35 +105,32 @@ fun main() {
 
 private fun hasNoActiveProject() = SessionHolder.activeSession?.activeProject == null
 
-private fun initializeApp() {
-    setSessionEvents()
-}
-
 /**
  * Loads the project from the sessions active project
  *
  * @return true if the project was loaded successfully and false if not
  */
-private fun loadProject() {
+private fun loadProjectFromSession() {
     NotificationsService.notify("Load project from session")
     SessionHolder.activeSession?.let { session ->
         session.activeProject?.let { project ->
             initializeCharacters(project)
+        } ?: run {
+            NotificationsService.warn("No project was found on session")
         }
+    } ?: run {
+        NotificationsService.error("No active session")
     }
 }
 
 private fun initializeCharacters(project: Project): Boolean {
+    NotificationsService.notify("Load characters")
     StateHolder.characters.clear()
     return StateHolder.characters.addAll(project.state.characters)
 }
 
-private fun setSessionEvents() {
-    val sessionManager = SessionManager()
+private fun initializeEvents(sessionManager: SessionManager) {
     AppManager.setEvents(
-        onAppStart = {
-            sessionManager.initialize()
-        },
         onAppExit = {
             sessionManager.exit()
         }
