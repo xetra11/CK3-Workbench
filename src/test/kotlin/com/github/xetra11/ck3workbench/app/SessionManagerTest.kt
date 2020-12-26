@@ -29,12 +29,13 @@ class SessionManagerTest : ShouldSpec({
     }
 
     should("save current project on exit") {
-        val sessionFile = File("session.wbs")
         val currentProject = Project("myProject", Paths.get("").toString(), "The description")
 
         sessionManager.initialize()
+        SessionHolder.activeSession!!.activeProject = currentProject
         sessionManager.exit()
 
+        val sessionFile = File("session.wbs")
         val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
 
         sessionFile.exists() shouldBe true
@@ -46,13 +47,14 @@ class SessionManagerTest : ShouldSpec({
     should("load saved session file into sessionholder") {
         val sessionFile = File("session.wbs")
         val currentProject = Project("myProject", Paths.get("").toString(), "The description")
+        val expectedSession = Session(activeProject = currentProject)
 
         sessionManager.initialize()
+        SessionHolder.activeSession!!.activeProject = currentProject
         sessionManager.exit()
+        SessionHolder.activeSession = null
         sessionManager.initialize()
 
-        val currentSession: Session = SessionHolder.activeSession ?: Session()
-
-        currentSession.activeProject shouldBe currentProject
+        SessionHolder.activeSession shouldBe expectedSession
     }
 })

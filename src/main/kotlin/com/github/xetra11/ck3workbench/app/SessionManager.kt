@@ -22,6 +22,7 @@ class SessionManager {
             val session = Session()
             val sessionData = Json.encodeToString(session)
             sessionFile.writeText(sessionData)
+            SessionHolder.activeSession = session
             NotificationsService.notify("Session has been initialized")
         } else {
             NotificationsService.notify("Loading last session...")
@@ -37,10 +38,11 @@ class SessionManager {
      * in the session file
      */
     fun exit() {
+        NotificationsService.notify("Preparing exit for session")
         SessionHolder.activeSession?.let { activeSession ->
             val updatedProjectData = Json.encodeToString(activeSession)
             sessionFile.writeText(updatedProjectData)
-            NotificationsService.notify("Session saved on exit")
+            NotificationsService.notify("Session saved")
         }
     }
 }
