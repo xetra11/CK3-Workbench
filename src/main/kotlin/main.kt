@@ -114,7 +114,7 @@ private fun loadProjectFromSession() {
     NotificationsService.notify("Load project from session")
     SessionHolder.activeSession?.let { session ->
         session.activeProject?.let { project ->
-            initializeCharacters(project)
+            // initializeCharacters(project)
         } ?: run {
             NotificationsService.warn("No project was found on session")
         }

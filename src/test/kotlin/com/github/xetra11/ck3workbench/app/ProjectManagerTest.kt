@@ -35,7 +35,7 @@ class ProjectManagerTest : ShouldSpec({
             )
         )
         val projectFilePath = Paths.get("test.wbp").toAbsolutePath()
-        SessionHolder.activeSession = Session(Project("Test Project", projectFilePath.toString()))
+        SessionHolder.activeSession = Session(SessionProject(projectFilePath.toString()))
 
         projectManager.saveCurrentProject()
 
@@ -53,7 +53,7 @@ class ProjectManagerTest : ShouldSpec({
     }
 
     should("open an existing project and init character list and add it to active project") {
-        SessionHolder.activeSession = Session(Project())
+        SessionHolder.activeSession = Session(SessionProject())
         val expectedCharacters = listOf(
             CharacterTemplate.DEFAULT_CHARACTER,
             CharacterTemplate.DEFAULT_CHARACTER
@@ -74,7 +74,7 @@ class ProjectManagerTest : ShouldSpec({
     }
 
     should("add loaded project to the recent projects list of the session") {
-        SessionHolder.activeSession = Session(Project())
+        SessionHolder.activeSession = Session(SessionProject())
         val projectOne = Project("Project 1", Paths.get("project_1.wbp").toAbsolutePath().toString())
         val projectTwo = Project("Project 1", Paths.get("project_1.wbp").toAbsolutePath().toString())
 

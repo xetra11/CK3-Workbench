@@ -39,7 +39,7 @@ class SessionManagerTest : ShouldSpec({
         SessionHolder.activeSession = session
         SessionHolder.activeSession!!.activeProject shouldBe null
 
-        SessionHolder.activeSession!!.activeProject = currentProject
+        //SessionHolder.activeSession!!.activeProject = currentProject
         sessionManager.exit()
 
         val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
