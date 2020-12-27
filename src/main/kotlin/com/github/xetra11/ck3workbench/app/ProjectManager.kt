@@ -15,7 +15,7 @@ class ProjectManager {
      * @param description Description of the project
      * @return saved project
      */
-    fun saveNewProject(name: String, path: Path, description: String): Project {
+    fun createProject(name: String, path: Path, description: String): Project {
         val newProject = Project(name, path.toAbsolutePath().toString(), description)
         return saveProject(newProject)
     }
@@ -26,7 +26,7 @@ class ProjectManager {
      * @param project The project to save
      * @return saved project
      */
-    fun saveProject(project: Project): Project {
+    private fun saveProject(project: Project): Project {
         NotificationsService.notify("Save project to ${project.location}")
         project.save()
         return project

@@ -21,7 +21,7 @@ class ProjectManagerTest : ShouldSpec({
 
     should("save as project with name") {
         val workDir = Paths.get("test.wbp").toAbsolutePath()
-        projectManager.saveNewProject("Test Project", workDir, "my description")
+        projectManager.createProject("Test Project", workDir, "my description")
 
         val expected = File("test.wbp")
 
@@ -30,7 +30,7 @@ class ProjectManagerTest : ShouldSpec({
 
     should("save current project") {
         val projectFilePath = Paths.get("test.wbp").toAbsolutePath()
-        projectManager.saveNewProject("Test Project", projectFilePath, "my description")
+        projectManager.createProject("Test Project", projectFilePath, "my description")
 
         StateHolder.characters.addAll(
             listOf(
@@ -50,7 +50,7 @@ class ProjectManagerTest : ShouldSpec({
 
     should("have project data structure containing filepath to project file") {
         val projectPath = Paths.get("test.wbp").toAbsolutePath()
-        val newProject = projectManager.saveNewProject("New Project", projectPath, "This is a project")
+        val newProject = projectManager.createProject("New Project", projectPath, "This is a project")
 
         newProject.location shouldBe Paths.get("test.wbp").toAbsolutePath().toString()
     }
