@@ -13,11 +13,11 @@ class AppInitializerTest : ShouldSpec({
     val appInitializer = AppInitializer(sessionManager)
 
     beforeTest {
-        listOf("test.wbp", "session.wbs").forEach { file ->
-            if (File(file).exists()) {
-                File(file).delete()
-            }
-        }
+        deleteTestFiles()
+    }
+
+    afterTest {
+        deleteTestFiles()
     }
 
     should("load the last session") {
@@ -54,3 +54,11 @@ class AppInitializerTest : ShouldSpec({
         StateHolder.characters shouldContainExactly characters
     }
 })
+
+private fun deleteTestFiles() {
+    listOf("test.wbp", "session.wbs").forEach { file ->
+        if (File(file).exists()) {
+            File(file).delete()
+        }
+    }
+}

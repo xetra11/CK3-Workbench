@@ -41,8 +41,7 @@ class SessionManager {
     fun exit() {
         notify("Preparing exit for session")
         SessionHolder.activeSession?.let { activeSession ->
-            val updatedProjectData = Json.encodeToString(activeSession)
-            sessionFile.writeText(updatedProjectData)
+            activeSession.save()
             notify("Session saved")
         }
     }
@@ -68,3 +67,14 @@ data class Session(
 data class SessionProject(
     var location: String = ""
 )
+
+fun Session.save() {
+    val sessionFile = Paths.get("session.wbs").toAbsolutePath().toFile()
+    val sessionData = Json.encodeToString(this)
+    sessionFile.writeText(sessionData)
+}
+
+fun SessionProject.toProject(): Project {
+    val projectData = Paths.get(this.location).toFile().readText()
+    return Json.decodeFromString<Project>(projectData)
+}

@@ -148,7 +148,7 @@ private fun loadProjectFile(window: ComposeWindow) {
             val projectManager = ProjectManager()
             val projectFile = fileChooser.selectedFile
             val projectFromFile = Json.decodeFromString<Project>(projectFile.readText())
-            projectManager.loadProject(projectFromFile)
+            TODO("Project has to be loaded")
         }
         CANCEL_OPTION -> {
             NotificationsService.warn("Cancel project file opening")

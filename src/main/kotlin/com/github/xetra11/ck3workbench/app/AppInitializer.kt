@@ -18,13 +18,17 @@ class AppInitializer(
         val loadedSession = sessionManager.load()
         SessionHolder.activeSession = loadedSession
 
-        notify("Load session project")
         val activeProjectLocation = loadedSession.activeProject.location
         val projectFile = Paths.get(activeProjectLocation).toFile()
-        val projectData = projectFile.readText()
-        val project = Json.decodeFromString<Project>(projectData)
+        if (projectFile.exists()) {
+            notify("Load session project")
+            val projectData = projectFile.readText()
+            val project = Json.decodeFromString<Project>(projectData)
 
-        notify("Load characters module state")
-        StateHolder.characters.addAll(project.state.characters)
+            notify("Load characters module state")
+            StateHolder.characters.addAll(project.state.characters)
+        } else {
+            notify("No session project found")
+        }
     }
 }

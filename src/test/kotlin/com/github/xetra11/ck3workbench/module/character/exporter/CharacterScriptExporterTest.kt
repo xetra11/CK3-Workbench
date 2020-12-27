@@ -12,6 +12,14 @@ class CharacterScriptExporterTest : ShouldSpec({
 
     val characterScriptExporter = CharacterScriptExporter()
 
+    beforeTest() {
+        deleteTestFiles()
+    }
+
+    afterTest() {
+        deleteTestFiles()
+    }
+
     // TODO: disabled but needs to be fixed for windows environment
     should("export characters from state manager to script txt file") {
         StateHolder.characters.addAll(
@@ -22,6 +30,14 @@ class CharacterScriptExporterTest : ShouldSpec({
         )
         characterScriptExporter.export()
 
+        exportFile.exists() shouldBe true
         exportFile.readText(Charsets.UTF_8) shouldBe expectedExportFile.readText(Charsets.UTF_8)
     }
 })
+
+private fun deleteTestFiles() {
+    StateHolder.characters.clear()
+    if (File("characters.txt").exists()) {
+        File("characters.txt").delete()
+    }
+}

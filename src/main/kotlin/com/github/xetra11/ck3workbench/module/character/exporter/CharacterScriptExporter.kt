@@ -12,9 +12,6 @@ class CharacterScriptExporter(
 
     override fun export() {
         val exportFile = File("$exportFileName.txt")
-        if (exportFile.exists()) {
-            exportFile.delete()
-        }
         exportFile.createNewFile()
         exportFile.writeText(characterData())
     }

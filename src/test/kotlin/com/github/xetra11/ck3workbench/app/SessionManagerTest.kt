@@ -5,15 +5,16 @@ import io.kotest.matchers.shouldBe
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.File
-import java.nio.file.Paths
 
 class SessionManagerTest : ShouldSpec({
     val sessionManager = SessionManager()
 
     beforeTest() {
-        if (File("session.wbs").exists()) {
-            File("session.wbs").delete()
-        }
+        deleteTestFiles()
+    }
+
+    afterTest() {
+        deleteTestFiles()
     }
 
     should("create new session file if not existing") {
@@ -31,15 +32,11 @@ class SessionManagerTest : ShouldSpec({
         sessionFromFile shouldBe Session()
     }
 
-    should("save current project on exit") {
+    should("save current session on exit") {
         val sessionFile = File("session.wbs")
-        val currentProject = Project("myProject", Paths.get("").toString(), "The description")
 
         val session = sessionManager.load()
         SessionHolder.activeSession = session
-        SessionHolder.activeSession!!.activeProject shouldBe null
-
-        //SessionHolder.activeSession!!.activeProject = currentProject
         sessionManager.exit()
 
         val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
@@ -47,6 +44,11 @@ class SessionManagerTest : ShouldSpec({
         sessionFile.exists() shouldBe true
         sessionFile.isDirectory shouldBe false
         sessionFile.extension shouldBe "wbs"
-        sessionFromFile.activeProject shouldBe currentProject
     }
 })
+
+private fun deleteTestFiles() {
+    if (File("session.wbs").exists()) {
+        File("session.wbs").delete()
+    }
+}
