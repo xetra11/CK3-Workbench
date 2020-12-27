@@ -31,20 +31,6 @@ class SessionManagerTest : ShouldSpec({
         val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
         sessionFromFile shouldBe Session()
     }
-
-    should("save current session on exit") {
-        val sessionFile = File("session.wbs")
-
-        val session = sessionManager.load()
-        SessionHolder.activeSession = session
-        sessionManager.exit()
-
-        val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
-
-        sessionFile.exists() shouldBe true
-        sessionFile.isDirectory shouldBe false
-        sessionFile.extension shouldBe "wbs"
-    }
 })
 
 private fun deleteTestFiles() {

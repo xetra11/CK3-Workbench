@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.io.FileNotFoundException
 import java.nio.file.Paths
 
 /**
@@ -30,19 +31,6 @@ class SessionManager {
             notify("Load session from file ${sessionFile.absolutePath}")
             val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
             sessionFromFile
-        }
-    }
-
-    /**
-     * This call should be hooked to the application onExit event.
-     * It runs through state and other memory saved data to save them
-     * in the session file
-     */
-    fun exit() {
-        notify("Preparing exit for session")
-        SessionHolder.activeSession?.let { activeSession ->
-            activeSession.save()
-            notify("Session saved")
         }
     }
 }
@@ -75,6 +63,11 @@ fun Session.save() {
 }
 
 fun SessionProject.toProject(): Project {
-    val projectData = Paths.get(this.location).toFile().readText()
-    return Json.decodeFromString<Project>(projectData)
+    val projectFile = Paths.get(this.location).toFile()
+    return if (projectFile.exists()) {
+        val projectData = projectFile.readText()
+        Json.decodeFromString<Project>(projectData)
+    } else {
+        throw FileNotFoundException("Project file could not be found at ${this.location}")
+    }
 }

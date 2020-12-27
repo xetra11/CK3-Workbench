@@ -22,7 +22,6 @@ import com.github.xetra11.ck3workbench.app.Project
 import com.github.xetra11.ck3workbench.app.ProjectManager
 import com.github.xetra11.ck3workbench.app.SessionHolder
 import com.github.xetra11.ck3workbench.app.SessionManager
-import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
@@ -113,7 +112,7 @@ private fun hasNoActiveProject() = SessionHolder.activeSession?.activeProject ==
 private fun initializeEvents(sessionManager: SessionManager) {
     AppManager.setEvents(
         onAppExit = {
-            sessionManager.exit()
+            TODO("Add shutdown service")
         }
     )
 }
