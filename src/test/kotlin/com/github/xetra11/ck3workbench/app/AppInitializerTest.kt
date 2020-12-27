@@ -10,7 +10,8 @@ import java.io.File
 
 class AppInitializerTest : ShouldSpec({
     val sessionManager = SessionManager()
-    val appInitializer = AppInitializer(sessionManager)
+    val projectManager = ProjectManager()
+    val appInitializer = AppInitializer(sessionManager, projectManager)
 
     beforeTest {
         deleteTestFiles()
@@ -21,7 +22,7 @@ class AppInitializerTest : ShouldSpec({
     }
 
     should("load the last session") {
-        val expectedSession = Session()
+        val expectedSession = Session(activeProject = SessionProject("default.wbp"))
         val sessionData = Json.encodeToString(expectedSession)
         val sessionFile = File("session.wbs")
         sessionFile.writeText(sessionData, Charsets.UTF_8)
