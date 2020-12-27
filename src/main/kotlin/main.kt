@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
+import com.github.xetra11.ck3workbench.app.AppInitializer
 import com.github.xetra11.ck3workbench.app.DialogManager
 import com.github.xetra11.ck3workbench.app.NotificationsService
 import com.github.xetra11.ck3workbench.app.Project
@@ -39,10 +40,7 @@ import javax.swing.JFileChooser.CANCEL_OPTION
 import javax.swing.filechooser.FileFilter
 
 fun main() {
-    val sessionManager = SessionManager()
-    sessionManager.load()
-    initializeEvents(sessionManager)
-    loadProjectFromSession()
+    initializeApp()
 
     Window(
         title = "CK3 Mod Workbench",
@@ -103,31 +101,14 @@ fun main() {
     }
 }
 
+private fun initializeApp() {
+    val sessionManager = SessionManager()
+    val appInitializer = AppInitializer(sessionManager)
+    appInitializer.initialize()
+    initializeEvents(sessionManager)
+}
+
 private fun hasNoActiveProject() = SessionHolder.activeSession?.activeProject == null
-
-/**
- * Loads the project from the sessions active project
- *
- * @return true if the project was loaded successfully and false if not
- */
-private fun loadProjectFromSession() {
-    NotificationsService.notify("Load project from session")
-    SessionHolder.activeSession?.let { session ->
-        session.activeProject?.let { project ->
-            // initializeCharacters(project)
-        } ?: run {
-            NotificationsService.warn("No project was found on session")
-        }
-    } ?: run {
-        NotificationsService.error("No active session")
-    }
-}
-
-private fun initializeCharacters(project: Project): Boolean {
-    NotificationsService.notify("Load characters")
-    StateHolder.characters.clear()
-    return StateHolder.characters.addAll(project.state.characters)
-}
 
 private fun initializeEvents(sessionManager: SessionManager) {
     AppManager.setEvents(

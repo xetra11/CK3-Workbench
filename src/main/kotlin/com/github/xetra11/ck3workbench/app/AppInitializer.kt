@@ -13,6 +13,10 @@ class AppInitializer(
     private val sessionManager: SessionManager
 ) {
 
+    /**
+     * Initialize session by loading session file and the associated last
+     * used project.
+     */
     fun initialize() {
         notify("Initialize session")
         val loadedSession = sessionManager.load()
@@ -24,11 +28,14 @@ class AppInitializer(
             notify("Load session project")
             val projectData = projectFile.readText()
             val project = Json.decodeFromString<Project>(projectData)
-
-            notify("Load characters module state")
-            StateHolder.characters.addAll(project.state.characters)
+            initializeState(project)
         } else {
             notify("No session project found")
         }
+    }
+
+    private fun initializeState(project: Project) {
+        notify("Load characters module state")
+        StateHolder.characters.addAll(project.state.characters)
     }
 }
