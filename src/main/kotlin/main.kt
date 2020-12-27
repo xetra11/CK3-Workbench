@@ -16,6 +16,7 @@ import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
 import com.github.xetra11.ck3workbench.app.AppInitializer
+import com.github.xetra11.ck3workbench.app.AppShutdownService
 import com.github.xetra11.ck3workbench.app.DialogManager
 import com.github.xetra11.ck3workbench.app.NotificationsService
 import com.github.xetra11.ck3workbench.app.Project
@@ -102,17 +103,18 @@ fun main() {
 
 private fun initializeApp() {
     val sessionManager = SessionManager()
-    val appInitializer = AppInitializer(sessionManager)
+    val projectManager = ProjectManager()
+    val appInitializer = AppInitializer(sessionManager, projectManager)
     appInitializer.initialize()
-    initializeEvents(sessionManager)
+    initializeEvents()
 }
 
 private fun hasNoActiveProject() = SessionHolder.activeSession?.activeProject == null
 
-private fun initializeEvents(sessionManager: SessionManager) {
+private fun initializeEvents() {
     AppManager.setEvents(
         onAppExit = {
-            TODO("Add shutdown service")
+            AppShutdownService().shutdown()
         }
     )
 }

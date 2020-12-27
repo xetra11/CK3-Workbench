@@ -10,7 +10,8 @@ import java.nio.file.Paths
  * project initialization
  */
 class AppInitializer(
-    private val sessionManager: SessionManager
+    private val sessionManager: SessionManager,
+    private val projectManager: ProjectManager
 ) {
 
     /**
@@ -31,6 +32,13 @@ class AppInitializer(
             initializeState(project)
         } else {
             notify("No session project found")
+            notify("Creating default project")
+            val project = projectManager.createProject(
+                "Default",
+                Paths.get("default.wbp"),
+                "This is the default project"
+            )
+            SessionHolder.activeSession?.activeProject = SessionProject(project.location)
         }
     }
 
