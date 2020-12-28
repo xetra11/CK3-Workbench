@@ -44,7 +44,7 @@ class ProjectManagerTest : ShouldSpec({
         projectManager.saveCurrentProject()
 
         val projectFromFile = Json.decodeFromString<Project>(projectFilePath.toFile().readText())
-        val expectedProject = SessionHolder.activeSession.value.activeProject?.toProject()
+        val expectedProject = SessionHolder.activeSession.value.activeProject?.loadProject()
 
         projectFromFile shouldBe expectedProject
     }

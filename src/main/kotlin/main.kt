@@ -25,7 +25,7 @@ import com.github.xetra11.ck3workbench.app.ProjectManager
 import com.github.xetra11.ck3workbench.app.SessionHolder
 import com.github.xetra11.ck3workbench.app.SessionManager
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
-import com.github.xetra11.ck3workbench.app.toProject
+import com.github.xetra11.ck3workbench.app.loadProject
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
@@ -39,7 +39,6 @@ import java.io.File
 import javax.swing.JFileChooser
 import javax.swing.JFileChooser.APPROVE_OPTION
 import javax.swing.JFileChooser.CANCEL_OPTION
-import javax.swing.filechooser.FileFilter
 
 fun main() {
     initializeApp()
@@ -67,7 +66,11 @@ fun main() {
                     "Save Project as",
                     onClick = { saveProjectAs(AppManager.focusedWindow!!.window) }
                 ),
-                MenuItem("Exit", onClick = { AppManager.exit() })
+                MenuItem("Exit", onClick = {
+                    val appShutdownService = AppShutdownService()
+                    appShutdownService.shutdown()
+                    AppManager.exit()
+                })
             ),
             Menu(
                 "Characters",
@@ -144,7 +147,7 @@ private fun saveProjectAs(window: ComposeWindow) {
             val projectManager = ProjectManager()
             val sessionManager = SessionManager()
             val projectFile = fileChooser.selectedFile
-            val currentProject = SessionHolder.activeSession.value.activeProject?.toProject()
+            val currentProject = SessionHolder.activeSession.value.activeProject?.loadProject()
 
             currentProject?.let { project ->
                 project.location = projectFile.absolutePath + ".wbp"
@@ -177,24 +180,6 @@ private fun loadProjectFile(window: ComposeWindow) {
         CANCEL_OPTION -> {
             // warn("Cancel project file opening")
         }
-    }
-}
-
-internal class ProjectFileFilter : FileFilter() {
-    override fun accept(file: File?): Boolean {
-        file?.let { f ->
-            if (f.isDirectory) {
-                return true
-            }
-            return f.extension == "wbp"
-        } ?: run {
-            error("No file given")
-        }
-        return false
-    }
-
-    override fun getDescription(): String {
-        return "Workbench Project File"
     }
 }
 

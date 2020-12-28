@@ -70,7 +70,7 @@ fun Session.save() {
     sessionFile.writeText(sessionData)
 }
 
-fun SessionProject.toProject(): Project {
+fun SessionProject.loadProject(): Project {
     val projectFile = Paths.get(this.location).toFile()
     return if (projectFile.exists()) {
         val projectData = projectFile.readText()

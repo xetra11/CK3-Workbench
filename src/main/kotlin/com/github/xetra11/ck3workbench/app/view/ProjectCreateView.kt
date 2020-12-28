@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.github.xetra11.ck3workbench.app.NotificationsService
 import com.github.xetra11.ck3workbench.app.Project
+import com.github.xetra11.ck3workbench.app.SessionHolder
+import com.github.xetra11.ck3workbench.app.SessionProject
 import java.nio.file.Paths
 
 @Composable
@@ -28,7 +30,6 @@ fun ProjectCreateView() {
     ) {
 
         val name = remember { mutableStateOf("") }
-        val location = remember { mutableStateOf("") }
         val description = remember { mutableStateOf("") }
 
         Text("Start New Project", fontSize = TextUnit.Sp(15), modifier = Modifier.padding(bottom = 5.dp))
@@ -43,13 +44,6 @@ fun ProjectCreateView() {
                     }
                 )
                 TextField(
-                    value = location.value,
-                    label = { Text("Project Location") },
-                    onValueChange = {
-                        location.value = it
-                    }
-                )
-                TextField(
                     value = description.value,
                     label = { Text("Project Description") },
                     onValueChange = {
@@ -58,14 +52,13 @@ fun ProjectCreateView() {
                 )
             }
         }
-        StartButton(name, location, description)
+        StartButton(name, description)
     }
 }
 
 @Composable
 private fun StartButton(
     name: MutableState<String>,
-    location: MutableState<String>,
     description: MutableState<String>
 ) {
     Button(
@@ -73,11 +66,9 @@ private fun StartButton(
         onClick = {
             val newProject = Project(
                 name.value,
-                Paths.get(location.value).toAbsolutePath().toString(),
                 description.value
             )
-            TODO("New project logic not finished")
-            // SessionHolder.activeSession?.activeProject = newProject
+            SessionHolder.activeSession.value.activeProject = SessionProject("")
             NotificationsService.notify("New project has been set to active project")
         }
     ) {
