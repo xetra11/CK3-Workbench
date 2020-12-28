@@ -20,6 +20,8 @@ import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.app.ViewManager
 import com.github.xetra11.ck3workbench.app.ViewManager.View.CHARACTER_VIEW
 import com.github.xetra11.ck3workbench.module.character.CK3Character
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun CharacterCreateView() {
@@ -133,7 +135,9 @@ private fun CreateButton(
             )
 
             if (validateInput(characterValues)) {
-                createNewCharacter(characterValues)
+                GlobalScope.launch {
+                    createNewCharacter(characterValues)
+                }
             } else {
                 NotificationsService.error("""Can not create character. Some fields were empty""")
             }
