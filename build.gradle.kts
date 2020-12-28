@@ -60,7 +60,7 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = "14"
     kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
 }
 
@@ -95,6 +95,6 @@ detekt {
 tasks {
     withType<Detekt> {
         // Target version of the generated JVM bytecode. It is used for type resolution.
-        this.jvmTarget = "11"
+        this.jvmTarget = "14"
     }
 }
