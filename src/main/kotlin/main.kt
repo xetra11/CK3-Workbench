@@ -8,7 +8,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.KeyStroke
 import androidx.compose.ui.window.Menu
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
@@ -70,24 +72,29 @@ private fun AppMenu(): MenuBar {
             "File",
             MenuItem(
                 "New Project",
+                shortcut = KeyStroke(Key.P),
                 onClick = {
                     DialogManager.openDialog(DialogManager.Dialog.CREATE_PROJECT)
                 }
             ),
             MenuItem(
                 "Open Project",
+                shortcut = KeyStroke(Key.O),
                 onClick = { fileSystemHelper.loadProjectFile(AppManager.focusedWindow!!.window) }
             ),
             MenuItem(
                 "Save Project",
+                shortcut = KeyStroke(Key.S),
                 onClick = { saveProject() }
             ),
             MenuItem(
                 "Save Project as",
+                shortcut = KeyStroke(Key.Unknown),
                 onClick = { fileSystemHelper.saveProjectAs(AppManager.focusedWindow!!.window) }
             ),
             MenuItem(
                 "Exit",
+                shortcut = KeyStroke(Key.X),
                 onClick = {
                     val appShutdownService = AppShutdownService()
                     appShutdownService.shutdown()
@@ -99,10 +106,12 @@ private fun AppMenu(): MenuBar {
             "Characters",
             MenuItem(
                 "Create Character",
+                shortcut = KeyStroke(Key.C),
                 onClick = { DialogManager.openDialog(DialogManager.Dialog.CREATE_CHARACTER) }
             ),
             MenuItem(
                 "Import Characters",
+                shortcut = KeyStroke(Key.I),
                 onClick = {
                     val file = fileSystemHelper.openScriptFile(AppManager.focusedWindow!!.window)
                     val characterScriptImporter = CharacterScriptImporter()
@@ -111,12 +120,12 @@ private fun AppMenu(): MenuBar {
             ),
             MenuItem(
                 "Export Character Scripts",
+                shortcut = KeyStroke(Key.E),
                 onClick = {
                     DialogManager.openDialog(DialogManager.Dialog.CHARACTER_EXPORT)
                 }
-            ),
-        ),
-        Menu("Dynasties")
+            )
+        )
     )
 }
 

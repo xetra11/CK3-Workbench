@@ -3,5 +3,6 @@
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
     <ID>ReturnCount:ProjectFileFilter.kt$ProjectFileFilter$override fun accept(file: File?): Boolean</ID>
+    <ID>LongMethod:main.kt$private fun AppMenu(): MenuBar</ID>
   </CurrentIssues>
 </SmellBaseline>

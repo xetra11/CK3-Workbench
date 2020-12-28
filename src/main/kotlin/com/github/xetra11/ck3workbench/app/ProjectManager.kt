@@ -1,6 +1,12 @@
 package com.github.xetra11.ck3workbench.app
 
+import ProjectFileFilter
+import androidx.compose.desktop.AppManager
+import androidx.compose.desktop.ComposeWindow
+import com.github.xetra11.ck3workbench.app.NotificationsService.notify
+import java.awt.SystemColor.window
 import java.nio.file.Path
+import javax.swing.JFileChooser
 
 /**
  * Manages project files to load/save different projects
@@ -40,10 +46,14 @@ class ProjectManager {
     fun saveCurrentProject() {
         NotificationsService.notify("Save current project")
         SessionHolder.activeSession.value.activeProject?.let { sessionProject ->
-            val loadedProject = sessionProject.loadProject()
-            NotificationsService.notify("Save current project to ${sessionProject.location}")
-            updateState(loadedProject)
-            saveProject(loadedProject)
+            if (sessionProject.location.isBlank()) {
+                saveProjectDialog(AppManager.focusedWindow!!.window)
+            } else {
+                val loadedProject = sessionProject.loadProject()
+                NotificationsService.notify("Save current project to ${sessionProject.location}")
+                updateState(loadedProject)
+                saveProject(loadedProject)
+            }
         } ?: run {
             NotificationsService.error("No active project could be found")
         }
@@ -56,6 +66,30 @@ class ProjectManager {
     fun load(project: Project) {
         StateHolder.characters.clear()
         StateHolder.characters.addAll(project.state.characters)
+        notify("Project ${project.name} loaded")
+    }
+
+    private fun saveProjectDialog(window: ComposeWindow) {
+        val fileChooser = JFileChooser()
+        fileChooser.addChoosableFileFilter(ProjectFileFilter())
+
+        when (fileChooser.showSaveDialog(window)) {
+            JFileChooser.APPROVE_OPTION -> {
+                NotificationsService.notify("Save project to file")
+                val projectManager = ProjectManager()
+                val sessionManager = SessionManager()
+                val projectFile = fileChooser.selectedFile
+                val projectToSave = Project()
+
+                projectToSave.location = projectFile.absolutePath + ".wbp"
+                projectManager.saveProject(projectToSave)
+                sessionManager.activateProject(projectToSave)
+            }
+            JFileChooser.CANCEL_OPTION -> {
+                NotificationsService.notify("Cancel saving project before exit")
+                NotificationsService.notify("Project has not been saved before exit")
+            }
+        }
     }
 
     private fun updateState(project: Project) {
