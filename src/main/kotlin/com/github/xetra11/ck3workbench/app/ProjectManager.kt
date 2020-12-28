@@ -26,8 +26,9 @@ class ProjectManager {
      * @param project The project to save
      * @return saved project
      */
-    private fun saveProject(project: Project): Project {
+    fun saveProject(project: Project): Project {
         NotificationsService.notify("Save project to ${project.location}")
+        updateState(project)
         project.save()
         return project
     }
@@ -57,7 +58,7 @@ class ProjectManager {
         StateHolder.characters.addAll(project.state.characters)
     }
 
-    private fun updateState(loadedProject: Project) {
-        loadedProject.state.characters = StateHolder.characters
+    private fun updateState(project: Project) {
+        project.state.characters = StateHolder.characters
     }
 }

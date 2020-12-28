@@ -18,12 +18,14 @@ import androidx.compose.ui.window.MenuItem
 import com.github.xetra11.ck3workbench.app.AppInitializer
 import com.github.xetra11.ck3workbench.app.AppShutdownService
 import com.github.xetra11.ck3workbench.app.DialogManager
-import com.github.xetra11.ck3workbench.app.NotificationsService
+import com.github.xetra11.ck3workbench.app.NotificationsService.error
+import com.github.xetra11.ck3workbench.app.NotificationsService.notify
 import com.github.xetra11.ck3workbench.app.Project
 import com.github.xetra11.ck3workbench.app.ProjectManager
 import com.github.xetra11.ck3workbench.app.SessionHolder
 import com.github.xetra11.ck3workbench.app.SessionManager
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
+import com.github.xetra11.ck3workbench.app.toProject
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
@@ -56,6 +58,10 @@ fun main() {
                 MenuItem(
                     "Open Project",
                     onClick = { loadProjectFile(AppManager.focusedWindow!!.window) }
+                ),
+                MenuItem(
+                    "Save Project as",
+                    onClick = { saveProjectAs(AppManager.focusedWindow!!.window) }
                 ),
                 MenuItem("Exit", onClick = { AppManager.exit() })
             ),
@@ -119,21 +125,48 @@ private fun initializeEvents() {
     )
 }
 
+private fun saveProjectAs(window: ComposeWindow) {
+    val fileChooser = JFileChooser()
+    fileChooser.addChoosableFileFilter(ProjectFileFilter())
+
+    when (fileChooser.showSaveDialog(window)) {
+        APPROVE_OPTION -> {
+            notify("Save project to file")
+            val projectManager = ProjectManager()
+            val sessionManager = SessionManager()
+            val projectFile = fileChooser.selectedFile
+            val currentProject = SessionHolder.activeSession.value.activeProject?.toProject()
+
+            currentProject?.let { project ->
+                project.location = projectFile.absolutePath + ".wbp"
+                projectManager.saveProject(currentProject)
+                sessionManager.activateProject(project)
+            } ?: run {
+                error("No current project was available")
+            }
+        }
+        CANCEL_OPTION -> {
+            // warn("Cancel project file opening")
+        }
+    }
+}
+
 private fun loadProjectFile(window: ComposeWindow) {
     val fileChooser = JFileChooser()
     fileChooser.addChoosableFileFilter(ProjectFileFilter())
 
     when (fileChooser.showOpenDialog(window)) {
         APPROVE_OPTION -> {
+            notify("Load project from file")
             val projectManager = ProjectManager()
             val sessionManager = SessionManager()
             val projectFile = fileChooser.selectedFile
             val projectFromFile = Json.decodeFromString<Project>(projectFile.readText())
             projectManager.load(projectFromFile)
-            sessionManager.currentProject(projectFromFile)
+            sessionManager.activateProject(projectFromFile)
         }
         CANCEL_OPTION -> {
-            NotificationsService.warn("Cancel project file opening")
+            // warn("Cancel project file opening")
         }
     }
 }
@@ -146,7 +179,7 @@ internal class ProjectFileFilter : FileFilter() {
             }
             return f.extension == "wbp"
         } ?: run {
-            NotificationsService.error("No file given")
+            error("No file given")
         }
         return false
     }

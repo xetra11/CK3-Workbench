@@ -38,7 +38,7 @@ class SessionManager {
      * Sets the given project as active session project
      * @param [Project] to make active
      */
-    fun currentProject(project: Project) {
+    fun activateProject(project: Project) {
         SessionHolder.activeSession.value = Session(SessionProject(project.location))
     }
 }
