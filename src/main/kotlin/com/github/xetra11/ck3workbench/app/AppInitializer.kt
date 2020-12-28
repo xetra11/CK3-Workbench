@@ -21,24 +21,25 @@ class AppInitializer(
     fun initialize() {
         notify("Initialize session")
         val loadedSession = sessionManager.load()
-        SessionHolder.activeSession = loadedSession
+        SessionHolder.activeSession.value = loadedSession
 
-        val activeProjectLocation = loadedSession.activeProject.location
-        val projectFile = Paths.get(activeProjectLocation).toFile()
-        if (projectFile.exists()) {
-            notify("Load session project")
-            val projectData = projectFile.readText()
-            val project = Json.decodeFromString<Project>(projectData)
-            initializeState(project)
-        } else {
-            notify("No session project found")
-            notify("Creating default project")
-            val project = projectManager.createProject(
-                "Default",
-                Paths.get("default.wbp"),
-                "This is the default project"
-            )
-            SessionHolder.activeSession?.activeProject = SessionProject(project.location)
+        loadedSession.activeProject?.location?.let { activeProjectLocation ->
+            val projectFile = Paths.get(activeProjectLocation).toFile()
+            if (projectFile.exists()) {
+                notify("Load session project")
+                val projectData = projectFile.readText()
+                val project = Json.decodeFromString<Project>(projectData)
+                initializeState(project)
+            } else {
+                notify("No session project found")
+                notify("Creating default project")
+                val project = projectManager.createProject(
+                    "Default",
+                    Paths.get("default.wbp"),
+                    "This is the default project"
+                )
+                SessionHolder.activeSession.value.activeProject = SessionProject(project.location)
+            }
         }
     }
 

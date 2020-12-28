@@ -39,7 +39,7 @@ class SessionManager {
      * @param [Project] to make active
      */
     fun currentProject(project: Project) {
-        SessionHolder.activeSession?.activeProject = SessionProject(project.location)
+        SessionHolder.activeSession.value.activeProject = SessionProject(project.location)
     }
 }
 
@@ -50,7 +50,7 @@ class SessionManager {
  * @param recentProjects All projects recently used
  */
 data class Session(
-    var activeProject: SessionProject = SessionProject(),
+    var activeProject: SessionProject? = SessionProject(),
     var recentProjects: MutableList<Project> = mutableListOf()
 )
 

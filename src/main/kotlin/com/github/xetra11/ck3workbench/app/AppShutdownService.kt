@@ -13,7 +13,7 @@ class AppShutdownService {
     fun shutdown() {
         NotificationsService.notify("Running app shutdown")
         SessionHolder.activeSession?.let { session ->
-            session.save()
+            session.value.save()
             projectManager.saveCurrentProject()
         } ?: run {
             NotificationsService.error("No session was found to be saved")

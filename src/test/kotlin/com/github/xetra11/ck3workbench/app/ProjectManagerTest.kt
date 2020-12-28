@@ -39,12 +39,12 @@ class ProjectManagerTest : ShouldSpec({
                 CharacterTemplate.DEFAULT_CHARACTER
             )
         )
-        SessionHolder.activeSession = Session(SessionProject(projectFilePath.toString()))
+        SessionHolder.activeSession.value = Session(SessionProject(projectFilePath.toString()))
 
         projectManager.saveCurrentProject()
 
         val projectFromFile = Json.decodeFromString<Project>(projectFilePath.toFile().readText())
-        val expectedProject = SessionHolder.activeSession!!.activeProject.toProject()
+        val expectedProject = SessionHolder.activeSession.value.activeProject?.toProject()
 
         projectFromFile shouldBe expectedProject
     }

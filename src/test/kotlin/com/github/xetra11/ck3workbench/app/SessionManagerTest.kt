@@ -33,12 +33,12 @@ class SessionManagerTest : ShouldSpec({
     }
 
     should("set a given project as current session project") {
-        SessionHolder.activeSession = Session()
+        SessionHolder.activeSession.value = Session()
         val project = Project(location = "test.wbp")
 
         sessionManager.currentProject(project)
 
-        SessionHolder.activeSession?.activeProject shouldBe SessionProject(project.location)
+        SessionHolder.activeSession.value.activeProject shouldBe SessionProject(project.location)
     }
 })
 

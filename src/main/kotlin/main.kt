@@ -109,7 +109,7 @@ private fun initializeApp() {
     initializeEvents()
 }
 
-private fun hasNoActiveProject() = SessionHolder.activeSession?.activeProject == null
+private fun hasNoActiveProject() = SessionHolder.activeSession.value.activeProject == null
 
 private fun initializeEvents() {
     AppManager.setEvents(

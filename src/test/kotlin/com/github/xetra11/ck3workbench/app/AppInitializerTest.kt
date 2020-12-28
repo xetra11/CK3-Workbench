@@ -36,7 +36,7 @@ class AppInitializerTest : ShouldSpec({
 
         appInitializer.initialize()
 
-        SessionHolder.activeSession shouldBe expectedSession
+        SessionHolder.activeSession.value shouldBe expectedSession
     }
 
     should("load the last session and load given project file") {
@@ -58,7 +58,7 @@ class AppInitializerTest : ShouldSpec({
 
         appInitializer.initialize()
 
-        SessionHolder.activeSession shouldBe expectedSession
+        SessionHolder.activeSession.value shouldBe expectedSession
         StateHolder.characters shouldContainExactly characters
     }
 })

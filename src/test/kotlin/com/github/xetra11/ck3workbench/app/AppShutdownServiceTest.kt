@@ -19,7 +19,7 @@ class AppShutdownServiceTest : ShouldSpec({
     should("save current session on exit") {
         Project("Test", "project.wbp").save()
         val session = Session(SessionProject("project.wbp"))
-        SessionHolder.activeSession = session
+        SessionHolder.activeSession.value = session
 
         val sessionFile = Paths.get("session.wbs").toFile()
 
@@ -33,7 +33,7 @@ class AppShutdownServiceTest : ShouldSpec({
     should("save active project on exit if project exists") {
         Project("Test", "project.wbp").save()
         val session = Session(SessionProject("project.wbp"))
-        SessionHolder.activeSession = session
+        SessionHolder.activeSession.value = session
 
         val projectFile = Paths.get("project.wbp").toFile()
 

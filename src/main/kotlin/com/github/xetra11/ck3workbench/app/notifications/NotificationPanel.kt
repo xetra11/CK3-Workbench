@@ -1,6 +1,7 @@
 package com.github.xetra11.ck3workbench.app.notifications
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.xetra11.ck3workbench.app.NotificationsService
+import com.github.xetra11.ck3workbench.app.SessionHolder
 
 @Composable
 fun NotificationPanel() {
@@ -18,9 +20,10 @@ fun NotificationPanel() {
         Modifier
             .fillMaxSize()
             .padding(end = 10.dp),
-        horizontalArrangement = Arrangement.End,
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        Text("Active Project: ${SessionHolder.activeSession.value.activeProject?.location}")
         val latestMessage = NotificationsService.latestMessage()
         when (latestMessage.type) {
             NotificationsService.NotificationType.ERROR -> Text("ERROR: ${latestMessage.message}", color = Color.Red)

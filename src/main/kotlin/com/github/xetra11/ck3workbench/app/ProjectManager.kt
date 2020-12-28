@@ -38,7 +38,7 @@ class ProjectManager {
      */
     fun saveCurrentProject() {
         NotificationsService.notify("Save current project")
-        SessionHolder.activeSession?.activeProject?.let { sessionProject ->
+        SessionHolder.activeSession.value.activeProject?.let { sessionProject ->
             val loadedProject = sessionProject.toProject()
             NotificationsService.notify("Save current project to ${sessionProject.location}")
             updateState(loadedProject)
