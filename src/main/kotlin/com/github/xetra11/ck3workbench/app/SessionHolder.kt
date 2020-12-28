@@ -7,5 +7,5 @@ import androidx.compose.runtime.mutableStateOf
  * Holds the current session of the application
  */
 object SessionHolder {
-    var activeSession: MutableState<Session> = mutableStateOf(Session())
+    var activeSession = mutableStateOf(Session())
 }

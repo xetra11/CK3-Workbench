@@ -39,7 +39,7 @@ class SessionManager {
      * @param [Project] to make active
      */
     fun currentProject(project: Project) {
-        SessionHolder.activeSession.value.activeProject = SessionProject(project.location)
+        SessionHolder.activeSession.value = Session(SessionProject(project.location))
     }
 }
 
