@@ -48,6 +48,15 @@ class ProjectManager {
         }
     }
 
+    /**
+     * Loads a given project state into the state holder
+     * @param project to load the state from
+     */
+    fun load(project: Project) {
+        StateHolder.characters.clear()
+        StateHolder.characters.addAll(project.state.characters)
+    }
+
     private fun updateState(loadedProject: Project) {
         loadedProject.state.characters = StateHolder.characters
     }

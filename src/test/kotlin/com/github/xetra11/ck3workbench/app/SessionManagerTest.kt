@@ -31,6 +31,15 @@ class SessionManagerTest : ShouldSpec({
         val sessionFromFile = Json.decodeFromString<Session>(sessionFile.readText())
         sessionFromFile shouldBe Session()
     }
+
+    should("set a given project as current session project") {
+        SessionHolder.activeSession = Session()
+        val project = Project(location = "test.wbp")
+
+        sessionManager.currentProject(project)
+
+        SessionHolder.activeSession?.activeProject shouldBe SessionProject(project.location)
+    }
 })
 
 private fun deleteTestFiles() {

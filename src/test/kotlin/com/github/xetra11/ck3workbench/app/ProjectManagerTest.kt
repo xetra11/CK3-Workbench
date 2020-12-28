@@ -2,6 +2,7 @@ package com.github.xetra11.ck3workbench.app
 
 import com.github.xetra11.ck3workbench.module.character.CharacterTemplate
 import io.kotest.core.spec.style.ShouldSpec
+import io.kotest.matchers.collections.shouldContainInOrder
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -53,6 +54,24 @@ class ProjectManagerTest : ShouldSpec({
         val newProject = projectManager.createProject("New Project", projectPath, "This is a project")
 
         newProject.location shouldBe Paths.get("test.wbp").toAbsolutePath().toString()
+    }
+
+    should("load project state into stateholder") {
+        StateHolder.characters.clear()
+        val project = Project(
+            "Test",
+            "test.wbp",
+            state = ProjectState(
+                listOf(
+                    CharacterTemplate.DEFAULT_CHARACTER,
+                    CharacterTemplate.DEFAULT_CHARACTER
+                )
+            )
+        )
+
+        projectManager.load(project)
+
+        StateHolder.characters shouldContainInOrder project.state.characters
     }
 })
 

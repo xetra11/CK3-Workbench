@@ -120,17 +120,17 @@ private fun initializeEvents() {
 }
 
 private fun loadProjectFile(window: ComposeWindow) {
-    val file = mutableStateOf(File(""))
-
     val fileChooser = JFileChooser()
     fileChooser.addChoosableFileFilter(ProjectFileFilter())
 
     when (fileChooser.showOpenDialog(window)) {
         APPROVE_OPTION -> {
             val projectManager = ProjectManager()
+            val sessionManager = SessionManager()
             val projectFile = fileChooser.selectedFile
             val projectFromFile = Json.decodeFromString<Project>(projectFile.readText())
-            TODO("Project has to be loaded")
+            projectManager.load(projectFromFile)
+            sessionManager.currentProject(projectFromFile)
         }
         CANCEL_OPTION -> {
             NotificationsService.warn("Cancel project file opening")
@@ -138,7 +138,7 @@ private fun loadProjectFile(window: ComposeWindow) {
     }
 }
 
-class ProjectFileFilter : FileFilter() {
+internal class ProjectFileFilter : FileFilter() {
     override fun accept(file: File?): Boolean {
         file?.let { f ->
             if (f.isDirectory) {

@@ -76,6 +76,7 @@ private fun StartButton(
                 Paths.get(location.value).toAbsolutePath().toString(),
                 description.value
             )
+            TODO("New project logic not finished")
             // SessionHolder.activeSession?.activeProject = newProject
             NotificationsService.notify("New project has been set to active project")
         }
