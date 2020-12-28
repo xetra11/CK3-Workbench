@@ -24,8 +24,8 @@ import com.github.xetra11.ck3workbench.app.Project
 import com.github.xetra11.ck3workbench.app.ProjectManager
 import com.github.xetra11.ck3workbench.app.SessionHolder
 import com.github.xetra11.ck3workbench.app.SessionManager
-import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.loadProject
+import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
@@ -66,11 +66,14 @@ fun main() {
                     "Save Project as",
                     onClick = { saveProjectAs(AppManager.focusedWindow!!.window) }
                 ),
-                MenuItem("Exit", onClick = {
-                    val appShutdownService = AppShutdownService()
-                    appShutdownService.shutdown()
-                    AppManager.exit()
-                })
+                MenuItem(
+                    "Exit",
+                    onClick = {
+                        val appShutdownService = AppShutdownService()
+                        appShutdownService.shutdown()
+                        AppManager.exit()
+                    }
+                )
             ),
             Menu(
                 "Characters",

@@ -19,7 +19,6 @@ import com.github.xetra11.ck3workbench.app.NotificationsService
 import com.github.xetra11.ck3workbench.app.Project
 import com.github.xetra11.ck3workbench.app.SessionHolder
 import com.github.xetra11.ck3workbench.app.SessionProject
-import java.nio.file.Paths
 
 @Composable
 fun ProjectCreateView() {

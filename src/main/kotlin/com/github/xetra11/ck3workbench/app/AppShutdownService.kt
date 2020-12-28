@@ -1,12 +1,7 @@
 package com.github.xetra11.ck3workbench.app
 
-import ProjectFileFilter
-import androidx.compose.desktop.AppManager
-import androidx.compose.desktop.ComposeWindow
 import com.github.xetra11.ck3workbench.app.NotificationsService.error
-import com.github.xetra11.ck3workbench.app.NotificationsService.notify
 import com.github.xetra11.ck3workbench.app.NotificationsService.warn
-import javax.swing.JFileChooser
 
 /**
  * Takes care of the proper exit logic to run when the app is being closed
