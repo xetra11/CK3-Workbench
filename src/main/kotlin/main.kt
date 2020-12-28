@@ -27,7 +27,6 @@ import com.github.xetra11.ck3workbench.module.character.importer.CharacterScript
 import com.github.xetra11.ck3workbench.module.character.view.CurrentMainView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.slf4j.Logger
