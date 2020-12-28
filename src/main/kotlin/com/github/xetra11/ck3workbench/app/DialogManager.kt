@@ -32,6 +32,7 @@ object DialogManager {
         CREATE_PROJECT,
         CREATE_CHARACTER,
         CHARACTER_EXPORT,
-        NO_DIALOG
+        NO_DIALOG,
+        SAVE_BEFORE_EXIT
     }
 }

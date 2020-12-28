@@ -24,9 +24,7 @@ class AppShutdownService {
             if (session.activeProject?.location.isNullOrBlank()) {
                 warn("Project has no location set")
                 warn("The project will be lost")
-                if (!askForSave(AppManager.focusedWindow!!.window)) {
-                    notify("Project has not been saved before exit")
-                }
+                DialogManager.openDialog(DialogManager.Dialog.SAVE_BEFORE_EXIT)
             } else {
                 projectManager.saveCurrentProject()
             }
@@ -34,31 +32,5 @@ class AppShutdownService {
         } ?: run {
             error("No session was found to be saved")
         }
-    }
-
-    private fun askForSave(window: ComposeWindow): Boolean {
-        val fileChooser = JFileChooser()
-        fileChooser.addChoosableFileFilter(ProjectFileFilter())
-
-        when (fileChooser.showSaveDialog(window)) {
-            JFileChooser.APPROVE_OPTION -> {
-                NotificationsService.notify("Save project to file")
-                val projectManager = ProjectManager()
-                val sessionManager = SessionManager()
-                val projectFile = fileChooser.selectedFile
-                val projectToSave = Project()
-
-                projectToSave.location = projectFile.absolutePath + ".wbp"
-                projectManager.saveProject(projectToSave)
-                sessionManager.activateProject(projectToSave)
-                return true
-            }
-            JFileChooser.CANCEL_OPTION -> {
-                notify("Cancel saving project before exit")
-                return false
-            }
-        }
-        error("Reached end of shutdown logic for some reason")
-        return false
     }
 }
