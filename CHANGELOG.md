@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.0.49 (28/12/2020)
+
+#### New Features:
+
+- project files should be saved in custom user locations [#16](https://github.com/xetra11/CK3-Workbench/issues/16)
+
+---
+
 ## v0.0.48 (23/12/2020)
 *No changelog for this release.*
 
