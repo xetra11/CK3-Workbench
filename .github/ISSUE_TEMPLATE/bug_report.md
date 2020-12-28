@@ -29,7 +29,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Info**
 - Version of CK3-Workbench
-   - latest (v0.0.48)
+   - latest (v0.0.49)
 - OS: (remove not applicable)
    - Windows 10
    - Debian   

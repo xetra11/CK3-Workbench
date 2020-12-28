@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.48 (23/12/2020)
+*No changelog for this release.*
+
+---
+
 ## v0.0.47 (23/12/2020)
 
 #### Enhancements:
