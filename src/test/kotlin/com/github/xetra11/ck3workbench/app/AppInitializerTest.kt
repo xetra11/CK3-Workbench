@@ -22,9 +22,16 @@ class AppInitializerTest : ShouldSpec({
     }
 
     should("load the last session") {
-        val expectedSession = Session(activeProject = SessionProject("default.wbp"))
+        val expectedProject = Project("Test Project", location = "test.wbp")
+        val expectedSession = Session(activeProject = SessionProject(expectedProject.location))
+
         val sessionData = Json.encodeToString(expectedSession)
+        val projectData = Json.encodeToString(expectedProject)
+
+        val projectFile = File(expectedProject.location)
         val sessionFile = File("session.wbs")
+
+        projectFile.writeText(projectData, Charsets.UTF_8)
         sessionFile.writeText(sessionData, Charsets.UTF_8)
 
         appInitializer.initialize()
@@ -57,7 +64,7 @@ class AppInitializerTest : ShouldSpec({
 })
 
 private fun deleteTestFiles() {
-    listOf("test.wbp", "session.wbs").forEach { file ->
+    listOf("test.wbp", "session.wbs", "default.wbp").forEach { file ->
         if (File(file).exists()) {
             File(file).delete()
         }
