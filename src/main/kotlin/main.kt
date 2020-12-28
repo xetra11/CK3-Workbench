@@ -60,6 +60,10 @@ fun main() {
                     onClick = { loadProjectFile(AppManager.focusedWindow!!.window) }
                 ),
                 MenuItem(
+                    "Save Project",
+                    onClick = { saveProject() }
+                ),
+                MenuItem(
                     "Save Project as",
                     onClick = { saveProjectAs(AppManager.focusedWindow!!.window) }
                 ),
@@ -123,6 +127,11 @@ private fun initializeEvents() {
             AppShutdownService().shutdown()
         }
     )
+}
+
+private fun saveProject() {
+    val projectManager = ProjectManager()
+    projectManager.saveCurrentProject()
 }
 
 private fun saveProjectAs(window: ComposeWindow) {
