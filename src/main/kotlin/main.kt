@@ -16,6 +16,7 @@ import com.github.xetra11.ck3workbench.app.AppInitializer
 import com.github.xetra11.ck3workbench.app.AppShutdownService
 import com.github.xetra11.ck3workbench.app.DialogManager
 import com.github.xetra11.ck3workbench.app.FileSystemHelper
+import com.github.xetra11.ck3workbench.app.NotificationsService.notify
 import com.github.xetra11.ck3workbench.app.ProjectManager
 import com.github.xetra11.ck3workbench.app.SessionHolder
 import com.github.xetra11.ck3workbench.app.SessionManager
@@ -24,11 +25,22 @@ import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
 import com.github.xetra11.ck3workbench.module.character.view.CurrentMainView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import kotlin.system.measureTimeMillis
 
 fun main() {
-    initializeApp()
+    CoroutineScope(Dispatchers.Default).launch {
+        val time = measureTimeMillis {
+            initializeApp()
+        }
+        notify("Workbench initialized in $time milliseconds")
+    }
 
     Window(
         title = "CK3 Mod Workbench",
@@ -109,12 +121,14 @@ private fun AppMenu(): MenuBar {
     )
 }
 
-private fun initializeApp() {
-    val sessionManager = SessionManager()
-    val projectManager = ProjectManager()
-    val appInitializer = AppInitializer(sessionManager, projectManager)
-    appInitializer.initialize()
-    initializeEvents()
+private suspend fun initializeApp() {
+    coroutineScope {
+        val sessionManager = SessionManager()
+        val projectManager = ProjectManager()
+        val appInitializer = AppInitializer(sessionManager, projectManager)
+        launch { appInitializer.initialize() }
+        launch { initializeEvents() }
+    }
 }
 
 private fun hasNoActiveProject() = SessionHolder.activeSession.value.activeProject == null
