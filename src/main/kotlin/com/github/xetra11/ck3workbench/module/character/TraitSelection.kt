@@ -1,31 +1,30 @@
 package com.github.xetra11.ck3workbench.module.character
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import com.github.xetra11.ck3workbench.app.NotificationsService.notify
-import com.github.xetra11.ck3workbench.app.styles.WorkbenchTexts.BasicButtonText
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.imageFromResource
 
 /**
  * Holds the trait selection state and provides the trait button composable
  */
 class TraitSelection {
+    private val traitIconPath = "icons/trait_icons"
     private val selectionState = mutableMapOf<Trait, Boolean>()
 
     enum class Trait(val code: String, val label: String) {
         BRAVE("brave", "Brave"),
-        CRAVEN("crave", "Craven"),
+        CRAVEN("craven", "Craven"),
         CALM("calm", "Calm"),
         WRATHFUL("wrathful", "Wrathful"),
         CHASTE("chaste", "Chaste"),
@@ -69,41 +68,48 @@ class TraitSelection {
     }
 
     @Composable
-    fun TraitButtons() {
+    fun TraitIcons() {
         val chunks: List<List<Trait>> = enumValues<Trait>().toList().chunked(5)
         chunks.forEach {
             Row {
-               it.forEach {
-                   TraitButton(it)
-               }
+                it.forEach {
+                    TraitIcon(it)
+                }
             }
         }
     }
 
     @Composable
-    private fun TraitButton(trait: Trait) {
-        var color by remember { mutableStateOf(Color.LightGray) }
-        Button(
-            modifier = Modifier.size(100.dp, 50.dp),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = color
+    private fun TraitIcon(trait: Trait) {
+        var isSelected by remember { mutableStateOf(false) }
+        var selectionModifier by remember { mutableStateOf(Modifier.alpha(1F)) }
+
+        Box(
+            Modifier.clickable(
+                onClick = {
+                    isSelected = toggleSelection(isSelected, trait)
+                    selectionModifier = if (isSelected) Modifier.alpha(0.2F) else Modifier.alpha(1F)
+                }
             ),
-            onClick = {
-                color = toggleSelection(color, trait)
-            }
+            contentAlignment = Alignment.Center,
         ) {
-            BasicButtonText(trait.label)
+            Image(
+                modifier = selectionModifier,
+                bitmap = traitImage(trait)
+            )
         }
     }
 
-    private fun toggleSelection(colorparam: Color, trait: Trait): Color {
-        val color = toggleColor(colorparam)
-        selectionState[trait] = color == Color.Green
-        notify(selectionState.size.toString())
-        return color
+    private fun toggleSelection(isSelected: Boolean, trait: Trait): Boolean {
+        selectionState[trait] = !isSelected
+        return !isSelected
     }
 
-    private fun toggleColor(color: Color): Color {
-        return if (color == Color.LightGray) Color.Green else Color.LightGray
+    private fun traitImage(trait: Trait): ImageBitmap {
+        return imageFromResource(iconPath(trait.code))
+    }
+
+    private fun iconPath(traitCode: String): String {
+        return "$traitIconPath/60px-Trait_$traitCode.png"
     }
 }
