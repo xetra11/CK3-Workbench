@@ -14,6 +14,7 @@ import javax.swing.JFileChooser
 
 class FileSystemHelper {
     fun saveProjectAs(window: ComposeWindow) {
+        val extension = ".wbp"
         val fileChooser = JFileChooser()
         fileChooser.addChoosableFileFilter(ProjectFileFilter())
 
@@ -26,7 +27,11 @@ class FileSystemHelper {
                 val currentProject = SessionHolder.activeSession.value.activeProject?.loadProject()
 
                 currentProject?.let { project ->
-                    project.location = projectFile.absolutePath + ".wbp"
+                    val filePath = projectFile.absolutePath
+                    if (projectFile.extension.isBlank()) {
+                        filePath + extension
+                    }
+                    project.location = filePath
                     projectManager.saveProject(currentProject)
                     sessionManager.activateProject(project)
                 } ?: run {
