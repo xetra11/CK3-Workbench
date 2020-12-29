@@ -4,6 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.imageFromResource
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 
 /**
  * Holds the trait selection state and provides the trait button composable
@@ -93,6 +97,12 @@ class TraitSelection {
                 modifier = selectionModifier,
                 bitmap = traitImage(trait)
             )
+            if (isSelected) {
+                Text(
+                    fontSize = TextUnit.Em(0.7),
+                    text = trait.label
+                )
+            }
         }
     }
 
