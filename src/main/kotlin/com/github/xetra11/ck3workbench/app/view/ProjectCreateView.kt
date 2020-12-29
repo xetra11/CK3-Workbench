@@ -8,9 +8,10 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.TextUnit
@@ -28,25 +29,25 @@ fun ProjectCreateView() {
         verticalArrangement = Arrangement.Top
     ) {
 
-        val name = remember { mutableStateOf("") }
-        val description = remember { mutableStateOf("") }
+        var name by remember { mutableStateOf("") }
+        var description by remember { mutableStateOf("") }
 
         Text("Start New Project", fontSize = TextUnit.Sp(15), modifier = Modifier.padding(bottom = 5.dp))
         Text("Start a new workbench project", fontSize = TextUnit.Sp(10))
         Row {
             Column {
                 TextField(
-                    value = name.value,
+                    value = name,
                     label = { Text("Project Name") },
                     onValueChange = {
-                        name.value = it
+                        name = it
                     }
                 )
                 TextField(
-                    value = description.value,
+                    value = description,
                     label = { Text("Project Description") },
                     onValueChange = {
-                        description.value = it
+                        description = it
                     }
                 )
             }
@@ -57,16 +58,13 @@ fun ProjectCreateView() {
 
 @Composable
 private fun StartButton(
-    name: MutableState<String>,
-    description: MutableState<String>
+    name: String,
+    description: String
 ) {
     Button(
         modifier = Modifier.padding(top = 7.dp),
         onClick = {
-            val newProject = Project(
-                name.value,
-                description.value
-            )
+            val newProject = Project(name, description)
             SessionHolder.activeSession.value.activeProject = SessionProject("")
             NotificationsService.notify("New project has been set to active project")
         }
