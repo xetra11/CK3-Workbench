@@ -1,4 +1,4 @@
-package com.github.xetra11.ck3workbench.app
+package com.github.xetra11.ck3workbench.app.dialog
 
 import androidx.compose.runtime.mutableStateOf
 

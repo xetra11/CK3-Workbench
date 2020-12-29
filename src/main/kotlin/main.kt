@@ -16,11 +16,11 @@ import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.MenuItem
 import com.github.xetra11.ck3workbench.app.AppInitializer
 import com.github.xetra11.ck3workbench.app.AppShutdownService
-import com.github.xetra11.ck3workbench.app.DialogManager
 import com.github.xetra11.ck3workbench.app.FileSystemHelper
 import com.github.xetra11.ck3workbench.app.NotificationsService.notify
 import com.github.xetra11.ck3workbench.app.SessionHolder
 import com.github.xetra11.ck3workbench.app.SessionManager
+import com.github.xetra11.ck3workbench.app.dialog.DialogManager
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.project.ProjectManager
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents

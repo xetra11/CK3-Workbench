@@ -2,6 +2,7 @@ package com.github.xetra11.ck3workbench.app
 
 import com.github.xetra11.ck3workbench.app.NotificationsService.error
 import com.github.xetra11.ck3workbench.app.NotificationsService.warn
+import com.github.xetra11.ck3workbench.app.dialog.DialogManager
 import com.github.xetra11.ck3workbench.app.project.ProjectManager
 
 /**
