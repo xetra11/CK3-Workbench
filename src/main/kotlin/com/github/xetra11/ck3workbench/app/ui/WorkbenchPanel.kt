@@ -1,6 +1,7 @@
 package com.github.xetra11.ck3workbench.app.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.imageFromResource
 import androidx.compose.ui.unit.dp
 import com.github.xetra11.ck3workbench.app.ViewManager
@@ -26,10 +28,33 @@ object WorkbenchPanel {
     @Composable
     fun Functions() {
 
-        Column(Modifier.fillMaxHeight(0.8F), verticalArrangement = Arrangement.SpaceBetween) {
+        Column(Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Top) {
             characterListIcon()
             addCharacterIcon()
-            dynastyListIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+            emptyIcon()
+        }
+    }
+
+    @Composable
+    private fun emptyIcon() {
+        Box(
+            boxModifier,
+            contentAlignment = Alignment.Center,
+        ) {
+            Image(squareImage, alpha = 0.2F)
         }
     }
 
