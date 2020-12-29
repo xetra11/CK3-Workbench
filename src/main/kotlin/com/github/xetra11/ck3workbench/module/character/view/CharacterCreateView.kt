@@ -3,6 +3,8 @@ package com.github.xetra11.ck3workbench.module.character.view
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -20,15 +22,18 @@ import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.app.ViewManager
 import com.github.xetra11.ck3workbench.app.ViewManager.View.CHARACTER_VIEW
 import com.github.xetra11.ck3workbench.module.character.CK3Character
+import com.github.xetra11.ck3workbench.module.character.TraitSelection
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @Composable
 fun CharacterCreateView() {
+    val traitSelection = TraitSelection()
+
     Column(
-        modifier = Modifier.padding(top = 7.dp, bottom = 7.dp),
+        modifier = Modifier.padding(top = 7.dp, bottom = 7.dp).fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.Center
     ) {
 
         val name = remember { mutableStateOf("") }
@@ -40,13 +45,25 @@ fun CharacterCreateView() {
         val death = remember { mutableStateOf("") }
 
         Text("Character Creation", fontSize = TextUnit.Sp(15), modifier = Modifier.padding(bottom = 5.dp))
-        Text("In here you can create new characters", fontSize = TextUnit.Sp(10))
-        Row {
+        Text(
+            "In here you can create new characters",
+            fontSize = TextUnit.Sp(10),
+            modifier = Modifier.padding(bottom = 30.dp)
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
             Column {
                 InputFields(name, dna, dynasty, religion, culture, birth, death)
             }
+            Column {
+                traitSelection.TraitButtons()
+            }
         }
-        CreateButton(name, dna, religion, dynasty, culture, birth, death)
+
+        CreateButton(name, dna, religion, dynasty, culture, birth, death, traitSelection.selection())
     }
 }
 
@@ -119,10 +136,11 @@ private fun CreateButton(
     dynasty: MutableState<String>,
     culture: MutableState<String>,
     birth: MutableState<String>,
-    death: MutableState<String>
+    death: MutableState<String>,
+    selection: MutableMap<TraitSelection.Trait, Boolean>
 ) {
     Button(
-        modifier = Modifier.padding(top = 7.dp),
+        modifier = Modifier.padding(top = 15.dp),
         onClick = {
             val characterValues = mapOf(
                 "name" to name.value,
@@ -134,9 +152,11 @@ private fun CreateButton(
                 "death" to death.value
             )
 
+            val selectedTraits = selection.filter { it.value }
+
             if (validateInput(characterValues)) {
                 GlobalScope.launch {
-                    createNewCharacter(characterValues)
+                    createNewCharacter(characterValues, selectedTraits)
                 }
             } else {
                 NotificationsService.error("""Can not create character. Some fields were empty""")
@@ -147,7 +167,12 @@ private fun CreateButton(
     }
 }
 
-private fun createNewCharacter(characterValues: Map<String, String>) {
+private fun createNewCharacter(
+    characterValues: Map<String, String>,
+    selectedTraits: Map<TraitSelection.Trait, Boolean>
+) {
+
+    val traits = selectedTraits.map { it.key.code }
     val newCharacter = CK3Character(
         characterValues["name"]!!,
         characterValues["dna"]!!,
@@ -155,7 +180,7 @@ private fun createNewCharacter(characterValues: Map<String, String>) {
         characterValues["religion"]!!,
         characterValues["culture"]!!,
         mapOf(),
-        listOf(),
+        traits,
         characterValues["birth"]!!,
         characterValues["death"]!!
     )

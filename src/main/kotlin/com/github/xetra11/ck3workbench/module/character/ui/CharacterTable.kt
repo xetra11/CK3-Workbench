@@ -57,4 +57,3 @@ fun CharacterTable(
         adapter = rememberScrollbarAdapter(scrollState)
     )
 }
-

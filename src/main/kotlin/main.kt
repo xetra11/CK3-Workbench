@@ -20,6 +20,7 @@ import com.github.xetra11.ck3workbench.app.FileSystemHelper
 import com.github.xetra11.ck3workbench.app.NotificationsService.notify
 import com.github.xetra11.ck3workbench.app.SessionHolder
 import com.github.xetra11.ck3workbench.app.SessionManager
+import com.github.xetra11.ck3workbench.app.ViewManager
 import com.github.xetra11.ck3workbench.app.dialog.DialogManager
 import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.project.ProjectManager
@@ -107,7 +108,7 @@ private fun AppMenu(): MenuBar {
             MenuItem(
                 "Create Character",
                 shortcut = KeyStroke(Key.C),
-                onClick = { DialogManager.openDialog(DialogManager.Dialog.CREATE_CHARACTER) }
+                onClick = { ViewManager.changeView(ViewManager.View.CHARACTER_CREATE_VIEW) }
             ),
             MenuItem(
                 "Import Characters",
