@@ -127,7 +127,7 @@ private fun AppMenu(): MenuBar {
                     val characterScriptExporter = CharacterScriptExporter()
                     characterScriptExporter.export()
                     notify("""Characters have been exported to "character.txt"""")
-                    //DialogManager.openDialog(DialogManager.Dialog.CHARACTER_EXPORT)
+                    // DialogManager.openDialog(DialogManager.Dialog.CHARACTER_EXPORT)
                 }
             )
         )
