@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -20,7 +21,6 @@ import androidx.compose.ui.graphics.imageFromResource
  */
 class TraitSelection {
     private val traitIconPath = "icons/trait_icons"
-    private val selectionState = mutableMapOf<Trait, Boolean>()
 
     enum class Trait(val code: String, val label: String) {
         BRAVE("brave", "Brave"),
@@ -60,34 +60,30 @@ class TraitSelection {
         SADISTIC("sadistic", "Sadistic"),
     }
 
-    /**
-     * Access to the current selection of traits
-     */
-    fun selection(): MutableMap<Trait, Boolean> {
-        return this.selectionState
-    }
-
     @Composable
-    fun TraitIcons() {
+    fun TraitIcons(
+        selectionState: SnapshotStateMap<Trait, Boolean>
+    ) {
         val chunks: List<List<Trait>> = enumValues<Trait>().toList().chunked(5)
         chunks.forEach {
             Row {
                 it.forEach {
-                    TraitIcon(it)
+                    TraitIcon(it, selectionState)
                 }
             }
         }
     }
 
     @Composable
-    private fun TraitIcon(trait: Trait) {
+    private fun TraitIcon(trait: Trait, selectionState: SnapshotStateMap<Trait, Boolean>) {
         var isSelected by remember { mutableStateOf(false) }
         var selectionModifier by remember { mutableStateOf(Modifier.alpha(1F)) }
 
         Box(
             Modifier.clickable(
                 onClick = {
-                    isSelected = toggleSelection(isSelected, trait)
+                    isSelected = !isSelected
+                    selectionState[trait] = isSelected
                     selectionModifier = if (isSelected) Modifier.alpha(0.2F) else Modifier.alpha(1F)
                 }
             ),
@@ -98,11 +94,6 @@ class TraitSelection {
                 bitmap = traitImage(trait)
             )
         }
-    }
-
-    private fun toggleSelection(isSelected: Boolean, trait: Trait): Boolean {
-        selectionState[trait] = !isSelected
-        return !isSelected
     }
 
     private fun traitImage(trait: Trait): ImageBitmap {

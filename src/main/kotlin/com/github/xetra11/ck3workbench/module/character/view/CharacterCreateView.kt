@@ -4,12 +4,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -28,6 +30,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun CharacterCreateView() {
     val traitSelection = TraitSelection()
+    val traitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
 
     Column(
         modifier = Modifier.padding(top = 15.dp, bottom = 7.dp).fillMaxSize(),
@@ -51,18 +54,36 @@ fun CharacterCreateView() {
         )
 
         Row(
-            modifier = Modifier.fillMaxSize(),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Column {
                 InputFields(name, dna, dynasty, religion, culture, birth, death)
             }
             Column {
-                traitSelection.TraitIcons()
+                traitSelection.TraitIcons(traitSelectionState)
             }
         }
 
-        CreateButton(name, dna, religion, dynasty, culture, birth, death, traitSelection.selection())
+        Text("Character Preview")
+
+        Row(Modifier.fillMaxWidth()) {
+            Text("Personal Traits: ")
+            val chunked = traitSelectionState.toList()
+                .filter { it.second }
+                .map { it.first.label }
+                .chunked(5)
+            chunked.forEach { traitChunk ->
+                Column {
+                    traitChunk.forEach { trait ->
+                        Text("- $trait")
+                    }
+                }
+            }
+        }
+
+        CreateButton(name, dna, religion, dynasty, culture, birth, death, traitSelectionState)
     }
 }
 
