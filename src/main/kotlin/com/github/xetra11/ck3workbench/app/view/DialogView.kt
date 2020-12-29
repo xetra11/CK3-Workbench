@@ -19,10 +19,10 @@ import androidx.compose.ui.window.Dialog
 import com.github.xetra11.ck3workbench.app.DialogManager
 import com.github.xetra11.ck3workbench.app.NotificationsService.error
 import com.github.xetra11.ck3workbench.app.NotificationsService.notify
-import com.github.xetra11.ck3workbench.app.Project
-import com.github.xetra11.ck3workbench.app.ProjectManager
 import com.github.xetra11.ck3workbench.app.SessionManager
 import com.github.xetra11.ck3workbench.app.StateHolder
+import com.github.xetra11.ck3workbench.app.project.Project
+import com.github.xetra11.ck3workbench.app.project.ProjectManager
 import com.github.xetra11.ck3workbench.app.styles.WorkbenchButtons.BasicButton
 import com.github.xetra11.ck3workbench.app.styles.WorkbenchTexts.BasicButtonText
 import com.github.xetra11.ck3workbench.module.character.exporter.CharacterScriptExporter

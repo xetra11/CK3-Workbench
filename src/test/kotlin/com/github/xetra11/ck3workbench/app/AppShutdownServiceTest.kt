@@ -1,5 +1,7 @@
 package com.github.xetra11.ck3workbench.app
 
+import com.github.xetra11.ck3workbench.app.project.Project
+import com.github.xetra11.ck3workbench.app.project.save
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import java.io.File

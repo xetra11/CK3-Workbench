@@ -1,4 +1,4 @@
-package com.github.xetra11.ck3workbench.app
+package com.github.xetra11.ck3workbench.app.project
 
 import com.github.xetra11.ck3workbench.module.character.CK3Character
 import kotlinx.serialization.Serializable

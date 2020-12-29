@@ -4,6 +4,8 @@ import ProjectFileFilter
 import androidx.compose.desktop.ComposeWindow
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import com.github.xetra11.ck3workbench.app.project.Project
+import com.github.xetra11.ck3workbench.app.project.ProjectManager
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.awt.FileDialog

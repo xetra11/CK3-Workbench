@@ -2,6 +2,7 @@ package com.github.xetra11.ck3workbench.app
 
 import com.github.xetra11.ck3workbench.app.NotificationsService.error
 import com.github.xetra11.ck3workbench.app.NotificationsService.warn
+import com.github.xetra11.ck3workbench.app.project.ProjectManager
 
 /**
  * Takes care of the proper exit logic to run when the app is being closed
