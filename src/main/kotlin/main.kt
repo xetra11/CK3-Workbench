@@ -26,6 +26,7 @@ import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.project.ProjectManager
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
+import com.github.xetra11.ck3workbench.module.character.exporter.CharacterScriptExporter
 import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
 import com.github.xetra11.ck3workbench.module.character.view.CurrentMainView
 import kotlinx.coroutines.CoroutineScope
@@ -123,7 +124,10 @@ private fun AppMenu(): MenuBar {
                 "Export Character Scripts",
                 shortcut = KeyStroke(Key.E),
                 onClick = {
-                    DialogManager.openDialog(DialogManager.Dialog.CHARACTER_EXPORT)
+                    val characterScriptExporter = CharacterScriptExporter()
+                    characterScriptExporter.export()
+                    notify("""Characters have been exported to "character.txt"""")
+                    //DialogManager.openDialog(DialogManager.Dialog.CHARACTER_EXPORT)
                 }
             )
         )
