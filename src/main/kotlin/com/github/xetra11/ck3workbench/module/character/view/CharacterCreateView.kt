@@ -1,5 +1,6 @@
 package com.github.xetra11.ck3workbench.module.character.view
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.github.xetra11.ck3workbench.app.NotificationsService
@@ -31,7 +33,7 @@ fun CharacterCreateView() {
     val traitSelection = TraitSelection()
 
     Column(
-        modifier = Modifier.padding(top = 7.dp, bottom = 7.dp).fillMaxSize(),
+        modifier = Modifier.padding(top = 15.dp, bottom = 7.dp).fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -52,7 +54,7 @@ fun CharacterCreateView() {
         )
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Column {

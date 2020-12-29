@@ -1,5 +1,7 @@
 package com.github.xetra11.ck3workbench.module.character
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -13,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.xetra11.ck3workbench.app.NotificationsService.notify
+import com.github.xetra11.ck3workbench.app.styles.WorkbenchTexts.BasicButtonText
 
 /**
  * Holds the trait selection state and provides the trait button composable
@@ -67,8 +70,13 @@ class TraitSelection {
 
     @Composable
     fun TraitButtons() {
-        enumValues<Trait>().forEach {
-            TraitButton(it)
+        val chunks: List<List<Trait>> = enumValues<Trait>().toList().chunked(5)
+        chunks.forEach {
+            Row {
+               it.forEach {
+                   TraitButton(it)
+               }
+            }
         }
     }
 
@@ -84,7 +92,7 @@ class TraitSelection {
                 color = toggleSelection(color, trait)
             }
         ) {
-            Text(trait.label)
+            BasicButtonText(trait.label)
         }
     }
 
