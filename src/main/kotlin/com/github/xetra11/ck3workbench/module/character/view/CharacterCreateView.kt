@@ -34,6 +34,7 @@ fun CharacterCreateView() {
     val personalityTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val congenitalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val educationalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.RankedTrait, Int>() }
+    val leveledCongenitalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
 
     Column(
         modifier = Modifier.padding(top = 15.dp, bottom = 7.dp).fillMaxSize(),
@@ -69,7 +70,7 @@ fun CharacterCreateView() {
                 Text("Congenital Traits")
                 traitSelection.CongenitalTraits(congenitalTraitSelectionState)
                 Text("Leveled Congenital Traits")
-                traitSelection.EducationalTraits(educationalTraitSelectionState)
+                traitSelection.LeveledCongenitalTraits(leveledCongenitalTraitSelectionState)
             }
         }
 
