@@ -3,6 +3,7 @@ package com.github.xetra11.ck3workbench.module.character
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
@@ -139,22 +140,24 @@ class TraitSelection {
         selectionState: SnapshotStateMap<Trait, Boolean>
     ) {
         var isSelected by remember { mutableStateOf(false) }
-        var selectionModifier by remember { mutableStateOf(Modifier.alpha(1F)) }
+        var selectionModifier by remember { mutableStateOf(Modifier.alpha(0.2F)) }
 
-        Box(
-            Modifier.clickable(
-                onClick = {
-                    isSelected = !isSelected
-                    selectionState[personalityTrait] = isSelected
-                    selectionModifier = if (isSelected) Modifier.alpha(0.2F) else Modifier.alpha(1F)
-                }
-            ),
-            contentAlignment = Alignment.Center,
-        ) {
-            Image(
-                modifier = selectionModifier,
-                bitmap = traitImage(personalityTrait)
-            )
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Box(
+                Modifier.clickable(
+                    onClick = {
+                        isSelected = !isSelected
+                        selectionState[personalityTrait] = isSelected
+                        selectionModifier = if (!isSelected) Modifier.alpha(0.2F) else Modifier.alpha(1F)
+                    }
+                ),
+                contentAlignment = Alignment.Center,
+            ) {
+                Image(
+                    modifier = selectionModifier,
+                    bitmap = traitImage(personalityTrait)
+                )
+            }
             if (isSelected) {
                 Text(
                     fontSize = TextUnit.Em(0.7),

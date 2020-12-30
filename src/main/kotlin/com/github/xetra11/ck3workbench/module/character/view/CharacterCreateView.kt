@@ -65,6 +65,10 @@ fun CharacterCreateView() {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("Educational Traits")
                 traitSelection.EducationalTrait(educationalTraitSelectionState)
+                Text("Congenital Traits")
+                traitSelection.EducationalTrait(educationalTraitSelectionState)
+                Text("Leveled Congenital Traits")
+                traitSelection.EducationalTrait(educationalTraitSelectionState)
             }
         }
 

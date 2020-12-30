@@ -33,8 +33,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import kotlin.system.measureTimeMillis
 
 fun main() {
@@ -42,7 +40,7 @@ fun main() {
         val time = measureTimeMillis {
             initializeApp()
         }
-        notify("Workbench initialized in $time milliseconds")
+        notify("Workbench initialized in $time ms")
     }
 
     Window(
@@ -91,7 +89,7 @@ private fun AppMenu(): MenuBar {
             ),
             MenuItem(
                 "Save Project as",
-                shortcut = KeyStroke(Key.Unknown),
+                shortcut = KeyStroke(Key.W),
                 onClick = { fileSystemHelper.saveProjectAs(AppManager.focusedWindow!!.window) }
             ),
             MenuItem(
