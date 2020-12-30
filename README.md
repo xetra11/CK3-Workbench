@@ -30,12 +30,12 @@ you'd like to see in this tool in the future.
 
 ### Current Features
 
-![image](https://s2.gifyu.com/images/wb_test_icons.gif)
+#### WIP Character Designer V1
+![image](https://s8.gifyu.com/images/character_creation_v1.gif)
 
-* Create new characters (without traits and skills yet)
-* Export all created characters to a file characters.txt
-* Import character script files (unstable)
-  * can only contain one character script file for now and has a very strict
+* Create new characters
+* Edit characters
+* Export all created characters to a file
   
 ### <img src="https://discord.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" alt="" data-canonical-src="https://discord.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="40" height="30" /> Discord 
 Join discussions here: https://discord.gg/3Cpd64XTUN
