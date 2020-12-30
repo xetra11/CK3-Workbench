@@ -31,8 +31,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun CharacterCreateView() {
     val traitSelection = TraitSelection()
-    val traitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val educationalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.EducationalTrait, Int>() }
+    val personalityTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
+    val congenitalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
+    val educationalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.RankedTrait, Int>() }
 
     Column(
         modifier = Modifier.padding(top = 15.dp, bottom = 7.dp).fillMaxSize(),
@@ -60,19 +61,19 @@ fun CharacterCreateView() {
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("Personality Traits")
-                traitSelection.PersonalityTraits(traitSelectionState)
+                traitSelection.PersonalityTraits(personalityTraitSelectionState)
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("Educational Traits")
-                traitSelection.EducationalTrait(educationalTraitSelectionState)
+                traitSelection.EducationalTraits(educationalTraitSelectionState)
                 Text("Congenital Traits")
-                traitSelection.EducationalTrait(educationalTraitSelectionState)
+                traitSelection.CongenitalTraits(congenitalTraitSelectionState)
                 Text("Leveled Congenital Traits")
-                traitSelection.EducationalTrait(educationalTraitSelectionState)
+                traitSelection.EducationalTraits(educationalTraitSelectionState)
             }
         }
 
-        CharacterPreview(traitSelectionState)
+        CharacterPreview(personalityTraitSelectionState)
 
         CreateButton(
             name,
@@ -82,7 +83,7 @@ fun CharacterCreateView() {
             culture,
             birth,
             death,
-            traitSelectionState,
+            personalityTraitSelectionState,
             educationalTraitSelectionState
         )
     }
@@ -179,7 +180,7 @@ private fun CreateButton(
     birth: MutableState<String>,
     death: MutableState<String>,
     personalityTraitSelectionState: SnapshotStateMap<TraitSelection.Trait, Boolean>,
-    educationalTraitSelectionState: SnapshotStateMap<TraitSelection.EducationalTrait, Int>
+    educationalTraitSelectionState: SnapshotStateMap<TraitSelection.RankedTrait, Int>
 ) {
     Button(
         modifier = Modifier.padding(top = 15.dp),
@@ -195,14 +196,14 @@ private fun CreateButton(
             )
 
             val personalityTraits = personalityTraitSelectionState.filter { it.value }
-            val eductionalTraits = educationalTraitSelectionState.filterNot { it.value == 0 }
+            val educationalTraits = educationalTraitSelectionState.filterNot { it.value == 0 }
 
             if (validateInput(characterValues)) {
                 GlobalScope.launch {
                     createNewCharacter(
                         characterValues,
                         personalityTraits,
-                        educationalTraitSelectionState
+                        educationalTraits
                     )
                 }
             } else {
@@ -217,7 +218,7 @@ private fun CreateButton(
 private fun createNewCharacter(
     characterValues: Map<String, String>,
     personalityTraits: Map<TraitSelection.Trait, Boolean>,
-    educationalTraits: SnapshotStateMap<TraitSelection.EducationalTrait, Int>
+    educationalTraits: Map<TraitSelection.RankedTrait, Int>
 ) {
 
     val traits = mutableListOf<String>()

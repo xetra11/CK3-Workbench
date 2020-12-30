@@ -32,7 +32,29 @@ class TraitSelection {
         val label: String
     }
 
-    enum class EducationalTrait(override val code: String, override val label: String) : Trait {
+    interface RankedTrait : Trait
+
+    enum class CongenitalTrait(override val code: String, override val label: String) : Trait {
+        MELANCHOLIC("depressed", "Melancholic"),
+        LUNATIC("lunatic", "Lunatic"),
+        POSSESSED("possessed", "Possessed"),
+        FECUND("fecund", "Fecund"),
+        ALBINO("albino", "Albino"),
+        LISPING("lisping", "Lisping"),
+        STUTTERING("stuttering", "Stuttering"),
+        PURE_BLOODED("pure_blooded", "Pure-blooded"),
+        GIANT("giant", "Giant"),
+        SCALY("scaly", "Scaly"),
+        CLUB_FOOTED("clubfooted", "Club-footed"),
+        DWARD("dwarf", "Dwarf"),
+        HUNCHBACKED("hunchbacked", "Hunchbacked"),
+        BARREN("infertile", "Infertile"),
+        WHEEZING("wheezing", "Wheezing"),
+        SPINDLY("spindly", "Spindly"),
+        BLEEDER("bleeder", "Bleeder"),
+    }
+
+    enum class EducationalTrait(override val code: String, override val label: String) : RankedTrait {
         DIPLOMACY("diplomacy", "Naive Appeaser"),
         INTRIGUE("intrigue", "Amateurish Plotter"),
         MARTIAL("martial", "Misguided Warrior"),
@@ -93,8 +115,8 @@ class TraitSelection {
     }
 
     @Composable
-    fun EducationalTrait(
-        selectionState: SnapshotStateMap<EducationalTrait, Int>
+    fun EducationalTraits(
+        selectionState: SnapshotStateMap<RankedTrait, Int>
     ) {
         Row {
             TraitIcon(EducationalTrait.DIPLOMACY, selectionState)
@@ -106,9 +128,23 @@ class TraitSelection {
     }
 
     @Composable
+    fun CongenitalTraits(
+        selectionState: SnapshotStateMap<Trait, Boolean>
+    ) {
+        val chunks = enumValues<CongenitalTrait>().toList().chunked(4)
+        chunks.forEach {
+            Row {
+                it.forEach {
+                    TraitIcon(it, selectionState)
+                }
+            }
+        }
+    }
+
+    @Composable
     private fun TraitIcon(
-        educationalTrait: EducationalTrait,
-        selectionState: SnapshotStateMap<EducationalTrait, Int>
+        rankedTrait: RankedTrait,
+        selectionState: SnapshotStateMap<RankedTrait, Int>
     ) {
         var rank by remember { mutableStateOf(0) }
         var selectionModifier by remember { mutableStateOf(Modifier.alpha(0.2F)) }
@@ -117,7 +153,7 @@ class TraitSelection {
             Modifier.clickable(
                 onClick = {
                     rank = rankUp(rank)
-                    selectionState[educationalTrait] = rank
+                    selectionState[rankedTrait] = rank
                     selectionModifier = if (rank == 0) Modifier.alpha(0.2F) else Modifier.alpha(1F)
                 }
             ),
@@ -125,7 +161,7 @@ class TraitSelection {
         ) {
             Image(
                 modifier = selectionModifier.size(70.dp, 70.dp),
-                bitmap = traitImage(educationalTrait, rank)
+                bitmap = traitImage(rankedTrait, rank)
             )
         }
     }
@@ -136,7 +172,7 @@ class TraitSelection {
 
     @Composable
     private fun TraitIcon(
-        personalityTrait: PersonalityTrait,
+        trait: Trait,
         selectionState: SnapshotStateMap<Trait, Boolean>
     ) {
         var isSelected by remember { mutableStateOf(false) }
@@ -147,7 +183,7 @@ class TraitSelection {
                 Modifier.clickable(
                     onClick = {
                         isSelected = !isSelected
-                        selectionState[personalityTrait] = isSelected
+                        selectionState[trait] = isSelected
                         selectionModifier = if (!isSelected) Modifier.alpha(0.2F) else Modifier.alpha(1F)
                     }
                 ),
@@ -155,32 +191,32 @@ class TraitSelection {
             ) {
                 Image(
                     modifier = selectionModifier,
-                    bitmap = traitImage(personalityTrait)
+                    bitmap = traitImage(trait)
                 )
             }
             if (isSelected) {
                 Text(
                     fontSize = TextUnit.Em(0.7),
-                    text = personalityTrait.label
+                    text = trait.label
                 )
             }
         }
     }
 
-    private fun traitImage(personalityTrait: PersonalityTrait): ImageBitmap {
-        return imageFromResource(personalityIconPath(personalityTrait.code))
+    private fun traitImage(trait: Trait): ImageBitmap {
+        return imageFromResource(iconPath(trait.code))
     }
 
-    private fun traitImage(educationalTrait: EducationalTrait, rank: Int): ImageBitmap {
+    private fun traitImage(rankedTrait: RankedTrait, rank: Int): ImageBitmap {
         val theRank = if (rank == 0) 1 else rank
-        return imageFromResource(educationalIconPath(educationalTrait.code, theRank))
+        return imageFromResource(rankedIconPath(rankedTrait.code, theRank))
     }
 
-    private fun personalityIconPath(traitCode: String): String {
-        return "$traitIconPath/60px-Trait_$traitCode.png"
+    private fun iconPath(traitCode: String): String {
+        return "$traitIconPath/trait_$traitCode.png"
     }
 
-    private fun educationalIconPath(traitCode: String, rank: Int): String {
-        return "$traitIconPath/Trait_education_${traitCode}_$rank.png"
+    private fun rankedIconPath(traitCode: String, rank: Int): String {
+        return "$traitIconPath/trait_${traitCode}_$rank.png"
     }
 }

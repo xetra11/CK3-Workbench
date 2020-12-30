@@ -27,7 +27,6 @@ import com.github.xetra11.ck3workbench.app.project.ProjectManager
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
 import com.github.xetra11.ck3workbench.module.character.exporter.CharacterScriptExporter
-import com.github.xetra11.ck3workbench.module.character.importer.CharacterScriptImporter
 import com.github.xetra11.ck3workbench.module.character.view.CurrentMainView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -109,6 +108,7 @@ private fun AppMenu(): MenuBar {
                 shortcut = KeyStroke(Key.C),
                 onClick = { ViewManager.changeView(ViewManager.View.CHARACTER_CREATE_VIEW) }
             ),
+/*
             MenuItem(
                 "Import Characters",
                 shortcut = KeyStroke(Key.I),
@@ -118,6 +118,7 @@ private fun AppMenu(): MenuBar {
                     characterScriptImporter.importCharactersScript(file)
                 }
             ),
+*/
             MenuItem(
                 "Export Character Scripts",
                 shortcut = KeyStroke(Key.E),
