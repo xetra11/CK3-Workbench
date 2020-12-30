@@ -35,31 +35,6 @@ class TraitSelection {
         MARTIAL("martial", "Misguided Warrior"),
         STEWARDSHIP("stewardship", "Indulgent Wrastel"),
         PROWESS("martial_prowess", "Bumbling Squire"),
-
-        DIPLOMACY_1("diplomacy_1", "Naive Appeaser"),
-        DIPLOMACY_2("diplomacy_2", "Adequate Appeaser"),
-        DIPLOMACY_3("diplomacy_3", "Charismatic Appeaser"),
-        DIPLOMACY_4("diplomacy_4", "Grey Eminence"),
-
-        INTRIGUE_1("intrigue_1", "Amateurish Plotter"),
-        INTRIGUE_2("intrigue_2", "Flamboyant Trickster"),
-        INTRIGUE_3("intrigue_3", "Intricate Webweaver"),
-        INTRIGUE_4("intrigue_4", "Elusive Shadow"),
-
-        MARTIAL_1("martial_1", "Misguided Warrior"),
-        MARTIAL_2("martial_2", "Tough Soldier"),
-        MARTIAL_3("martial_3", "Skilled Tactician"),
-        MARTIAL_4("martial_4", "Brilliant Strategist"),
-
-        STEWARDSHIP_1("stewardship_1", "Indulgent Wrastel"),
-        STEWARDSHIP_2("stewardship_2", "Thrifty Clerk"),
-        STEWARDSHIP_3("stewardship_3", "Fortune Builder"),
-        STEWARDSHIP_4("stewardship_4", "Midas Touched"),
-
-        PROWESS_1("martial_prowess_1", "Bumbling Squire"),
-        PROWESS_2("martial_prowess_2", "Confident Knight"),
-        PROWESS_3("martial_prowess_3", "Formidable Banneret"),
-        PROWESS_4("martial_prowess_4", "Famous Champion"),
     }
 
     enum class PersonalityTrait(override val code: String, override val label: String) : Trait {
