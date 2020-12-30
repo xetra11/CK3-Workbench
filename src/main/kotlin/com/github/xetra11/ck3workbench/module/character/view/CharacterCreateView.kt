@@ -14,6 +14,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.TextUnit
@@ -31,6 +32,7 @@ import kotlinx.coroutines.launch
 fun CharacterCreateView() {
     val traitSelection = TraitSelection()
     val traitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
+    val educationalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.EducationalTrait, Int>() }
 
     Column(
         modifier = Modifier.padding(top = 15.dp, bottom = 7.dp).fillMaxSize(),
@@ -47,11 +49,6 @@ fun CharacterCreateView() {
         val death = remember { mutableStateOf("") }
 
         Text("Character Creation", fontSize = TextUnit.Sp(15), modifier = Modifier.padding(bottom = 5.dp))
-        Text(
-            "In here you can create new characters",
-            fontSize = TextUnit.Sp(10),
-            modifier = Modifier.padding(bottom = 30.dp)
-        )
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -61,15 +58,20 @@ fun CharacterCreateView() {
             Column {
                 InputFields(name, dna, dynasty, religion, culture, birth, death)
             }
-            Column {
-                traitSelection.TraitIcons(traitSelectionState)
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Personality Traits")
+                traitSelection.PersonalityTraits(traitSelectionState)
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Education Traits")
+                traitSelection.EducationalTrait(educationalTraitSelectionState)
             }
         }
 
         Text("Character Preview")
 
         Row(Modifier.fillMaxWidth()) {
-            Text("Personal Traits: ")
+            Text("Personality Traits: ")
             val chunked = traitSelectionState.toList()
                 .filter { it.second }
                 .map { it.first.label }
@@ -157,7 +159,7 @@ private fun CreateButton(
     culture: MutableState<String>,
     birth: MutableState<String>,
     death: MutableState<String>,
-    selection: MutableMap<TraitSelection.Trait, Boolean>
+    selection: SnapshotStateMap<TraitSelection.Trait, Boolean>
 ) {
     Button(
         modifier = Modifier.padding(top = 15.dp),
@@ -189,10 +191,10 @@ private fun CreateButton(
 
 private fun createNewCharacter(
     characterValues: Map<String, String>,
-    selectedTraits: Map<TraitSelection.Trait, Boolean>
+    selectedTrait: Map<TraitSelection.Trait, Boolean>
 ) {
 
-    val traits = selectedTraits.map { it.key.code }
+    val traits = selectedTrait.map { it.key.code }
     val newCharacter = CK3Character(
         characterValues["name"]!!,
         characterValues["dna"]!!,
