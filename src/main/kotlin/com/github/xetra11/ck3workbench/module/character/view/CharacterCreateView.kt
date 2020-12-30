@@ -73,7 +73,7 @@ fun CharacterCreateView() {
             }
         }
 
-        CharacterPreview(personalityTraitSelectionState)
+        //CharacterPreview(personalityTraitSelectionState)
 
         CreateButton(
             name,

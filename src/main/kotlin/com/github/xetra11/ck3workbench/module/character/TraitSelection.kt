@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -131,7 +132,7 @@ class TraitSelection {
     fun CongenitalTraits(
         selectionState: SnapshotStateMap<Trait, Boolean>
     ) {
-        val chunks = enumValues<CongenitalTrait>().toList().chunked(4)
+        val chunks = enumValues<CongenitalTrait>().toList().chunked(6)
         chunks.forEach {
             Row {
                 it.forEach {
@@ -178,7 +179,10 @@ class TraitSelection {
         var isSelected by remember { mutableStateOf(false) }
         var selectionModifier by remember { mutableStateOf(Modifier.alpha(0.2F)) }
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier.size(60.dp, 75.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Box(
                 Modifier.clickable(
                     onClick = {
@@ -189,18 +193,29 @@ class TraitSelection {
                 ),
                 contentAlignment = Alignment.Center,
             ) {
-                Image(
-                    modifier = selectionModifier,
-                    bitmap = traitImage(trait)
-                )
+                TraitIconImage(selectionModifier, trait)
             }
-            if (isSelected) {
-                Text(
-                    fontSize = TextUnit.Em(0.7),
-                    text = trait.label
-                )
-            }
+            if (isSelected) TraitLabel(trait)
         }
+    }
+
+    @Composable
+    private fun TraitIconImage(
+        selectionModifier: Modifier,
+        trait: Trait
+    ) {
+        Image(
+            modifier = selectionModifier,
+            bitmap = traitImage(trait)
+        )
+    }
+
+    @Composable
+    private fun TraitLabel(trait: Trait) {
+        Text(
+            fontSize = TextUnit.Em(0.7),
+            text = trait.label
+        )
     }
 
     private fun traitImage(trait: Trait): ImageBitmap {
