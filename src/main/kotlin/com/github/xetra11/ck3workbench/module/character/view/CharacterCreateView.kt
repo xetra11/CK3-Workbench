@@ -63,7 +63,7 @@ fun CharacterCreateView() {
                 traitSelection.PersonalityTraits(traitSelectionState)
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Education Traits")
+                Text("Educational Traits")
                 traitSelection.EducationalTrait(educationalTraitSelectionState)
             }
         }
@@ -85,7 +85,17 @@ fun CharacterCreateView() {
             }
         }
 
-        CreateButton(name, dna, religion, dynasty, culture, birth, death, traitSelectionState)
+        CreateButton(
+            name,
+            dna,
+            religion,
+            dynasty,
+            culture,
+            birth,
+            death,
+            traitSelectionState,
+            educationalTraitSelectionState
+        )
     }
 }
 
@@ -159,7 +169,8 @@ private fun CreateButton(
     culture: MutableState<String>,
     birth: MutableState<String>,
     death: MutableState<String>,
-    selection: SnapshotStateMap<TraitSelection.Trait, Boolean>
+    personalityTraitSelectionState: SnapshotStateMap<TraitSelection.Trait, Boolean>,
+    educationalTraitSelectionState: SnapshotStateMap<TraitSelection.EducationalTrait, Int>
 ) {
     Button(
         modifier = Modifier.padding(top = 15.dp),
@@ -174,11 +185,16 @@ private fun CreateButton(
                 "death" to death.value
             )
 
-            val selectedTraits = selection.filter { it.value }
+            val personalityTraits = personalityTraitSelectionState.filter { it.value }
+            val eductionalTraits = educationalTraitSelectionState.filterNot { it.value == 0 }
 
             if (validateInput(characterValues)) {
                 GlobalScope.launch {
-                    createNewCharacter(characterValues, selectedTraits)
+                    createNewCharacter(
+                        characterValues,
+                        personalityTraits,
+                        educationalTraitSelectionState
+                    )
                 }
             } else {
                 NotificationsService.error("""Can not create character. Some fields were empty""")
@@ -191,10 +207,14 @@ private fun CreateButton(
 
 private fun createNewCharacter(
     characterValues: Map<String, String>,
-    selectedTrait: Map<TraitSelection.Trait, Boolean>
+    personalityTraits: Map<TraitSelection.Trait, Boolean>,
+    educationalTraits: SnapshotStateMap<TraitSelection.EducationalTrait, Int>
 ) {
 
-    val traits = selectedTrait.map { it.key.code }
+    val traits = mutableListOf<String>()
+    traits.addAll(personalityTraits.map { it.key.code })
+    traits.addAll(educationalTraits.map { "${it.key.code}_${it.value}" })
+
     val newCharacter = CK3Character(
         characterValues["name"]!!,
         characterValues["dna"]!!,

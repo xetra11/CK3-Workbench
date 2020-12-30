@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,6 +18,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.imageFromResource
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 
 /**
  * Holds the trait selection state and provides the trait button composable
@@ -107,8 +109,8 @@ class TraitSelection {
         educationalTrait: EducationalTrait,
         selectionState: SnapshotStateMap<EducationalTrait, Int>
     ) {
-        var rank by remember { mutableStateOf(1) }
-        var selectionModifier by remember { mutableStateOf(Modifier.alpha(1F)) }
+        var rank by remember { mutableStateOf(0) }
+        var selectionModifier by remember { mutableStateOf(Modifier.alpha(0.2F)) }
 
         Box(
             Modifier.clickable(
@@ -121,7 +123,7 @@ class TraitSelection {
             contentAlignment = Alignment.Center,
         ) {
             Image(
-                modifier = selectionModifier,
+                modifier = selectionModifier.size(70.dp, 70.dp),
                 bitmap = traitImage(educationalTrait, rank)
             )
         }
@@ -167,7 +169,8 @@ class TraitSelection {
     }
 
     private fun traitImage(educationalTrait: EducationalTrait, rank: Int): ImageBitmap {
-        return imageFromResource(educationalIconPath(educationalTrait.code, rank))
+        val theRank = if (rank == 0) 1 else rank
+        return imageFromResource(educationalIconPath(educationalTrait.code, theRank))
     }
 
     private fun personalityIconPath(traitCode: String): String {
