@@ -68,22 +68,7 @@ fun CharacterCreateView() {
             }
         }
 
-        Text("Character Preview")
-
-        Row(Modifier.fillMaxWidth()) {
-            Text("Personality Traits: ")
-            val chunked = traitSelectionState.toList()
-                .filter { it.second }
-                .map { it.first.label }
-                .chunked(5)
-            chunked.forEach { traitChunk ->
-                Column {
-                    traitChunk.forEach { trait ->
-                        Text("- $trait")
-                    }
-                }
-            }
-        }
+        CharacterPreview(traitSelectionState)
 
         CreateButton(
             name,
@@ -96,6 +81,26 @@ fun CharacterCreateView() {
             traitSelectionState,
             educationalTraitSelectionState
         )
+    }
+}
+
+@Composable
+private fun CharacterPreview(traitSelectionState: SnapshotStateMap<TraitSelection.Trait, Boolean>) {
+    Text("Character Preview")
+
+    Row(Modifier.fillMaxWidth()) {
+        Text("Personality Traits: ")
+        val chunked = traitSelectionState.toList()
+            .filter { it.second }
+            .map { it.first.label }
+            .chunked(5)
+        chunked.forEach { traitChunk ->
+            Column {
+                traitChunk.forEach { trait ->
+                    Text("- $trait")
+                }
+            }
+        }
     }
 }
 
