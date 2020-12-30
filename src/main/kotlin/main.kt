@@ -159,10 +159,6 @@ private fun saveProject() {
     projectManager.saveCurrentProject()
 }
 
-private fun LOG(): Logger {
-    return LoggerFactory.getLogger("Main")
-}
-
 fun workbenchLightColors(
     primary: Color = Color.LightGray,
     primaryVariant: Color = Color.Red,
