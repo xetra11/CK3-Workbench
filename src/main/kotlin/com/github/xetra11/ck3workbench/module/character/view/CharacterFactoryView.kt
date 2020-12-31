@@ -1,12 +1,8 @@
 package com.github.xetra11.ck3workbench.module.character.view
 
-import androidx.compose.foundation.HorizontalScrollbar
 import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.ScrollbarStyle
 import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.defaultScrollbarStyle
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.rememberScrollbarAdapter
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -33,10 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -53,13 +45,15 @@ import kotlinx.coroutines.launch
 @Composable
 fun CharacterFactoryView() {
     val traitSelection = TraitSelection()
+
     val personalityTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val congenitalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val physicalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val lifestyleTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
+    val commanderTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
 
-    val educationalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.RankedTrait, Int>() }
-
+    val educationalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
+    val leveledLifestyleTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
     val leveledCongenitalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
 
     Column(
@@ -115,20 +109,26 @@ fun CharacterFactoryView() {
                 TraitSection("Personality Traits") {
                     traitSelection.PersonalityTraits(congenitalTraitSelectionState)
                 }
-                TraitSection("Lifestyle Traits") {
-                    traitSelection.LifestyleTrait(lifestyleTraitSelectionState)
+                TraitSection("Commander Traits") {
+                    traitSelection.CommanderTraits(commanderTraitSelectionState)
                 }
                 TraitSection("Educational Traits") {
                     traitSelection.EducationalTraits(educationalTraitSelectionState)
+                }
+                TraitSection("Physical Traits") {
+                    traitSelection.PhysicalTraits(physicalTraitSelectionState)
+                }
+                TraitSection("Lifestyle Traits") {
+                    traitSelection.LifestyleTraits(lifestyleTraitSelectionState)
+                }
+                TraitSection("Leveled Lifestyle Traits") {
+                    traitSelection.LeveledLifestyleTraits(leveledLifestyleTraitSelectionState)
                 }
                 TraitSection("Congenital Traits") {
                     traitSelection.CongenitalTraits(congenitalTraitSelectionState)
                 }
                 TraitSection("Leveled Congenital Traits") {
                     traitSelection.LeveledCongenitalTraits(leveledCongenitalTraitSelectionState)
-                }
-                TraitSection("Physical Traits") {
-                    traitSelection.PhysicalTraits(physicalTraitSelectionState)
                 }
 
                 Spacer(Modifier.height(20.dp))
@@ -187,7 +187,7 @@ private fun TraitSection(
             }
         }
     ) {
-        ColumnScope.content()
+        content()
     }
 }
 
@@ -282,7 +282,7 @@ private fun CreateButton(
     birth: MutableState<String>,
     death: MutableState<String>,
     personalityTraitSelectionState: SnapshotStateMap<TraitSelection.Trait, Boolean>,
-    educationalTraitSelectionState: SnapshotStateMap<TraitSelection.RankedTrait, Int>
+    educationalTraitSelectionState: SnapshotStateMap<TraitSelection.LeveledTrait, Int>
 ) {
     Button(
         onClick = {
@@ -319,7 +319,7 @@ private fun CreateButton(
 private fun createNewCharacter(
     characterValues: Map<String, String>,
     personalityTraits: Map<TraitSelection.Trait, Boolean>,
-    educationalTraits: Map<TraitSelection.RankedTrait, Int>
+    educationalTraits: Map<TraitSelection.LeveledTrait, Int>
 ) {
 
     val traits = mutableListOf<String>()

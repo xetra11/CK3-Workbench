@@ -32,8 +32,34 @@ class TraitSelection {
         val label: String
     }
 
-    interface RankedTrait : Trait
     interface LeveledTrait : Trait
+
+    enum class CommanderTrait(override val code: String, override val label: String) : LeveledTrait {
+        AGGRESSIVE("aggressive_attacker", "Aggressive Attacker"),
+        FLEXIBLE("flexible_leader", "Flexible Leader"),
+        FORDER("forder", "Forder"),
+        HOLY_WARRIOR("holy_warrior", "Holy Warrior"),
+        LOGISTICIAN("logistician", "Logistician"),
+        MILITARY_ENGINEER("military_engineer", "Military Engineer"),
+        ORGANIZER("organizer", "Organizer"),
+        REAVER("reaver", "Reaver"),
+        DEFENDER("unyielding_defender", "Unyielding Defender"),
+        CAUTIOUS_LEADER("cautious_leader", "Cautious Leader"),
+        RECKLESS("reckless", "Reckless"),
+        FOREST_FIGHTER("forest_fighter", "Forest Fighter"),
+        OPEN_TERRAIN("open_terrain_expert", "Open Terrain Expert"),
+        ROUGH_TERRAIN("rough_terrain_expert", "Rough Terrain Expert"),
+        DESERT_WARRIOR("desert_warrior", "Desert Warrior"),
+        JUNGLE_STALKER("jungle_stalker", "Jungle Stalker"),
+    }
+
+    enum class LeveledLifestyleTrait(override val code: String, override val label: String) : LeveledTrait {
+        BLADEMASTER("blademaster", "Blademaster"),
+        HUNTER("hunter", "Hunter"),
+        MYSTIC("mystic", "Mystic"),
+        REVELER("reveler", "Reveler"),
+        PHYSICIAN("physician", "Physician"),
+    }
 
     enum class LifestyleTrait(override val code: String, override val label: String) : Trait {
         AUGUST("august", "August"),
@@ -93,7 +119,7 @@ class TraitSelection {
         BLEEDER("bleeder", "Bleeder"),
     }
 
-    enum class EducationalTrait(override val code: String, override val label: String) : RankedTrait {
+    enum class EducationalTrait(override val code: String, override val label: String) : LeveledTrait {
         DIPLOMACY("diplomacy", "Naive Appeaser"),
         INTRIGUE("intrigue", "Amateurish Plotter"),
         MARTIAL("martial", "Misguided Warrior"),
@@ -140,7 +166,21 @@ class TraitSelection {
     }
 
     @Composable
-    fun LifestyleTrait(
+    fun CommanderTraits(
+        selectionState: SnapshotStateMap<Trait, Boolean>
+    ) {
+        val chunks = enumValues<CommanderTrait>().toList().chunked(6)
+        chunks.forEach {
+            Row {
+                it.forEach {
+                    TraitIcon(it, selectionState)
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun LifestyleTraits(
         selectionState: SnapshotStateMap<Trait, Boolean>
     ) {
         val chunks = enumValues<LifestyleTrait>().toList().chunked(6)
@@ -169,23 +209,30 @@ class TraitSelection {
 
     @Composable
     fun EducationalTraits(
-        selectionState: SnapshotStateMap<RankedTrait, Int>
+        selectionState: SnapshotStateMap<LeveledTrait, Int>
     ) {
         Row {
-            TraitIcon(EducationalTrait.DIPLOMACY, selectionState)
-            TraitIcon(EducationalTrait.INTRIGUE, selectionState)
-            TraitIcon(EducationalTrait.STEWARDSHIP, selectionState)
-            TraitIcon(EducationalTrait.MARTIAL, selectionState)
-            TraitIcon(EducationalTrait.PROWESS, selectionState)
+            enumValues<EducationalTrait>().forEach { trait ->
+                TraitIcon(trait, selectionState, 4)
+            }
+        }
+    }
+
+    @Composable
+    fun LeveledLifestyleTraits(selectionState: SnapshotStateMap<LeveledTrait, Int>) {
+        Row {
+            enumValues<LeveledLifestyleTrait>().forEach { trait ->
+               TraitIcon(trait, selectionState, 3)
+            }
         }
     }
 
     @Composable
     fun LeveledCongenitalTraits(selectionState: SnapshotStateMap<LeveledTrait, Int>) {
         Row {
-            TraitIcon(LeveledCongenitalTrait.BEAUTY, selectionState)
-            TraitIcon(LeveledCongenitalTrait.INTELLECT, selectionState)
-            TraitIcon(LeveledCongenitalTrait.PHYSIQUE, selectionState)
+            enumValues<LeveledCongenitalTrait>().forEach { trait ->
+                TraitIcon(trait, selectionState, 6)
+            }
         }
     }
 
@@ -218,7 +265,8 @@ class TraitSelection {
     @Composable
     private fun TraitIcon(
         leveledTrait: LeveledTrait,
-        selectionState: SnapshotStateMap<LeveledTrait, Int>
+        selectionState: SnapshotStateMap<LeveledTrait, Int>,
+        maxLevel: Int = 4
     ) {
         var level by remember { mutableStateOf(0) }
         var selectionModifier by remember { mutableStateOf(Modifier.alpha(0.2F)) }
@@ -226,7 +274,7 @@ class TraitSelection {
         Box(
             Modifier.clickable(
                 onClick = {
-                    level = levelup(level)
+                    level = levelup(level, maxLevel)
                     selectionState[leveledTrait] = level
                     selectionModifier = if (level == 0) Modifier.alpha(0.2F) else Modifier.alpha(1F)
                 }
@@ -240,37 +288,8 @@ class TraitSelection {
         }
     }
 
-    @Composable
-    private fun TraitIcon(
-        rankedTrait: RankedTrait,
-        selectionState: SnapshotStateMap<RankedTrait, Int>
-    ) {
-        var rank by remember { mutableStateOf(0) }
-        var selectionModifier by remember { mutableStateOf(Modifier.alpha(0.2F)) }
-
-        Box(
-            Modifier.clickable(
-                onClick = {
-                    rank = rankUp(rank)
-                    selectionState[rankedTrait] = rank
-                    selectionModifier = if (rank == 0) Modifier.alpha(0.2F) else Modifier.alpha(1F)
-                }
-            ),
-            contentAlignment = Alignment.Center,
-        ) {
-            Image(
-                modifier = selectionModifier.size(70.dp, 70.dp),
-                bitmap = traitImage(rankedTrait, rank)
-            )
-        }
-    }
-
-    private fun rankUp(rank: Int): Int {
-        return if (rank < 4) rank.plus(1) else 0
-    }
-
-    private fun levelup(level: Int): Int {
-        return if (level < 6) level.plus(1) else 0
+    private fun levelup(level: Int, maxLevel: Int): Int {
+        return if (level < maxLevel) level.plus(1) else 0
     }
 
     @Composable
@@ -324,11 +343,6 @@ class TraitSelection {
         return imageFromResource(iconPath(trait.code))
     }
 
-    private fun traitImage(rankedTrait: RankedTrait, rank: Int): ImageBitmap {
-        val theRank = if (rank == 0) 1 else rank
-        return imageFromResource(rankedIconPath(rankedTrait.code, theRank))
-    }
-
     private fun traitImage(leveledTrait: LeveledTrait, level: Int): ImageBitmap {
         val theLevel = if (level == 0) 1 else level
         return imageFromResource(leveledIconPath(leveledTrait.code, theLevel))
@@ -336,10 +350,6 @@ class TraitSelection {
 
     private fun iconPath(traitCode: String): String {
         return "$traitIconPath/trait_$traitCode.png"
-    }
-
-    private fun rankedIconPath(traitCode: String, rank: Int): String {
-        return "$traitIconPath/trait_${traitCode}_$rank.png"
     }
 
     private fun leveledIconPath(traitCode: String, level: Int): String {
