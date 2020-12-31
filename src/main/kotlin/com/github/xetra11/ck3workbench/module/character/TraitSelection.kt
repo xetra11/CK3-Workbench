@@ -34,6 +34,20 @@ class TraitSelection {
 
     interface LeveledTrait : Trait
 
+    enum class CriminalTrait(override val code: String, override val label: String) : LeveledTrait {
+        ADULTERER("adulterer", "Adulterer"),
+        FORNICATOR("fornicator", "Fornicator"),
+        DEVIANT("deviant", "Deviant"),
+        DYNASTIC_KINSLAYER("kinslayer_1", "Dynastic Kinslayer"),
+        FAMILY_KINSLAYER("kinslayer_2", "Family Kinslayer"),
+        KINSLAYER("kinslayer_3", "Kinslayer"),
+        INCESTUOUS("incestuous", "Incestuous"),
+        SODOMITE("sodomite", "Sodomite"),
+        WITCH("witch", "Witch"),
+        CANNIBAL("cannibal", "Cannibal"),
+        EXCOMMUNICATED("excommunicated", "Excommunicated"),
+    }
+
     enum class CommanderTrait(override val code: String, override val label: String) : LeveledTrait {
         AGGRESSIVE("aggressive_attacker", "Aggressive Attacker"),
         FLEXIBLE("flexible_leader", "Flexible Leader"),
@@ -163,6 +177,20 @@ class TraitSelection {
         COMPASSIONATE("compassionate", "Compassionate"),
         CALLOUS("callous", "Callous"),
         SADISTIC("sadistic", "Sadistic"),
+    }
+
+    @Composable
+    fun CriminalTraits(
+        selectionState: SnapshotStateMap<Trait, Boolean>
+    ) {
+        val chunks = enumValues<CriminalTrait>().toList().chunked(4)
+        chunks.forEach {
+            Row {
+                it.forEach {
+                    TraitIcon(it, selectionState)
+                }
+            }
+        }
     }
 
     @Composable

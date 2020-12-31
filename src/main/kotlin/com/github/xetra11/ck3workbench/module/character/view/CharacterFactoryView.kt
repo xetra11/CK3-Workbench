@@ -51,6 +51,7 @@ fun CharacterFactoryView() {
     val physicalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val lifestyleTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val commanderTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
+    val criminalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
 
     val educationalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
     val leveledLifestyleTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
@@ -111,6 +112,9 @@ fun CharacterFactoryView() {
                 }
                 TraitSection("Commander Traits") {
                     traitSelection.CommanderTraits(commanderTraitSelectionState)
+                }
+                TraitSection("Criminal Traits") {
+                    traitSelection.CriminalTraits(criminalTraitSelectionState)
                 }
                 TraitSection("Educational Traits") {
                     traitSelection.EducationalTraits(educationalTraitSelectionState)
