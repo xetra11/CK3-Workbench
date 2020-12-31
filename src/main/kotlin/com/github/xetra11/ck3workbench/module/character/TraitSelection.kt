@@ -34,6 +34,14 @@ class TraitSelection {
 
     interface LeveledTrait : Trait
 
+    enum class ChildhoodTrait(override val code: String, override val label: String) : LeveledTrait {
+        BOSSY("bossy", "Bossy"),
+        CHARMING("charming", "Charming"),
+        CURIOUS("curious", "Curious"),
+        PENSIVE("pensive", "Pensive"),
+        ROWDY("rowdy", "Rowdy"),
+    }
+
     enum class CopingTrait(override val code: String, override val label: String) : LeveledTrait {
         DRUNKARD("drunkard", "Drunkard"),
         FLAGELLANT("flagellant", "Flagellant"),
@@ -197,6 +205,20 @@ class TraitSelection {
     }
 
     @Composable
+    fun ChildhoodTraits(
+        selectionState: SnapshotStateMap<Trait, Boolean>
+    ) {
+        val chunks = enumValues<ChildhoodTrait>().toList().chunked(5)
+        chunks.forEach {
+            Row {
+                it.forEach {
+                    TraitIcon(it, selectionState)
+                }
+            }
+        }
+    }
+
+    @Composable
     fun CopingTraits(
         selectionState: SnapshotStateMap<Trait, Boolean>
     ) {
@@ -281,7 +303,7 @@ class TraitSelection {
     fun LeveledLifestyleTraits(selectionState: SnapshotStateMap<LeveledTrait, Int>) {
         Row {
             enumValues<LeveledLifestyleTrait>().forEach { trait ->
-               TraitIcon(trait, selectionState, 3)
+                TraitIcon(trait, selectionState, 3)
             }
         }
     }
