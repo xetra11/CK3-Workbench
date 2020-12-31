@@ -34,6 +34,23 @@ class TraitSelection {
 
     interface LeveledTrait : Trait
 
+    enum class CopingTrait(override val code: String, override val label: String) : LeveledTrait {
+        DRUNKARD("drunkard", "Drunkard"),
+        FLAGELLANT("flagellant", "Flagellant"),
+        COMFORT_EATER("comfort_eater", "Comfort Eater"),
+        CONTRITE("contrite", "Contrite"),
+        IMPROVIDENT("improvident", "Improvident"),
+        INAPPETETIC("inappetetic", "Inappetetic"),
+        RECLUSIVE("reclusive", "Reclusive"),
+        IRRITABLE("irritable", "Irritable"),
+        RAKISH("rakish", "Rakish"),
+        HASHISHIYAH("hashishiyah", "Hashishiyah"),
+        PROFLIGATE("profligate", "Profligate"),
+        CONFIDER("confider", "Confider"),
+        JOURNALLER("journaller", "Journaller"),
+        ATHLETIC("athletic", "Athletic"),
+    }
+
     enum class CriminalTrait(override val code: String, override val label: String) : LeveledTrait {
         ADULTERER("adulterer", "Adulterer"),
         FORNICATOR("fornicator", "Fornicator"),
@@ -177,6 +194,20 @@ class TraitSelection {
         COMPASSIONATE("compassionate", "Compassionate"),
         CALLOUS("callous", "Callous"),
         SADISTIC("sadistic", "Sadistic"),
+    }
+
+    @Composable
+    fun CopingTraits(
+        selectionState: SnapshotStateMap<Trait, Boolean>
+    ) {
+        val chunks = enumValues<CopingTrait>().toList().chunked(5)
+        chunks.forEach {
+            Row {
+                it.forEach {
+                    TraitIcon(it, selectionState)
+                }
+            }
+        }
     }
 
     @Composable
