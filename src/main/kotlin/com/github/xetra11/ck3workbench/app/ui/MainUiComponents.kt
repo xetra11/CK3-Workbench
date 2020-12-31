@@ -44,7 +44,7 @@ object MainUiComponents {
             Box(
                 Modifier
                     .border(2.dp, Color.LightGray)
-                    .fillMaxWidth(0.05F)
+                    .fillMaxWidth(0.03F)
                     .fillMaxHeight(),
                 contentAlignment = Alignment.Center
             ) {

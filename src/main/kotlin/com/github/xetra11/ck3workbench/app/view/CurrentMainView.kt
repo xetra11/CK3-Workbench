@@ -10,6 +10,6 @@ fun CurrentMainView() {
         ViewManager.View.ENTRY_VIEW -> EntryView()
         ViewManager.View.DYNASTY_VIEW -> DynastieModuleView()
         ViewManager.View.CHARACTER_VIEW -> CharacterModuleView()
-        ViewManager.View.CHARACTER_CREATE_VIEW -> CharacterCreateView()
+        ViewManager.View.CHARACTER_CREATE_VIEW -> CharacterFactoryView()
     }
 }

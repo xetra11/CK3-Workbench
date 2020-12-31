@@ -26,7 +26,7 @@ import com.github.xetra11.ck3workbench.app.project.ProjectManager
 import com.github.xetra11.ck3workbench.app.styles.WorkbenchButtons.BasicButton
 import com.github.xetra11.ck3workbench.app.styles.WorkbenchTexts.BasicButtonText
 import com.github.xetra11.ck3workbench.module.character.exporter.CharacterScriptExporter
-import com.github.xetra11.ck3workbench.module.character.view.CharacterCreateView
+import com.github.xetra11.ck3workbench.module.character.view.CharacterFactoryView
 import javax.swing.JFileChooser
 
 @Composable
@@ -52,7 +52,7 @@ private fun CreateCharacterDialog() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            CharacterCreateView()
+            CharacterFactoryView()
 /*
             Button(onClick = { AppManager.focusedWindow?.close() }) {
                 Text("Close")

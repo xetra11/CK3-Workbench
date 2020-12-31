@@ -1,8 +1,12 @@
 package com.github.xetra11.ck3workbench.module.character.view
 
+import androidx.compose.foundation.HorizontalScrollbar
 import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.ScrollbarStyle
+import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.defaultScrollbarStyle
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +20,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.rememberScrollbarAdapter
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -29,6 +35,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -43,7 +51,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun CharacterCreateView() {
+fun CharacterFactoryView() {
     val traitSelection = TraitSelection()
     val personalityTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val congenitalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
@@ -87,7 +95,7 @@ fun CharacterCreateView() {
             }
             val scrollState = rememberScrollState(0f)
             ScrollableColumn(
-                Modifier.fillMaxWidth(0.7F).border(1.dp, Color.DarkGray),
+                Modifier.fillMaxWidth(0.7F),
                 scrollState = scrollState,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -119,12 +127,18 @@ fun CharacterCreateView() {
 
                 Spacer(Modifier.height(20.dp))
             }
+            VerticalScrollbar(
+                modifier = Modifier.fillMaxHeight(),
+                adapter = rememberScrollbarAdapter(scrollState)
+            )
         }
+
+        Spacer(Modifier.height(30.dp))
 
         // CharacterPreview(personalityTraitSelectionState)
 
         Row(
-            Modifier.fillMaxWidth().fillMaxHeight(0.5F).border(1.dp, Color.DarkGray),
+            Modifier.fillMaxWidth().fillMaxHeight(0.5F).background(Color(187, 187, 190)),
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -160,7 +174,6 @@ private fun TraitSection(
             Box(
                 Modifier.background(Color.LightGray)
                     .sizeIn(100.dp, 30.dp)
-                    .shadow(100.dp)
                     .padding(5.dp),
                 contentAlignment = Alignment.Center
             ) {
