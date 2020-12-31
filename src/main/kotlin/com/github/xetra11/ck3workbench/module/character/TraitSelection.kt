@@ -34,6 +34,20 @@ class TraitSelection {
 
     interface LeveledTrait : Trait
 
+    enum class DiseaseTrait(override val code: String, override val label: String) : LeveledTrait {
+        Ill("ill", "Ill"),
+        PLAGUE("bubonic_plague", "Plague"),
+        CANCER("cancer", "Cancer"),
+        CONSUMPTION("consumption", "Consumption"),
+        GREAT_POX("great_pox", "Great Pox"),
+        GOUT("gout_ridden", "Gout Ridden"),
+        LEPER("leper", "Leper"),
+        LOVERS_POX("lovers_pox", "Lover's Pox"),
+        PNEUMONIA("pneumonic", "Pneumonia"),
+        SMALLPOX("smallpox", "Smallpox"),
+        TYPHUS("typhus", "Typhus"),
+    }
+
     enum class HealthTrait(override val code: String, override val label: String) : LeveledTrait {
         WOUNDED("wounded_1", "Wounded"),
         INJURED("wounded_2", "Severely Injured"),
@@ -215,6 +229,20 @@ class TraitSelection {
         COMPASSIONATE("compassionate", "Compassionate"),
         CALLOUS("callous", "Callous"),
         SADISTIC("sadistic", "Sadistic"),
+    }
+
+    @Composable
+    fun DiseaseTraits(
+        selectionState: SnapshotStateMap<Trait, Boolean>
+    ) {
+        val chunks = enumValues<DiseaseTrait>().toList().chunked(5)
+        chunks.forEach {
+            Row {
+                it.forEach {
+                    TraitIcon(it, selectionState)
+                }
+            }
+        }
     }
 
     @Composable
