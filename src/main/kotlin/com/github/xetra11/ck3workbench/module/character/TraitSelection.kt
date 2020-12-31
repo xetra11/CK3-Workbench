@@ -35,6 +35,18 @@ class TraitSelection {
     interface RankedTrait : Trait
     interface LeveledTrait : Trait
 
+    enum class PhysicalTrait(override val code: String, override val label: String) : Trait {
+        SHREWD("shrewd", "Shrewd"),
+        STRONG("strong", "Strong"),
+        SCARRED("scarred", "Scarred"),
+        ONE_EYED("one_eyed", "One-Eyed"),
+        ONE_LEGGED("one_legged", "One-Legged"),
+        DISFIGURED("disfigured", "Disfigured"),
+        WEAK("weak", "Weak"),
+        DULL("dull", "Dull"),
+        EUNUCH("eunuch", "Eunuch")
+    }
+
     enum class LeveledCongenitalTrait(override val code: String, override val label: String) : LeveledTrait {
         BEAUTY("beauty", "Beauty"),
         INTELLECT("intellect", "Intellect"),
@@ -140,6 +152,18 @@ class TraitSelection {
             TraitIcon(LeveledCongenitalTrait.BEAUTY, selectionState)
             TraitIcon(LeveledCongenitalTrait.INTELLECT, selectionState)
             TraitIcon(LeveledCongenitalTrait.PHYSIQUE, selectionState)
+        }
+    }
+
+    @Composable
+    fun PhysicalTraits(selectionState: SnapshotStateMap<Trait, Boolean>) {
+        val chunks = enumValues<PhysicalTrait>().toList().chunked(3)
+        chunks.forEach { chunk ->
+            Row {
+                chunk.forEach {
+                    TraitIcon(it, selectionState)
+                }
+            }
         }
     }
 

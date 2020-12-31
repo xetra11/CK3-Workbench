@@ -33,6 +33,7 @@ fun CharacterCreateView() {
     val traitSelection = TraitSelection()
     val personalityTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val congenitalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
+    val physicalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val educationalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.RankedTrait, Int>() }
     val leveledCongenitalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
 
@@ -71,6 +72,8 @@ fun CharacterCreateView() {
                 traitSelection.CongenitalTraits(congenitalTraitSelectionState)
                 Text("Leveled Congenital Traits")
                 traitSelection.LeveledCongenitalTraits(leveledCongenitalTraitSelectionState)
+                Text("Physical Traits")
+                traitSelection.PhysicalTraits(physicalTraitSelectionState)
             }
         }
 
