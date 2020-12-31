@@ -34,6 +34,19 @@ class TraitSelection {
 
     interface LeveledTrait : Trait
 
+    enum class HealthTrait(override val code: String, override val label: String) : LeveledTrait {
+        WOUNDED("wounded_1", "Wounded"),
+        INJURED("wounded_2", "Severely Injured"),
+        MAULED("wounded_3", "Brutally Mauled"),
+        SICKLY("sickly", "Sickly"),
+        IMPOTENT("impotent", "Impotent"),
+        INFIRM("infirm", "Infirm"),
+        INCAPABLE("incapable", "Incapable"),
+        INBRED("inbred", "Inbred"),
+        MAIMED("maimed", "Maimed"),
+        BLIND("blind", "Blind"),
+    }
+
     enum class ChildhoodTrait(override val code: String, override val label: String) : LeveledTrait {
         BOSSY("bossy", "Bossy"),
         CHARMING("charming", "Charming"),
@@ -202,6 +215,20 @@ class TraitSelection {
         COMPASSIONATE("compassionate", "Compassionate"),
         CALLOUS("callous", "Callous"),
         SADISTIC("sadistic", "Sadistic"),
+    }
+
+    @Composable
+    fun HealthTraits(
+        selectionState: SnapshotStateMap<Trait, Boolean>
+    ) {
+        val chunks = enumValues<HealthTrait>().toList().chunked(5)
+        chunks.forEach {
+            Row {
+                it.forEach {
+                    TraitIcon(it, selectionState)
+                }
+            }
+        }
     }
 
     @Composable
