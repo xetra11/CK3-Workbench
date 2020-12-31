@@ -2,6 +2,7 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
+    <ID>LongMethod:CharacterCreateView.kt$@Composable fun CharacterCreateView()</ID>
     <ID>ReturnCount:ProjectFileFilter.kt$ProjectFileFilter$override fun accept(file: File?): Boolean</ID>
     <ID>TooManyFunctions:TraitSelection.kt$TraitSelection</ID>
   </CurrentIssues>

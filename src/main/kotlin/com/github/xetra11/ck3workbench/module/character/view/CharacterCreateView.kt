@@ -1,11 +1,21 @@
 package com.github.xetra11.ck3workbench.module.character.view
 
+import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -17,12 +27,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.github.xetra11.ck3workbench.app.NotificationsService
 import com.github.xetra11.ck3workbench.app.StateHolder
 import com.github.xetra11.ck3workbench.app.ViewManager
 import com.github.xetra11.ck3workbench.app.ViewManager.View.CHARACTER_VIEW
+import com.github.xetra11.ck3workbench.app.ui.CustomComponents.Spoiler
 import com.github.xetra11.ck3workbench.module.character.CK3Character
 import com.github.xetra11.ck3workbench.module.character.TraitSelection
 import kotlinx.coroutines.GlobalScope
@@ -51,45 +65,110 @@ fun CharacterCreateView() {
         val birth = remember { mutableStateOf("") }
         val death = remember { mutableStateOf("") }
 
-        Text("Character Creation", fontSize = TextUnit.Sp(15), modifier = Modifier.padding(bottom = 5.dp))
+        Row(
+            Modifier.fillMaxHeight(0.2F).fillMaxWidth(),
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                fontSize = TextUnit.Em(1.5),
+                fontWeight = FontWeight.Bold,
+                text = "Character Factory (v1)"
+            )
+        }
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxHeight(0.8F).fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
+            Column(Modifier.fillMaxWidth(0.3F)) {
                 InputFields(name, dna, dynasty, religion, culture, birth, death)
             }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Personality Traits")
-                traitSelection.PersonalityTraits(personalityTraitSelectionState)
-            }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Educational Traits")
-                traitSelection.EducationalTraits(educationalTraitSelectionState)
-                Text("Congenital Traits")
-                traitSelection.CongenitalTraits(congenitalTraitSelectionState)
-                Text("Leveled Congenital Traits")
-                traitSelection.LeveledCongenitalTraits(leveledCongenitalTraitSelectionState)
-                Text("Physical Traits")
-                traitSelection.PhysicalTraits(physicalTraitSelectionState)
+            val scrollState = rememberScrollState(0f)
+            ScrollableColumn(
+                Modifier.fillMaxWidth(0.7F).border(1.dp, Color.DarkGray),
+                scrollState = scrollState,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Spacer(Modifier.height(20.dp))
+
+                Text(
+                    fontSize = TextUnit.Em(1.2),
+                    fontWeight = FontWeight.Bold,
+                    text = "Traits"
+                )
+
+                Spacer(Modifier.height(20.dp))
+
+                TraitSection("Personality Traits") {
+                    traitSelection.PersonalityTraits(congenitalTraitSelectionState)
+                }
+                TraitSection("Educational Traits") {
+                    traitSelection.EducationalTraits(educationalTraitSelectionState)
+                }
+                TraitSection("Congenital Traits") {
+                    traitSelection.CongenitalTraits(congenitalTraitSelectionState)
+                }
+                TraitSection("Leveled Congenital Traits") {
+                    traitSelection.LeveledCongenitalTraits(leveledCongenitalTraitSelectionState)
+                }
+                TraitSection("Physical Traits") {
+                    traitSelection.PhysicalTraits(physicalTraitSelectionState)
+                }
+
+                Spacer(Modifier.height(20.dp))
             }
         }
 
         // CharacterPreview(personalityTraitSelectionState)
 
-        CreateButton(
-            name,
-            dna,
-            religion,
-            dynasty,
-            culture,
-            birth,
-            death,
-            personalityTraitSelectionState,
-            educationalTraitSelectionState
-        )
+        Row(
+            Modifier.fillMaxWidth().fillMaxHeight(0.5F).border(1.dp, Color.DarkGray),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            CreateButton(
+                name,
+                dna,
+                religion,
+                dynasty,
+                culture,
+                birth,
+                death,
+                personalityTraitSelectionState,
+                educationalTraitSelectionState
+            )
+            Button(enabled = false, onClick = { }) {
+                Text("Randomize")
+            }
+            Button(enabled = false, onClick = { }) {
+                Text("Batch Create")
+            }
+        }
+    }
+}
+
+@Composable
+private fun TraitSection(
+    label: String = "",
+    content: @Composable() (ColumnScope.() -> Unit),
+) {
+    Spoiler(
+        Modifier.padding(vertical = 5.dp),
+        label = {
+            Box(
+                Modifier.background(Color.LightGray)
+                    .sizeIn(100.dp, 30.dp)
+                    .shadow(100.dp)
+                    .padding(5.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(label)
+            }
+        }
+    ) {
+        ColumnScope.content()
     }
 }
 
@@ -187,7 +266,6 @@ private fun CreateButton(
     educationalTraitSelectionState: SnapshotStateMap<TraitSelection.RankedTrait, Int>
 ) {
     Button(
-        modifier = Modifier.padding(top = 15.dp),
         onClick = {
             val characterValues = mapOf(
                 "name" to name.value,
