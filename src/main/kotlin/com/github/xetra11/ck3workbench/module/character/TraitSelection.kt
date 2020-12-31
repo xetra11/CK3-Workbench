@@ -35,6 +35,26 @@ class TraitSelection {
     interface RankedTrait : Trait
     interface LeveledTrait : Trait
 
+    enum class LifestyleTrait(override val code: String, override val label: String) : Trait {
+        AUGUST("august", "August"),
+        DIPLOMAT("diplomat", "Diplomat"),
+        FAMILY_FIRST("family_first", "Family First"),
+        GALLANT("gallant", "Gallant"),
+        OVERSEER("overseer", "Overseer"),
+        STRATEGIST("strategist", "Strategist"),
+        ADMINISTRATOR("administrator", "Administrator"),
+        ARCHITECT("architect", "Architect"),
+        AVARICIOUS("avaricious", "Aravicious"),
+        SCHEMER("schemer", "Schemer"),
+        SEDUCER("seducer", "Seducer"),
+        TORTURER("torturer", "Torturer"),
+        SCHOLAR("scholar", "Scholar"),
+        THEOLOGIAN("theologian", "Theologian"),
+        WHOLE_OF_BODY("whole_of_body", "Whole of Body"),
+        CELIBATE("celibate", "Celibate"),
+        HERBALIST("herbalist", "Herbalist"),
+    }
+
     enum class PhysicalTrait(override val code: String, override val label: String) : Trait {
         SHREWD("shrewd", "Shrewd"),
         STRONG("strong", "Strong"),
@@ -120,10 +140,24 @@ class TraitSelection {
     }
 
     @Composable
+    fun LifestyleTrait(
+        selectionState: SnapshotStateMap<Trait, Boolean>
+    ) {
+        val chunks = enumValues<LifestyleTrait>().toList().chunked(6)
+        chunks.forEach {
+            Row {
+                it.forEach {
+                    TraitIcon(it, selectionState)
+                }
+            }
+        }
+    }
+
+    @Composable
     fun PersonalityTraits(
         selectionState: SnapshotStateMap<Trait, Boolean>
     ) {
-        val chunks = enumValues<PersonalityTrait>().toList().chunked(5)
+        val chunks = enumValues<PersonalityTrait>().toList().chunked(6)
         chunks.forEach {
             Row {
                 it.forEach {
