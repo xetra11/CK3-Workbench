@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
@@ -23,15 +24,16 @@ object CustomComponents {
     @Composable
     fun Spoiler(
         modifier: Modifier = Modifier,
+        horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
         label: @Composable ColumnScope.() -> Unit,
-        content: @Composable ColumnScope.() -> Unit
+        content: @Composable ColumnScope.() -> Unit,
     ) {
         var show by remember { mutableStateOf(false) }
         Box(modifier.clickable { show = !show }) {
             ColumnScope.label()
         }
-        val modifier = if (show) Modifier else Modifier.alpha(0F).size(0.dp, 0.dp)
-        Column(modifier) {
+        val columnModifier = if (show) Modifier else Modifier.alpha(0F).size(0.dp, 0.dp)
+        Column(columnModifier, horizontalAlignment = horizontalAlignment) {
             ColumnScope.content()
         }
     }

@@ -38,14 +38,31 @@ import com.github.xetra11.ck3workbench.app.ViewManager
 import com.github.xetra11.ck3workbench.app.ViewManager.View.CHARACTER_VIEW
 import com.github.xetra11.ck3workbench.app.ui.CustomComponents.Spoiler
 import com.github.xetra11.ck3workbench.module.character.CK3Character
+import com.github.xetra11.ck3workbench.module.character.SkillSelection
 import com.github.xetra11.ck3workbench.module.character.TraitSelection
-import com.github.xetra11.ck3workbench.module.character.TraitSelection.*
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.ChildhoodTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.CommanderTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.CongenitalTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.CopingTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.CriminalTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.DecisionTraits
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.DescendantTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.DiseaseTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.DynastyTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.HealthTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.LeveledTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.LifestyleTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.OtherTraits
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.PersonalityTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.PhysicalTrait
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.Trait
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @Composable
 fun CharacterFactoryView() {
     val traitSelection = TraitSelection()
+    val skillSelection = SkillSelection()
 
     val personalityTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
     val congenitalTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
@@ -59,10 +76,11 @@ fun CharacterFactoryView() {
     val diseaseTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
     val dynastyTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
     val descendantTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
-
     val educationalTraitSelectionState = remember { mutableStateMapOf<LeveledTrait, Int>() }
     val leveledLifestyleTraitSelectionState = remember { mutableStateMapOf<LeveledTrait, Int>() }
     val leveledCongenitalTraitSelectionState = remember { mutableStateMapOf<LeveledTrait, Int>() }
+
+    val skillSelectionState = remember { mutableStateMapOf<SkillSelection.Skill, Boolean>() }
 
     Column(
         modifier = Modifier.padding(top = 15.dp, bottom = 7.dp).fillMaxSize(),
@@ -106,65 +124,45 @@ fun CharacterFactoryView() {
             ) {
                 Spacer(Modifier.height(20.dp))
 
-                Text(
-                    fontSize = TextUnit.Em(1.2),
-                    fontWeight = FontWeight.Bold,
-                    text = "Traits"
-                )
+                Spoiler(
+                    label = {
+                        Box(
+                            Modifier.background(Color.LightGray)
+                                .sizeIn(100.dp, 30.dp)
+                                .padding(5.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                fontSize = TextUnit.Em(1.2),
+                                fontWeight = FontWeight.Bold,
+                                text = "Skills"
+                            )
+                        }
+                    }
+                ) {
+                    skillSelection.Skills(skillSelectionState)
+                }
 
                 Spacer(Modifier.height(20.dp))
 
-                TraitSection("Personality Traits") {
-                    traitSelection.Traits<PersonalityTrait>(personalityTraitSelectionState)
-                }
-                TraitSection("Commander Traits") {
-                    traitSelection.Traits<CommanderTrait>(commanderTraitSelectionState)
-                }
-                TraitSection("Criminal Traits") {
-                    traitSelection.Traits<CriminalTrait>(criminalTraitSelectionState)
-                }
-                TraitSection("Coping Traits") {
-                    traitSelection.Traits<CopingTrait>(copingTraitSelectionState)
-                }
-                TraitSection("Health Traits") {
-                    traitSelection.Traits<HealthTrait>(healthTraitSelectionState)
-                }
-                TraitSection("Dynasty Traits") {
-                    traitSelection.Traits<DynastyTrait>(dynastyTraitSelectionState)
-                }
-                TraitSection("Descendant Traits") {
-                    traitSelection.Traits<DescendantTrait>(descendantTraitSelectionState)
-                }
-                TraitSection("Disease Traits") {
-                    traitSelection.Traits<DiseaseTrait>(diseaseTraitSelectionState)
-                }
-                TraitSection("Childhood Traits") {
-                    traitSelection.Traits<ChildhoodTrait>(childhoodTraitSelectionState)
-                }
-                TraitSection("Educational Traits") {
-                    traitSelection.EducationalTraits(educationalTraitSelectionState)
-                }
-                TraitSection("Physical Traits") {
-                    traitSelection.Traits<PhysicalTrait>(physicalTraitSelectionState)
-                }
-                TraitSection("Lifestyle Traits") {
-                    traitSelection.Traits<LifestyleTrait>(lifestyleTraitSelectionState)
-                }
-                TraitSection("Leveled Lifestyle Traits") {
-                    traitSelection.LeveledLifestyleTraits(leveledLifestyleTraitSelectionState)
-                }
-                TraitSection("Congenital Traits") {
-                    traitSelection.Traits<CongenitalTrait>(congenitalTraitSelectionState)
-                }
-                TraitSection("Leveled Congenital Traits") {
-                    traitSelection.LeveledCongenitalTraits(leveledCongenitalTraitSelectionState)
-                }
-                TraitSection("Decision Traits") {
-                    traitSelection.Traits<DecisionTraits>(congenitalTraitSelectionState)
-                }
-                TraitSection("Other Traits") {
-                    traitSelection.Traits<OtherTraits>(congenitalTraitSelectionState)
-                }
+                Traits(
+                    traitSelection,
+                    personalityTraitSelectionState,
+                    commanderTraitSelectionState,
+                    criminalTraitSelectionState,
+                    copingTraitSelectionState,
+                    healthTraitSelectionState,
+                    dynastyTraitSelectionState,
+                    descendantTraitSelectionState,
+                    diseaseTraitSelectionState,
+                    childhoodTraitSelectionState,
+                    educationalTraitSelectionState,
+                    physicalTraitSelectionState,
+                    lifestyleTraitSelectionState,
+                    leveledLifestyleTraitSelectionState,
+                    congenitalTraitSelectionState,
+                    leveledCongenitalTraitSelectionState
+                )
 
                 Spacer(Modifier.height(20.dp))
             }
@@ -195,11 +193,104 @@ fun CharacterFactoryView() {
                 educationalTraitSelectionState
             )
             Button(enabled = false, onClick = { }) {
+                Text("Copy to Clipboard")
+            }
+            Button(enabled = false, onClick = { }) {
+                Text("Preview in Popup")
+            }
+            Button(enabled = false, onClick = { }) {
                 Text("Randomize")
             }
             Button(enabled = false, onClick = { }) {
                 Text("Batch Create")
             }
+        }
+    }
+}
+
+@Composable
+private fun Traits(
+    traitSelection: TraitSelection,
+    personalityTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    commanderTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    criminalTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    copingTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    healthTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    dynastyTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    descendantTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    diseaseTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    childhoodTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    educationalTraitSelectionState: SnapshotStateMap<LeveledTrait, Int>,
+    physicalTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    lifestyleTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    leveledLifestyleTraitSelectionState: SnapshotStateMap<LeveledTrait, Int>,
+    congenitalTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    leveledCongenitalTraitSelectionState: SnapshotStateMap<LeveledTrait, Int>
+) {
+    Spoiler(label = {
+        Box(
+            Modifier.background(Color.LightGray)
+                .sizeIn(100.dp, 30.dp)
+                .padding(5.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                fontSize = TextUnit.Em(1.2),
+                fontWeight = FontWeight.Bold,
+                text = "Traits"
+            )
+        }
+    }) {
+        TraitSection("Personality Traits") {
+            traitSelection.Traits<PersonalityTrait>(personalityTraitSelectionState)
+        }
+        TraitSection("Commander Traits") {
+            traitSelection.Traits<CommanderTrait>(commanderTraitSelectionState)
+        }
+        TraitSection("Criminal Traits") {
+            traitSelection.Traits<CriminalTrait>(criminalTraitSelectionState)
+        }
+        TraitSection("Coping Traits") {
+            traitSelection.Traits<CopingTrait>(copingTraitSelectionState)
+        }
+        TraitSection("Health Traits") {
+            traitSelection.Traits<HealthTrait>(healthTraitSelectionState)
+        }
+        TraitSection("Dynasty Traits") {
+            traitSelection.Traits<DynastyTrait>(dynastyTraitSelectionState)
+        }
+        TraitSection("Descendant Traits") {
+            traitSelection.Traits<DescendantTrait>(descendantTraitSelectionState)
+        }
+        TraitSection("Disease Traits") {
+            traitSelection.Traits<DiseaseTrait>(diseaseTraitSelectionState)
+        }
+        TraitSection("Childhood Traits") {
+            traitSelection.Traits<ChildhoodTrait>(childhoodTraitSelectionState)
+        }
+        TraitSection("Educational Traits") {
+            traitSelection.EducationalTraits(educationalTraitSelectionState)
+        }
+        TraitSection("Physical Traits") {
+            traitSelection.Traits<PhysicalTrait>(physicalTraitSelectionState)
+        }
+        TraitSection("Lifestyle Traits") {
+            traitSelection.Traits<LifestyleTrait>(lifestyleTraitSelectionState)
+        }
+        TraitSection("Leveled Lifestyle Traits") {
+            traitSelection.LeveledLifestyleTraits(leveledLifestyleTraitSelectionState)
+        }
+        TraitSection("Congenital Traits") {
+            traitSelection.Traits<CongenitalTrait>(congenitalTraitSelectionState)
+        }
+        TraitSection("Leveled Congenital Traits") {
+            traitSelection.LeveledCongenitalTraits(leveledCongenitalTraitSelectionState)
+        }
+        TraitSection("Decision Traits") {
+            traitSelection.Traits<DecisionTraits>(congenitalTraitSelectionState)
+        }
+        TraitSection("Other Traits") {
+            traitSelection.Traits<OtherTraits>(congenitalTraitSelectionState)
         }
     }
 }

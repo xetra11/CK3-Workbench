@@ -400,7 +400,7 @@ class TraitSelection {
         )
     }
 
-    fun traitImage(trait: Trait): ImageBitmap {
+    private fun traitImage(trait: Trait): ImageBitmap {
         return imageFromResource(iconPath(trait.code))
     }
 
@@ -409,11 +409,16 @@ class TraitSelection {
         return imageFromResource(leveledIconPath(leveledTrait.code, theLevel))
     }
 
-    fun iconPath(traitCode: String): String {
-        return "icons/trait_icons/trait_$traitCode.png"
+    private fun iconPath(traitCode: String): String {
+        return "$traitIconPath/trait_$traitCode.png"
     }
 
     private fun leveledIconPath(traitCode: String, level: Int): String {
         return "$traitIconPath/trait_${traitCode}_$level.png"
+    }
+
+    companion object {
+        val traitIconPath = "icons/trait_icons"
+
     }
 }
