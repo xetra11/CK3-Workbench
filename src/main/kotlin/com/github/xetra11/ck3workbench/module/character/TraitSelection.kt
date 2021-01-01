@@ -34,6 +34,21 @@ class TraitSelection {
 
     interface LeveledTrait : Trait
 
+    enum class DynastyTrait(override val code: String, override val label: String) : LeveledTrait {
+        BASTARD("bastard", "Bastard"),
+        BASTARD_FOUNDER("bastard_founder", "Bastard Founder"),
+        BORN_PURPLE("born_in_the_purple", "Born in the Purple"),
+        CHILD_CONCUBINE("child_of_concubine", "Child of Concubine"),
+        CHILD_CONSORT("child_of_concubine", "Child of Consort"),
+        DENOUNCED("denounced", "Denounced"),
+        DISINHERITED("disinherited", "Disinherited"),
+        DISPUTED("disputed_heritage", "Disputed Heritage"),
+        LEGITIMIZED_BASTARD("legitimized_bastard", "Legitimized Bastard Heritage"),
+        REINCARNATION("reincarnation", "Reincarnation"),
+        TWIN("twin", "Twin"),
+        WILD_OAT("wild_oat", "Wild Oat"),
+    }
+
     enum class DiseaseTrait(override val code: String, override val label: String) : LeveledTrait {
         Ill("ill", "Ill"),
         PLAGUE("bubonic_plague", "Plague"),
@@ -229,6 +244,20 @@ class TraitSelection {
         COMPASSIONATE("compassionate", "Compassionate"),
         CALLOUS("callous", "Callous"),
         SADISTIC("sadistic", "Sadistic"),
+    }
+
+    @Composable
+    fun DynastyTraits(
+        selectionState: SnapshotStateMap<Trait, Boolean>
+    ) {
+        val chunks = enumValues<DynastyTrait>().toList().chunked(5)
+        chunks.forEach {
+            Row {
+                it.forEach {
+                    TraitIcon(it, selectionState)
+                }
+            }
+        }
     }
 
     @Composable
