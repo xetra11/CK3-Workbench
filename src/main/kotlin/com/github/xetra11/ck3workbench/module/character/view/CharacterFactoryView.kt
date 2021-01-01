@@ -57,6 +57,7 @@ fun CharacterFactoryView() {
     val healthTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val diseaseTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
     val dynastyTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
+    val descendantTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
 
     val educationalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
     val leveledLifestyleTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
@@ -129,6 +130,9 @@ fun CharacterFactoryView() {
                 }
                 TraitSection("Dynasty Traits") {
                     traitSelection.DynastyTraits(dynastyTraitSelectionState)
+                }
+                TraitSection("Descendant Traits") {
+                    traitSelection.DescendantTraits(descendantTraitSelectionState)
                 }
                 TraitSection("Disease Traits") {
                     traitSelection.DiseaseTraits(diseaseTraitSelectionState)

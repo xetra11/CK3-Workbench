@@ -34,6 +34,13 @@ class TraitSelection {
 
     interface LeveledTrait : Trait
 
+    enum class DescendantTrait(override val code: String, override val label: String) : LeveledTrait {
+        SAOSHYANT("saoshyant", "Saoshyant"),
+        SAYYID("sayyid", "Sayyid"),
+        PARAGON("paragon", "Paragon"),
+        SAVIOR("paragon", "The Savior"),
+    }
+
     enum class DynastyTrait(override val code: String, override val label: String) : LeveledTrait {
         BASTARD("bastard", "Bastard"),
         BASTARD_FOUNDER("bastard_founder", "Bastard Founder"),
@@ -244,6 +251,20 @@ class TraitSelection {
         COMPASSIONATE("compassionate", "Compassionate"),
         CALLOUS("callous", "Callous"),
         SADISTIC("sadistic", "Sadistic"),
+    }
+
+    @Composable
+    fun DescendantTraits(
+        selectionState: SnapshotStateMap<Trait, Boolean>
+    ) {
+        val chunks = enumValues<DescendantTrait>().toList().chunked(5)
+        chunks.forEach {
+            Row {
+                it.forEach {
+                    TraitIcon(it, selectionState)
+                }
+            }
+        }
     }
 
     @Composable
