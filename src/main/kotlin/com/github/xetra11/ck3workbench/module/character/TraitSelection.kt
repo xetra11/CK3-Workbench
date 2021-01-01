@@ -254,136 +254,10 @@ class TraitSelection {
     }
 
     @Composable
-    fun DescendantTraits(
+    inline fun <reified T> Traits(
         selectionState: SnapshotStateMap<Trait, Boolean>
-    ) {
-        val chunks = enumValues<DescendantTrait>().toList().chunked(5)
-        chunks.forEach {
-            Row {
-                it.forEach {
-                    TraitIcon(it, selectionState)
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun DynastyTraits(
-        selectionState: SnapshotStateMap<Trait, Boolean>
-    ) {
-        val chunks = enumValues<DynastyTrait>().toList().chunked(5)
-        chunks.forEach {
-            Row {
-                it.forEach {
-                    TraitIcon(it, selectionState)
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun DiseaseTraits(
-        selectionState: SnapshotStateMap<Trait, Boolean>
-    ) {
-        val chunks = enumValues<DiseaseTrait>().toList().chunked(5)
-        chunks.forEach {
-            Row {
-                it.forEach {
-                    TraitIcon(it, selectionState)
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun HealthTraits(
-        selectionState: SnapshotStateMap<Trait, Boolean>
-    ) {
-        val chunks = enumValues<HealthTrait>().toList().chunked(5)
-        chunks.forEach {
-            Row {
-                it.forEach {
-                    TraitIcon(it, selectionState)
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun ChildhoodTraits(
-        selectionState: SnapshotStateMap<Trait, Boolean>
-    ) {
-        val chunks = enumValues<ChildhoodTrait>().toList().chunked(5)
-        chunks.forEach {
-            Row {
-                it.forEach {
-                    TraitIcon(it, selectionState)
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun CopingTraits(
-        selectionState: SnapshotStateMap<Trait, Boolean>
-    ) {
-        val chunks = enumValues<CopingTrait>().toList().chunked(5)
-        chunks.forEach {
-            Row {
-                it.forEach {
-                    TraitIcon(it, selectionState)
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun CriminalTraits(
-        selectionState: SnapshotStateMap<Trait, Boolean>
-    ) {
-        val chunks = enumValues<CriminalTrait>().toList().chunked(4)
-        chunks.forEach {
-            Row {
-                it.forEach {
-                    TraitIcon(it, selectionState)
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun CommanderTraits(
-        selectionState: SnapshotStateMap<Trait, Boolean>
-    ) {
-        val chunks = enumValues<CommanderTrait>().toList().chunked(6)
-        chunks.forEach {
-            Row {
-                it.forEach {
-                    TraitIcon(it, selectionState)
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun LifestyleTraits(
-        selectionState: SnapshotStateMap<Trait, Boolean>
-    ) {
-        val chunks = enumValues<LifestyleTrait>().toList().chunked(6)
-        chunks.forEach {
-            Row {
-                it.forEach {
-                    TraitIcon(it, selectionState)
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun PersonalityTraits(
-        selectionState: SnapshotStateMap<Trait, Boolean>
-    ) {
-        val chunks = enumValues<PersonalityTrait>().toList().chunked(6)
+    ) where T : Enum<T>, T : Trait {
+        val chunks = enumValues<T>().toList().chunked(5)
         chunks.forEach {
             Row {
                 it.forEach {
@@ -423,32 +297,6 @@ class TraitSelection {
     }
 
     @Composable
-    fun PhysicalTraits(selectionState: SnapshotStateMap<Trait, Boolean>) {
-        val chunks = enumValues<PhysicalTrait>().toList().chunked(3)
-        chunks.forEach { chunk ->
-            Row {
-                chunk.forEach {
-                    TraitIcon(it, selectionState)
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun CongenitalTraits(
-        selectionState: SnapshotStateMap<Trait, Boolean>
-    ) {
-        val chunks = enumValues<CongenitalTrait>().toList().chunked(6)
-        chunks.forEach {
-            Row {
-                it.forEach {
-                    TraitIcon(it, selectionState)
-                }
-            }
-        }
-    }
-
-    @Composable
     private fun TraitIcon(
         leveledTrait: LeveledTrait,
         selectionState: SnapshotStateMap<LeveledTrait, Int>,
@@ -479,7 +327,7 @@ class TraitSelection {
     }
 
     @Composable
-    private fun TraitIcon(
+    fun TraitIcon(
         trait: Trait,
         selectionState: SnapshotStateMap<Trait, Boolean>
     ) {
@@ -507,7 +355,7 @@ class TraitSelection {
     }
 
     @Composable
-    private fun TraitIconImage(
+    fun TraitIconImage(
         selectionModifier: Modifier,
         trait: Trait
     ) {
@@ -518,14 +366,14 @@ class TraitSelection {
     }
 
     @Composable
-    private fun TraitLabel(trait: Trait) {
+    fun TraitLabel(trait: Trait) {
         Text(
             fontSize = TextUnit.Em(0.7),
             text = trait.label
         )
     }
 
-    private fun traitImage(trait: Trait): ImageBitmap {
+    fun traitImage(trait: Trait): ImageBitmap {
         return imageFromResource(iconPath(trait.code))
     }
 
@@ -534,8 +382,8 @@ class TraitSelection {
         return imageFromResource(leveledIconPath(leveledTrait.code, theLevel))
     }
 
-    private fun iconPath(traitCode: String): String {
-        return "$traitIconPath/trait_$traitCode.png"
+    fun iconPath(traitCode: String): String {
+        return "icons/trait_icons/trait_$traitCode.png"
     }
 
     private fun leveledIconPath(traitCode: String, level: Int): String {

@@ -39,6 +39,7 @@ import com.github.xetra11.ck3workbench.app.ViewManager.View.CHARACTER_VIEW
 import com.github.xetra11.ck3workbench.app.ui.CustomComponents.Spoiler
 import com.github.xetra11.ck3workbench.module.character.CK3Character
 import com.github.xetra11.ck3workbench.module.character.TraitSelection
+import com.github.xetra11.ck3workbench.module.character.TraitSelection.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -46,22 +47,22 @@ import kotlinx.coroutines.launch
 fun CharacterFactoryView() {
     val traitSelection = TraitSelection()
 
-    val personalityTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val congenitalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val physicalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val lifestyleTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val commanderTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val criminalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val copingTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val childhoodTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val healthTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val diseaseTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val dynastyTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
-    val descendantTraitSelectionState = remember { mutableStateMapOf<TraitSelection.Trait, Boolean>() }
+    val personalityTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
+    val congenitalTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
+    val physicalTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
+    val lifestyleTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
+    val commanderTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
+    val criminalTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
+    val copingTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
+    val childhoodTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
+    val healthTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
+    val diseaseTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
+    val dynastyTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
+    val descendantTraitSelectionState = remember { mutableStateMapOf<Trait, Boolean>() }
 
-    val educationalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
-    val leveledLifestyleTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
-    val leveledCongenitalTraitSelectionState = remember { mutableStateMapOf<TraitSelection.LeveledTrait, Int>() }
+    val educationalTraitSelectionState = remember { mutableStateMapOf<LeveledTrait, Int>() }
+    val leveledLifestyleTraitSelectionState = remember { mutableStateMapOf<LeveledTrait, Int>() }
+    val leveledCongenitalTraitSelectionState = remember { mutableStateMapOf<LeveledTrait, Int>() }
 
     Column(
         modifier = Modifier.padding(top = 15.dp, bottom = 7.dp).fillMaxSize(),
@@ -114,46 +115,46 @@ fun CharacterFactoryView() {
                 Spacer(Modifier.height(20.dp))
 
                 TraitSection("Personality Traits") {
-                    traitSelection.PersonalityTraits(personalityTraitSelectionState)
+                    traitSelection.Traits<PersonalityTrait>(personalityTraitSelectionState)
                 }
                 TraitSection("Commander Traits") {
-                    traitSelection.CommanderTraits(commanderTraitSelectionState)
+                    traitSelection.Traits<CommanderTrait>(commanderTraitSelectionState)
                 }
                 TraitSection("Criminal Traits") {
-                    traitSelection.CriminalTraits(criminalTraitSelectionState)
+                    traitSelection.Traits<CriminalTrait>(criminalTraitSelectionState)
                 }
                 TraitSection("Coping Traits") {
-                    traitSelection.CopingTraits(copingTraitSelectionState)
+                    traitSelection.Traits<CopingTrait>(copingTraitSelectionState)
                 }
                 TraitSection("Health Traits") {
-                    traitSelection.HealthTraits(healthTraitSelectionState)
+                    traitSelection.Traits<HealthTrait>(healthTraitSelectionState)
                 }
                 TraitSection("Dynasty Traits") {
-                    traitSelection.DynastyTraits(dynastyTraitSelectionState)
+                    traitSelection.Traits<DynastyTrait>(dynastyTraitSelectionState)
                 }
                 TraitSection("Descendant Traits") {
-                    traitSelection.DescendantTraits(descendantTraitSelectionState)
+                    traitSelection.Traits<DescendantTrait>(descendantTraitSelectionState)
                 }
                 TraitSection("Disease Traits") {
-                    traitSelection.DiseaseTraits(diseaseTraitSelectionState)
+                    traitSelection.Traits<DiseaseTrait>(diseaseTraitSelectionState)
                 }
                 TraitSection("Childhood Traits") {
-                    traitSelection.ChildhoodTraits(childhoodTraitSelectionState)
+                    traitSelection.Traits<ChildhoodTrait>(childhoodTraitSelectionState)
                 }
                 TraitSection("Educational Traits") {
                     traitSelection.EducationalTraits(educationalTraitSelectionState)
                 }
                 TraitSection("Physical Traits") {
-                    traitSelection.PhysicalTraits(physicalTraitSelectionState)
+                    traitSelection.Traits<PhysicalTrait>(physicalTraitSelectionState)
                 }
                 TraitSection("Lifestyle Traits") {
-                    traitSelection.LifestyleTraits(lifestyleTraitSelectionState)
+                    traitSelection.Traits<LifestyleTrait>(lifestyleTraitSelectionState)
                 }
                 TraitSection("Leveled Lifestyle Traits") {
                     traitSelection.LeveledLifestyleTraits(leveledLifestyleTraitSelectionState)
                 }
                 TraitSection("Congenital Traits") {
-                    traitSelection.CongenitalTraits(congenitalTraitSelectionState)
+                    traitSelection.Traits<CongenitalTrait>(congenitalTraitSelectionState)
                 }
                 TraitSection("Leveled Congenital Traits") {
                     traitSelection.LeveledCongenitalTraits(leveledCongenitalTraitSelectionState)
@@ -220,7 +221,7 @@ private fun TraitSection(
 }
 
 @Composable
-private fun CharacterPreview(traitSelectionState: SnapshotStateMap<TraitSelection.Trait, Boolean>) {
+private fun CharacterPreview(traitSelectionState: SnapshotStateMap<Trait, Boolean>) {
     Text("Character Preview")
 
     Row(Modifier.fillMaxWidth()) {
@@ -309,8 +310,8 @@ private fun CreateButton(
     culture: MutableState<String>,
     birth: MutableState<String>,
     death: MutableState<String>,
-    personalityTraitSelectionState: SnapshotStateMap<TraitSelection.Trait, Boolean>,
-    educationalTraitSelectionState: SnapshotStateMap<TraitSelection.LeveledTrait, Int>
+    personalityTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    educationalTraitSelectionState: SnapshotStateMap<LeveledTrait, Int>
 ) {
     Button(
         onClick = {
@@ -346,8 +347,8 @@ private fun CreateButton(
 
 private fun createNewCharacter(
     characterValues: Map<String, String>,
-    personalityTraits: Map<TraitSelection.Trait, Boolean>,
-    educationalTraits: Map<TraitSelection.LeveledTrait, Int>
+    personalityTraits: Map<Trait, Boolean>,
+    educationalTraits: Map<LeveledTrait, Int>
 ) {
 
     val traits = mutableListOf<String>()
