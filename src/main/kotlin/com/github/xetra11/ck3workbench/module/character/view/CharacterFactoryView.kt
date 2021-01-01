@@ -159,6 +159,12 @@ fun CharacterFactoryView() {
                 TraitSection("Leveled Congenital Traits") {
                     traitSelection.LeveledCongenitalTraits(leveledCongenitalTraitSelectionState)
                 }
+                TraitSection("Decision Traits") {
+                    traitSelection.Traits<DecisionTraits>(congenitalTraitSelectionState)
+                }
+                TraitSection("Other Traits") {
+                    traitSelection.Traits<OtherTraits>(congenitalTraitSelectionState)
+                }
 
                 Spacer(Modifier.height(20.dp))
             }

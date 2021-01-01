@@ -34,6 +34,33 @@ class TraitSelection {
 
     interface LeveledTrait : Trait
 
+    enum class OtherTraits(override val code: String, override val label: String) : LeveledTrait {
+        ADVENTURER("adventurer", "Adventurer"),
+        BERSERKER("berserker", "Berserker"),
+        DEVOTED("devoted", "Devoted"),
+        HERESIARCH("heresiarch", "Heresiarch"),
+        HOLY("crusader_king", "Holy Monarch"),
+        MURDERER("murderer", "Murderer"),
+        ORDER_MEMBER("order_member", "Order Member"),
+        PEASANT_LEADER("peasant_leader", "Peasant Leader"),
+        PREGNANT("pregnant", "Pregnant"),
+        RAIDER("viking", "Raider"),
+        VARANGIAN("varangian", "Varangian"),
+        CRUSADER("crusader", "Crusader"),
+        MUJAHID("mujahid", "Mujahid"),
+        WARRIOR_FAITH("faith_warrior", "Faith Warrior"),
+        SAINT("saint", "Saint"),
+        ADDICT("henbane_addict", "Henbane Addict"),
+    }
+
+    enum class DecisionTraits(override val code: String, override val label: String) : LeveledTrait {
+        AUGUSTUS("augustus", "Augustus"),
+        CHAKRAVARTI("chakravarti", "Chakravarti"),
+        KHAN("greatest_of_khans", "Greatest of Khans"),
+        PILGRIM("pilgrim", "Pilgrim"),
+        HAJJI("hajjaj", "Hajji"),
+    }
+
     enum class DescendantTrait(override val code: String, override val label: String) : LeveledTrait {
         SAOSHYANT("saoshyant", "Saoshyant"),
         SAYYID("sayyid", "Sayyid"),
