@@ -31,7 +31,7 @@ class SkillSelection {
         DIPLOMACY("diplomacy", "Diplomacy"),
         INTRIGUE("intrigue", "Intrigue"),
         LEARNING("learning", "Learning"),
-        PROWESS("prowess", "Prowess")
+        // PROWESS("prowess", "Prowess")
     }
 
     @Composable

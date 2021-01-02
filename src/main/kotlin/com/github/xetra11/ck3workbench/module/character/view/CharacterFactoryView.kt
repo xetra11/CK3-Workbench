@@ -190,7 +190,21 @@ fun CharacterFactoryView() {
                 birth,
                 death,
                 personalityTraitSelectionState,
-                educationalTraitSelectionState
+                congenitalTraitSelectionState,
+                physicalTraitSelectionState,
+                lifestyleTraitSelectionState,
+                commanderTraitSelectionState,
+                criminalTraitSelectionState,
+                copingTraitSelectionState,
+                childhoodTraitSelectionState,
+                healthTraitSelectionState,
+                diseaseTraitSelectionState,
+                dynastyTraitSelectionState,
+                descendantTraitSelectionState,
+                educationalTraitSelectionState,
+                leveledLifestyleTraitSelectionState,
+                leveledCongenitalTraitSelectionState,
+                skillSelectionState
             )
             Button(enabled = false, onClick = { }) {
                 Text("Copy to Clipboard")
@@ -410,7 +424,21 @@ private fun CreateButton(
     birth: MutableState<String>,
     death: MutableState<String>,
     personalityTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
-    educationalTraitSelectionState: SnapshotStateMap<LeveledTrait, Int>
+    congenitalTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    physicalTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    lifestyleTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    commanderTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    criminalTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    copingTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    childhoodTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    healthTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    diseaseTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    dynastyTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    descendantTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
+    educationalTraitSelectionState: SnapshotStateMap<LeveledTrait, Int>,
+    leveledLifestyleTraitSelectionState: SnapshotStateMap<LeveledTrait, Int>,
+    leveledCongenitalTraitSelectionState: SnapshotStateMap<LeveledTrait, Int>,
+    skillSelectionState: SnapshotStateMap<SkillSelection.Skill, Int>,
 ) {
     Button(
         onClick = {
@@ -425,14 +453,40 @@ private fun CreateButton(
             )
 
             val personalityTraits = personalityTraitSelectionState.filter { it.value }
+            val physicalTraits = physicalTraitSelectionState.filter { it.value }
+            val lifestyleTraits = lifestyleTraitSelectionState.filter { it.value }
+            val commanderTraits = commanderTraitSelectionState.filter { it.value }
+            val criminalTraits = criminalTraitSelectionState.filter { it.value }
+            val copingTraits = copingTraitSelectionState.filter { it.value }
+            val childhoodTraits = childhoodTraitSelectionState.filter { it.value }
+            val healthTraits = healthTraitSelectionState.filter { it.value }
+            val diseaseTraits = diseaseTraitSelectionState.filter { it.value }
+            val dynastyTraits = dynastyTraitSelectionState.filter { it.value }
+            val descendantTraits = descendantTraitSelectionState.filter { it.value }
+
             val educationalTraits = educationalTraitSelectionState.filterNot { it.value == 0 }
+            val leveledLifeStyleTraits = leveledLifestyleTraitSelectionState.filterNot { it.value == 0 }
+            val leveledCongenitalTraits = leveledCongenitalTraitSelectionState.filterNot { it.value == 0 }
 
             if (validateInput(characterValues)) {
                 GlobalScope.launch {
                     createNewCharacter(
                         characterValues,
                         personalityTraits,
-                        educationalTraits
+                        physicalTraits,
+                        lifestyleTraits,
+                        commanderTraits,
+                        criminalTraits,
+                        copingTraits,
+                        childhoodTraits,
+                        healthTraits,
+                        diseaseTraits,
+                        dynastyTraits,
+                        descendantTraits,
+                        educationalTraits,
+                        leveledLifeStyleTraits,
+                        leveledCongenitalTraits,
+                        skillSelectionState
                     )
                 }
             } else {
@@ -447,12 +501,39 @@ private fun CreateButton(
 private fun createNewCharacter(
     characterValues: Map<String, String>,
     personalityTraits: Map<Trait, Boolean>,
-    educationalTraits: Map<LeveledTrait, Int>
+    physicalTraits: Map<Trait, Boolean>,
+    lifestyleTraits: Map<Trait, Boolean>,
+    commanderTraits: Map<Trait, Boolean>,
+    criminalTraits: Map<Trait, Boolean>,
+    copingTraits: Map<Trait, Boolean>,
+    childhoodTraits: Map<Trait, Boolean>,
+    healthTraits: Map<Trait, Boolean>,
+    diseaseTraits: Map<Trait, Boolean>,
+    dynastyTraits: Map<Trait, Boolean>,
+    descendantTraits: Map<Trait, Boolean>,
+    educationalTraits: Map<LeveledTrait, Int>,
+    leveledLifeStyleTraits: Map<LeveledTrait, Int>,
+    leveledCongenitalTraits: Map<LeveledTrait, Int>,
+    skillSelectionState: SnapshotStateMap<SkillSelection.Skill, Int>,
 ) {
 
     val traits = mutableListOf<String>()
     traits.addAll(personalityTraits.map { it.key.code })
+    traits.addAll(lifestyleTraits.map { it.key.code })
+    traits.addAll(commanderTraits.map { it.key.code })
+    traits.addAll(criminalTraits.map { it.key.code })
+    traits.addAll(copingTraits.map { it.key.code })
+    traits.addAll(childhoodTraits.map { it.key.code })
+    traits.addAll(healthTraits.map { it.key.code })
+    traits.addAll(diseaseTraits.map { it.key.code })
+    traits.addAll(dynastyTraits.map { it.key.code })
+    traits.addAll(descendantTraits.map { it.key.code })
+
     traits.addAll(educationalTraits.map { "${it.key.code}_${it.value}" })
+    traits.addAll(leveledLifeStyleTraits.map { "${it.key.code}_${it.value}" })
+    traits.addAll(leveledCongenitalTraits.map { "${it.key.code}_${it.value}" })
+
+    val skills = skillSelectionState.mapKeys { toCK3(it.key) }.mapValues { it.value.toShort() }
 
     val newCharacter = CK3Character(
         characterValues["name"]!!,
@@ -460,11 +541,12 @@ private fun createNewCharacter(
         characterValues["dynasty"]!!,
         characterValues["religion"]!!,
         characterValues["culture"]!!,
-        mapOf(),
+        skills,
         traits,
         characterValues["birth"]!!,
         characterValues["death"]!!
     )
+
     if (StateHolder.characters.contains(newCharacter)) {
         NotificationsService.error("""Character with name "${newCharacter.name}" already exists""")
         return
@@ -473,6 +555,10 @@ private fun createNewCharacter(
     StateHolder.characters.add(newCharacter)
     ViewManager.changeView(CHARACTER_VIEW)
     NotificationsService.notify("""New character "${newCharacter.name}" created""")
+}
+
+fun toCK3(skill: SkillSelection.Skill): CK3Character.Skill {
+    return enumValueOf<CK3Character.Skill>(skill.name)
 }
 
 private fun validateInput(characterValues: Map<String, String>): Boolean {

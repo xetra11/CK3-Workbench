@@ -120,7 +120,7 @@ private fun AppMenu(): MenuBar {
             ),
 */
             MenuItem(
-                "Export Character Scripts",
+                "Export Characters",
                 shortcut = KeyStroke(Key.E),
                 onClick = {
                     val characterScriptExporter = CharacterScriptExporter()
