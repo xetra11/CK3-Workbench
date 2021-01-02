@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.0.50 (28/12/2020)
+
+#### Improvements:
+
+- optimize session init with coroutine [#23](https://github.com/xetra11/CK3-Workbench/issues/23)
+- optimize create character with coroutine [#22](https://github.com/xetra11/CK3-Workbench/issues/22)
+
+---
+
 ## v0.0.49 (28/12/2020)
 
 #### New Features:
