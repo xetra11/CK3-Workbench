@@ -80,7 +80,7 @@ fun CharacterFactoryView() {
     val leveledLifestyleTraitSelectionState = remember { mutableStateMapOf<LeveledTrait, Int>() }
     val leveledCongenitalTraitSelectionState = remember { mutableStateMapOf<LeveledTrait, Int>() }
 
-    val skillSelectionState = remember { mutableStateMapOf<SkillSelection.Skill, Boolean>() }
+    val skillSelectionState = remember { mutableStateMapOf<SkillSelection.Skill, Int>() }
 
     Column(
         modifier = Modifier.padding(top = 15.dp, bottom = 7.dp).fillMaxSize(),
@@ -227,20 +227,22 @@ private fun Traits(
     congenitalTraitSelectionState: SnapshotStateMap<Trait, Boolean>,
     leveledCongenitalTraitSelectionState: SnapshotStateMap<LeveledTrait, Int>
 ) {
-    Spoiler(label = {
-        Box(
-            Modifier.background(Color.LightGray)
-                .sizeIn(100.dp, 30.dp)
-                .padding(5.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                fontSize = TextUnit.Em(1.2),
-                fontWeight = FontWeight.Bold,
-                text = "Traits"
-            )
+    Spoiler(
+        label = {
+            Box(
+                Modifier.background(Color.LightGray)
+                    .sizeIn(100.dp, 30.dp)
+                    .padding(5.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    fontSize = TextUnit.Em(1.2),
+                    fontWeight = FontWeight.Bold,
+                    text = "Traits"
+                )
+            }
         }
-    }) {
+    ) {
         TraitSection("Personality Traits") {
             traitSelection.Traits<PersonalityTrait>(personalityTraitSelectionState)
         }

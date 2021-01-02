@@ -3,6 +3,7 @@
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
     <ID>LongMethod:CharacterFactoryView.kt$@Composable fun CharacterFactoryView()</ID>
+    <ID>LongMethod:CharacterFactoryView.kt$@Composable private fun Traits( traitSelection: TraitSelection, personalityTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, commanderTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, criminalTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, copingTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, healthTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, dynastyTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, descendantTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, diseaseTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, childhoodTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, educationalTraitSelectionState: SnapshotStateMap&lt;LeveledTrait, Int&gt;, physicalTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, lifestyleTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, leveledLifestyleTraitSelectionState: SnapshotStateMap&lt;LeveledTrait, Int&gt;, congenitalTraitSelectionState: SnapshotStateMap&lt;Trait, Boolean&gt;, leveledCongenitalTraitSelectionState: SnapshotStateMap&lt;LeveledTrait, Int&gt; )</ID>
     <ID>ReturnCount:ProjectFileFilter.kt$ProjectFileFilter$override fun accept(file: File?): Boolean</ID>
     <ID>TooManyFunctions:TraitSelection.kt$TraitSelection</ID>
   </CurrentIssues>

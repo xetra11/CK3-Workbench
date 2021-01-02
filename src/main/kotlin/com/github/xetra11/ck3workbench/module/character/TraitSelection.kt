@@ -418,7 +418,6 @@ class TraitSelection {
     }
 
     companion object {
-        val traitIconPath = "icons/trait_icons"
-
+        const val traitIconPath = "icons/trait_icons"
     }
 }

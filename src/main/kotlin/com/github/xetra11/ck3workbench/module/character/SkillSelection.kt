@@ -15,7 +15,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.imageFromResource
 import androidx.compose.ui.unit.TextUnit
@@ -37,9 +36,9 @@ class SkillSelection {
 
     @Composable
     fun Skills(
-        selectionState: SnapshotStateMap<Skill, Boolean>
+        selectionState: SnapshotStateMap<Skill, Int>
     ) {
-        val chunks = enumValues<Skill>().toList().chunked(5)
+        val chunks = enumValues<Skill>().toList().chunked(6)
         chunks.forEach {
             Row {
                 it.forEach {
@@ -52,40 +51,27 @@ class SkillSelection {
     @Composable
     fun SkillIcon(
         skill: Skill,
-        selectionState: SnapshotStateMap<Skill, Boolean>
+        selectionState: SnapshotStateMap<Skill, Int>
     ) {
-        var isSelected by remember { mutableStateOf(false) }
-        var selectionModifier by remember { mutableStateOf(Modifier.alpha(0.2F)) }
+        var counter by remember { mutableStateOf(5) }
+        selectionState[skill] = counter
 
         Column(
-            modifier = Modifier.size(60.dp, 75.dp),
+            modifier = Modifier.size(75.dp, 80.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
-                Modifier.clickable(
-                    onClick = {
-                        isSelected = !isSelected
-                        selectionState[skill] = isSelected
-                        selectionModifier = if (!isSelected) Modifier.alpha(0.2F) else Modifier.alpha(1F)
-                    }
-                ),
-                contentAlignment = Alignment.Center,
-            ) {
-                SkillIconImage(selectionModifier, skill)
+            Box(contentAlignment = Alignment.Center) {
+                Image(modifier = Modifier.size(60.dp), bitmap = skillImage(skill))
             }
-            if (isSelected) SkillLabel(skill)
+            Row {
+                Text(modifier = Modifier.clickable { counter = if (counter <= 1) 0 else counter.minus(1) }, text = "<")
+                Text(counter.toString())
+                Text(
+                    modifier = Modifier.clickable { counter = if (counter >= 100) 100 else counter.plus(1) },
+                    text = ">"
+                )
+            }
         }
-    }
-
-    @Composable
-    fun SkillIconImage(
-        selectionModifier: Modifier,
-        skill: Skill
-    ) {
-        Image(
-            modifier = selectionModifier,
-            bitmap = skillImage(skill)
-        )
     }
 
     @Composable
@@ -105,6 +91,6 @@ class SkillSelection {
     }
 
     companion object {
-        val skillIconPath = "icons/skill_icons"
+        const val skillIconPath = "icons/skill_icons"
     }
 }
