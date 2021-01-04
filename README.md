@@ -42,10 +42,6 @@ you'd like to see in this tool in the future.
   </li>
 </dl>
 
-* ![Github release windows missing](https://img.shields.io/static/v1?label=Windows&message=Out%20of%20Order&color=red)
-* ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=Linux)
-* ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=macOS)
-
 ### User Manual
 https://xetra11.github.io/CK3-Workbench/
 
