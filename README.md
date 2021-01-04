@@ -6,8 +6,9 @@
 </p>
 
 <p align="center">
+  <img width="130" src="https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.51" />
   <img width="200" src="https://github.com/xetra11/CK3-Workbench/workflows/Development%20Build/badge.svg" />
-  <a href="https://github.com/xetra11/CK3-Workbench/blob/main/CHANGELOG.md"><img width="120" src="https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg" /></a>
+  <a href="https://github.com/xetra11/CK3-Workbench/blob/main/CHANGELOG.md"><img width="120" src="https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg" /></a> 
 </p>
 
 This tool is currently in a prototype phase.
@@ -18,7 +19,8 @@ a potential user and discuss features
 ([*Discussions*](https://github.com/xetra11/CK3-Workbench/discussions))
 you'd like to see in this tool in the future.
 
-### ![Release](https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.51)
+
+### Release Distributions
 * ![Github release windows missing](https://img.shields.io/static/v1?label=Windows&message=Out%20of%20Order&color=red)
 * ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=Linux)
 * ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=macOS)
