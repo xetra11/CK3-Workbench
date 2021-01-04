@@ -1,6 +1,6 @@
 ## Welcome to the CK3 Workbench Manual
 
-## How to create a characters
+## How to create characters
 
 ![test](https://s8.gifyu.com/images/character_factory_v0.51.gif)
 
