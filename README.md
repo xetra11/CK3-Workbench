@@ -26,7 +26,7 @@ you'd like to see in this tool in the future.
 
 
 ### Release Distributions
-<dl align="left">
+<ul align="left">
   <li style="list-style-type: none;">
       <img width="150" src="https://img.shields.io/static/v1?label=Windows&message=Out%20of%20Order&color=red" />
   </li>
@@ -40,7 +40,7 @@ you'd like to see in this tool in the future.
         <img width="120" src="https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=macOS" />
       </a>
   </li>
-</dl>
+</ul>
 
 ### User Manual
 https://xetra11.github.io/CK3-Workbench/
