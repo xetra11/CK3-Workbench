@@ -19,7 +19,7 @@ a potential user and discuss features
 you'd like to see in this tool in the future.
 
 ### ![Release](https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.51)
-* Windows: *Out of Order*
+* ![Github release windows missing](https://img.shields.io/static/v1?label=Windows&message=Out%20of%20Order&color=red)
 * ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=Linux)
 * ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=macOS)
 
