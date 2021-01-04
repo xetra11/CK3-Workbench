@@ -27,15 +27,15 @@ you'd like to see in this tool in the future.
 
 ### Release Distributions
 <dl align="left">
-  <li>
+  <li style="list-style-type: none;">
       <img width="150" src="https://img.shields.io/static/v1?label=Windows&message=Out%20of%20Order&color=red" />
   </li>
-    <li>
+    <li style="list-style-type: none;">
        <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.51/ck3-workbench_0.0.51-1_amd64.deb">
         <img width="110" src="https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=Linux" />
       </a>
   </li>
-    <li>
+    <li style="list-style-type: none;">
        <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.51/ck3-workbench-0.0.51.dmg">
         <img width="120" src="https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=macOS" />
       </a>
