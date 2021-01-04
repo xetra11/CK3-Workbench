@@ -24,17 +24,15 @@ you'd like to see in this tool in the future.
 * Linux: [v0.0.51](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.51/ck3-workbench_0.0.51-1_amd64.deb)
 * macOs: [v0.0.51](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.51/ck3-workbench-0.0.51.dmg)
 
+### User Manual
+https://xetra11.github.io/CK3-Workbench/
+
 #### Changes
 * See [Latest Release](https://github.com/xetra11/CK3-Workbench/releases/tag/0.0.51) to see what's new.
 * See [Changelog](https://github.com/xetra11/CK3-Workbench/blob/main/CHANGELOG.md) for preceding changes.
 
 ### Current Features
-
-#### WIP Character Designer V1
-![image](https://s8.gifyu.com/images/character_creation_v1.gif)
-
-* Create new characters
-* Edit characters
+* Create new characters by basis attributes, traits and skill
 * Export all created characters to a file
   
 ### <img src="https://discord.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" alt="" data-canonical-src="https://discord.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="40" height="30" /> Discord 
