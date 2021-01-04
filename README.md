@@ -18,10 +18,10 @@ a potential user and discuss features
 ([*Discussions*](https://github.com/xetra11/CK3-Workbench/discussions))
 you'd like to see in this tool in the future.
 
-### ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=Release)
+### ![Release](https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.51)
 * Windows: *Out of Order*
-* Linux: [v0.0.51](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.51/ck3-workbench_0.0.51-1_amd64.deb)
-* macOs: [v0.0.51](https://github.com/xetra11/CK3-Workbench/releases/download/0.0.51/ck3-workbench-0.0.51.dmg)
+* Linux: ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=Linux)
+* macOs: ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=macOS)
 
 ### User Manual
 https://xetra11.github.io/CK3-Workbench/
