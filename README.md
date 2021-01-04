@@ -6,10 +6,15 @@
 </p>
 
 <p align="center">
+
   <img width="130" src="https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.51" />
   <img width="200" src="https://github.com/xetra11/CK3-Workbench/workflows/Development%20Build/badge.svg" />
   <a href="https://github.com/xetra11/CK3-Workbench/blob/main/CHANGELOG.md"><img width="120" src="https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg" /></a> 
 </p>
+<p align="center">
+  <a href="https://xetra11.github.io/CK3-Workbench/">
+        <img width="180" src="https://img.shields.io/static/v1?label=Workbench&message=User%20Manual&color=orange" />
+      </a></p>
 
 This tool is currently in a prototype phase.
 I want to see what modders of Crusader Kings 3 (or other Paradox Games) might need.
@@ -21,6 +26,22 @@ you'd like to see in this tool in the future.
 
 
 ### Release Distributions
+<dl align="left">
+  <li>
+      <img width="150" src="https://img.shields.io/static/v1?label=Windows&message=Out%20of%20Order&color=red" />
+  </li>
+    <li>
+       <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.51/ck3-workbench_0.0.51-1_amd64.deb">
+        <img width="110" src="https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=Linux" />
+      </a>
+  </li>
+    <li>
+       <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.51/ck3-workbench-0.0.51.dmg">
+        <img width="120" src="https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=macOS" />
+      </a>
+  </li>
+</dl>
+
 * ![Github release windows missing](https://img.shields.io/static/v1?label=Windows&message=Out%20of%20Order&color=red)
 * ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=Linux)
 * ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=macOS)
