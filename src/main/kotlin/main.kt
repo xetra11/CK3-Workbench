@@ -22,7 +22,6 @@ import com.github.xetra11.ck3workbench.app.SessionHolder
 import com.github.xetra11.ck3workbench.app.SessionManager
 import com.github.xetra11.ck3workbench.app.ViewManager
 import com.github.xetra11.ck3workbench.app.dialog.DialogManager
-import com.github.xetra11.ck3workbench.app.notifications.NotificationPanel
 import com.github.xetra11.ck3workbench.app.project.ProjectManager
 import com.github.xetra11.ck3workbench.app.ui.MainUiComponents
 import com.github.xetra11.ck3workbench.app.view.DialogView
@@ -58,7 +57,7 @@ fun main() {
             DialogView() // is only rendered when dialog is toggled true
             Column(Modifier.fillMaxSize()) {
                 MainUiComponents.MainLayoutRow { CurrentMainView() }
-                MainUiComponents.NotificationPanelRow { NotificationPanel() }
+                MainUiComponents.NotificationPanel()
             }
         }
     }
