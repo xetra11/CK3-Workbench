@@ -128,6 +128,15 @@ private fun AppMenu(): MenuBar {
                     // DialogManager.openDialog(DialogManager.Dialog.CHARACTER_EXPORT)
                 }
             )
+        ),
+        Menu(
+            "Settings",
+            MenuItem(
+                "Application Settings",
+                onClick = {
+                    ViewManager.changeView(ViewManager.View.SETTINGS_VIEW)
+                }
+            )
         )
     )
 }

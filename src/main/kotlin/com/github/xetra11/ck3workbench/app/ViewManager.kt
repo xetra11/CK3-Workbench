@@ -25,6 +25,7 @@ object ViewManager {
         CHARACTER_VIEW,
         CHARACTER_CREATE_VIEW,
         ENTRY_VIEW,
-        DYNASTY_VIEW
+        DYNASTY_VIEW,
+        SETTINGS_VIEW
     }
 }
