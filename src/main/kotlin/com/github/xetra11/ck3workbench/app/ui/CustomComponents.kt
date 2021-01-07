@@ -24,11 +24,12 @@ object CustomComponents {
     @Composable
     fun Spoiler(
         modifier: Modifier = Modifier,
+        hideInitial: Boolean = true,
         horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
         label: @Composable ColumnScope.() -> Unit,
         content: @Composable ColumnScope.() -> Unit,
     ) {
-        var show by remember { mutableStateOf(false) }
+        var show by remember { mutableStateOf(!hideInitial) }
         Box(modifier.clickable { show = !show }) {
             ColumnScope.label()
         }

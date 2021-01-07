@@ -125,6 +125,7 @@ fun CharacterFactoryView() {
                 Spacer(Modifier.height(20.dp))
 
                 Spoiler(
+                    hideInitial = false,
                     label = {
                         Box(
                             Modifier.background(Color.LightGray)
