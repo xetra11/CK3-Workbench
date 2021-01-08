@@ -64,10 +64,18 @@ class AppInitializerTest : ShouldSpec({
         SessionHolder.activeSession.value shouldBe expectedSession
         StateHolder.characters shouldContainExactly characters
     }
+
+    should("initialize settings.cfg file if not created already") {
+        val file = File("settings.cfg")
+
+        appInitializer.initialize()
+
+        file.exists() shouldBe true
+    }
 })
 
 private fun deleteTestFiles() {
-    listOf("test.wbp", "session.wbs", "default.wbp").forEach { file ->
+    listOf("test.wbp", "session.wbs", "default.wbp", "settings.cfg").forEach { file ->
         if (File(file).exists()) {
             File(file).delete()
         }

@@ -5,6 +5,7 @@ import com.github.xetra11.ck3workbench.app.project.Project
 import com.github.xetra11.ck3workbench.app.project.ProjectManager
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import java.io.File
 import java.nio.file.Paths
 
 /**
@@ -21,6 +22,16 @@ class AppInitializer(
      * used project.
      */
     fun initialize() {
+        initializeSession()
+        initializeSettings()
+    }
+
+    private fun initializeSettings() {
+        val settingsFile = File("settings.cfg")
+        settingsFile.createNewFile()
+    }
+
+    private fun initializeSession() {
         notify("Initialize session")
         val loadedSession = sessionManager.load()
         SessionHolder.activeSession.value = loadedSession

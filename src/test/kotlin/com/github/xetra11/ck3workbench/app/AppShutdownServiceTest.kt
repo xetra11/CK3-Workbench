@@ -4,6 +4,9 @@ import com.github.xetra11.ck3workbench.app.project.Project
 import com.github.xetra11.ck3workbench.app.project.save
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
+import kotlinx.coroutines.async
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.io.File
 import java.nio.file.Paths
 
@@ -44,6 +47,21 @@ class AppShutdownServiceTest : ShouldSpec({
         projectFile.exists() shouldBe true
         projectFile.isDirectory shouldBe false
         projectFile.extension shouldBe "wbp"
+    }
+
+    should("save settings on exit in session") {
+        SettingsHolder.autosave = true
+        val settingsFile = File("settings.cfg")
+        val expectedSettings = AppSettings(autosave = true)
+        val createdFile = async { settingsFile.createNewFile() }
+        createdFile.await()
+
+        appShutdownService.shutdown()
+
+        val actualSettings = Json.decodeFromString<AppSettings>(settingsFile.readText(Charsets.UTF_8))
+
+        settingsFile.exists() shouldBe true
+        actualSettings shouldBe expectedSettings
     }
 })
 

@@ -12,4 +12,10 @@ import com.github.xetra11.ck3workbench.module.character.CK3Character
  */
 object SettingsHolder {
     var autosave by mutableStateOf(false)
+
+    fun toAppSettings(): AppSettings {
+        return AppSettings(
+           autosave = autosave
+        )
+    }
 }

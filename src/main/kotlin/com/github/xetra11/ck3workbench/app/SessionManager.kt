@@ -52,7 +52,8 @@ class SessionManager {
  */
 data class Session(
     var activeProject: SessionProject? = SessionProject(),
-    var recentProjects: MutableList<Project> = mutableListOf()
+    var recentProjects: MutableList<Project> = mutableListOf(),
+    var settings: AppSettings = AppSettings()
 )
 
 @Serializable

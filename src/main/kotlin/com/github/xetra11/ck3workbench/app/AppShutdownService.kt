@@ -1,5 +1,6 @@
 package com.github.xetra11.ck3workbench.app
 
+import com.github.xetra11.ck3workbench.app.NotificationsService.notify
 import com.github.xetra11.ck3workbench.app.NotificationsService.warn
 import com.github.xetra11.ck3workbench.app.dialog.DialogManager
 import com.github.xetra11.ck3workbench.app.project.ProjectManager
@@ -15,7 +16,19 @@ class AppShutdownService {
      * Saves the current session and the associated active project
      */
     fun shutdown() {
-        NotificationsService.notify("Running app shutdown")
+        notify("Running app shutdown")
+        prepareSettings()
+        prepareSession()
+    }
+
+    private fun prepareSettings() {
+        notify("Prepare settings for exit")
+        val appSettings = SettingsHolder.toAppSettings()
+        appSettings.save()
+    }
+
+    private fun prepareSession() {
+        notify("Prepare session for exit")
         SessionHolder.activeSession.value.let { session ->
             if (session.activeProject?.location.isNullOrBlank()) {
                 warn("Project has no location set")
