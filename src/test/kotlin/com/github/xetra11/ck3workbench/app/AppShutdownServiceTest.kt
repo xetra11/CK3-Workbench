@@ -50,6 +50,9 @@ class AppShutdownServiceTest : ShouldSpec({
     }
 
     should("save settings on exit in session") {
+        Project("Test", "project.wbp").save()
+        val session = Session(SessionProject("project.wbp"))
+        SessionHolder.activeSession.value = session
         SettingsHolder.autosave = true
         val settingsFile = File("settings.cfg")
         val expectedSettings = AppSettings(autosave = true)
@@ -66,7 +69,7 @@ class AppShutdownServiceTest : ShouldSpec({
 })
 
 private fun deleteTestFiles() {
-    listOf("project.wbp", "session.wbs").forEach { file ->
+    listOf("project.wbp", "session.wbs", "settings.cfg").forEach { file ->
         if (File(file).exists()) {
             File(file).delete()
         }

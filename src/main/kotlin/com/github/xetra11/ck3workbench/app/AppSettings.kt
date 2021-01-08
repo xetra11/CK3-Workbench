@@ -11,11 +11,11 @@ import java.nio.file.Paths
  */
 @Serializable
 data class AppSettings(
-   var autosave: Boolean = false
+    var autosave: Boolean = false
 )
 
 fun AppSettings.save() {
-   val settingsFile = Paths.get("settings.cfg").toAbsolutePath().toFile()
-   val settingsData = Json.encodeToString(this)
-   settingsFile.writeText(settingsData)
+    val settingsFile = Paths.get("settings.cfg").toAbsolutePath().toFile()
+    val settingsData = Json.encodeToString(this)
+    settingsFile.writeText(settingsData)
 }

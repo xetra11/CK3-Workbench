@@ -43,7 +43,7 @@ fun main() {
 
     Window(
         title = "CK3 Mod Workbench",
-        menuBar = AppMenu()
+        menuBar = appMenu()
     ) {
         if (hasNoActiveProject()) {
             if (DialogManager.activeDialog() == DialogManager.Dialog.NO_DIALOG) {
@@ -63,42 +63,12 @@ fun main() {
     }
 }
 
-private fun AppMenu(): MenuBar {
-    val fileSystemHelper = FileSystemHelper()
+@Suppress("SpreadOperator")
+private fun appMenu(): MenuBar {
     return MenuBar(
         Menu(
             "File",
-            MenuItem(
-                "New Project",
-                shortcut = KeyStroke(Key.P),
-                onClick = {
-                    DialogManager.openDialog(DialogManager.Dialog.CREATE_PROJECT)
-                }
-            ),
-            MenuItem(
-                "Open Project",
-                shortcut = KeyStroke(Key.O),
-                onClick = { fileSystemHelper.loadProjectFile(AppManager.focusedWindow!!.window) }
-            ),
-            MenuItem(
-                "Save Project",
-                shortcut = KeyStroke(Key.S),
-                onClick = { saveProject() }
-            ),
-            MenuItem(
-                "Save Project as",
-                shortcut = KeyStroke(Key.W),
-                onClick = { fileSystemHelper.saveProjectAs(AppManager.focusedWindow!!.window) }
-            ),
-            MenuItem(
-                "Exit",
-                shortcut = KeyStroke(Key.X),
-                onClick = {
-                    val appShutdownService = AppShutdownService()
-                    appShutdownService.shutdown()
-                    AppManager.exit()
-                }
-            )
+            *fileMenuItems().toTypedArray()
         ),
         Menu(
             "Characters",
@@ -107,17 +77,6 @@ private fun AppMenu(): MenuBar {
                 shortcut = KeyStroke(Key.C),
                 onClick = { ViewManager.changeView(ViewManager.View.CHARACTER_CREATE_VIEW) }
             ),
-/*
-            MenuItem(
-                "Import Characters",
-                shortcut = KeyStroke(Key.I),
-                onClick = {
-                    val file = fileSystemHelper.openScriptFile(AppManager.focusedWindow!!.window)
-                    val characterScriptImporter = CharacterScriptImporter()
-                    characterScriptImporter.importCharactersScript(file)
-                }
-            ),
-*/
             MenuItem(
                 "Export Characters",
                 shortcut = KeyStroke(Key.E),
@@ -137,6 +96,43 @@ private fun AppMenu(): MenuBar {
                     ViewManager.changeView(ViewManager.View.SETTINGS_VIEW)
                 }
             )
+        )
+    )
+}
+
+private fun fileMenuItems(): List<MenuItem> {
+    val fileSystemHelper = FileSystemHelper()
+    return listOf(
+        MenuItem(
+            "New Project",
+            shortcut = KeyStroke(Key.P),
+            onClick = {
+                DialogManager.openDialog(DialogManager.Dialog.CREATE_PROJECT)
+            }
+        ),
+        MenuItem(
+            "Open Project",
+            shortcut = KeyStroke(Key.O),
+            onClick = { fileSystemHelper.loadProjectFile(AppManager.focusedWindow!!.window) }
+        ),
+        MenuItem(
+            "Save Project",
+            shortcut = KeyStroke(Key.S),
+            onClick = { saveProject() }
+        ),
+        MenuItem(
+            "Save Project as",
+            shortcut = KeyStroke(Key.W),
+            onClick = { fileSystemHelper.saveProjectAs(AppManager.focusedWindow!!.window) }
+        ),
+        MenuItem(
+            "Exit",
+            shortcut = KeyStroke(Key.X),
+            onClick = {
+                val appShutdownService = AppShutdownService()
+                appShutdownService.shutdown()
+                AppManager.exit()
+            }
         )
     )
 }
