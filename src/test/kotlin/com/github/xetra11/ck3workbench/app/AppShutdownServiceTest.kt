@@ -4,7 +4,6 @@ import com.github.xetra11.ck3workbench.app.project.Project
 import com.github.xetra11.ck3workbench.app.project.save
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
-import kotlinx.coroutines.async
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -56,8 +55,7 @@ class AppShutdownServiceTest : ShouldSpec({
         SettingsHolder.autosave = true
         val settingsFile = File("settings.cfg")
         val expectedSettings = AppSettings(autosave = true)
-        val createdFile = async { settingsFile.createNewFile() }
-        createdFile.await()
+        settingsFile.createNewFile()
 
         appShutdownService.shutdown()
 

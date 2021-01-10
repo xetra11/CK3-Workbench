@@ -72,6 +72,15 @@ class AppInitializerTest : ShouldSpec({
 
         file.exists() shouldBe true
     }
+
+    should("load settings and set to SettingsHolder") {
+        val expected = AppSettings(true)
+        expected.save()
+
+        appInitializer.initialize()
+
+        SettingsHolder.toAppSettings() shouldBe expected
+    }
 })
 
 private fun deleteTestFiles() {

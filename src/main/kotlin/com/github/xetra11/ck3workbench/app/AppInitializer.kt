@@ -27,8 +27,8 @@ class AppInitializer(
     }
 
     private fun initializeSettings() {
-        val settingsFile = File("settings.cfg")
-        settingsFile.createNewFile()
+        SettingsHolder.init()
+        SettingsHolder.loadToHolder()
     }
 
     private fun initializeSession() {
