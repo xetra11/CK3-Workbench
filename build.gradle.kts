@@ -38,7 +38,7 @@ dependencies {
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
-    testImplementation("org.assertj:assertj-core:3.18.1")
+    testImplementation("org.assertj:assertj-core:3.19.0")
     testImplementation("io.kotest:kotest-runner-junit5:4.3.2")
     testImplementation("io.kotest:kotest-assertions-core:4.3.2")
     testImplementation("io.kotest:kotest-property:4.3.2")
