@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.0.51 (02/01/2021)
+
+#### New Features:
+
+- add key shortcuts for current menu options [#30](https://github.com/xetra11/CK3-Workbench/issues/30)
+- add traits and skills in character creations [#7](https://github.com/xetra11/CK3-Workbench/issues/7)
+
+---
+
 ## v0.0.50 (28/12/2020)
 
 #### Improvements:
