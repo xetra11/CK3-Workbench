@@ -11,9 +11,9 @@ buildscript {
 }
 
 plugins {
-    kotlin("jvm") version "1.4.21"
+    kotlin("jvm") version "1.4.21-2"
     kotlin("plugin.serialization") version "1.4.21"
-    id("org.jetbrains.compose") version "0.3.0-build138"
+    id("org.jetbrains.compose") version "0.3.0-build142"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
     id("io.gitlab.arturbosch.detekt") version "1.15.0"
     id("com.palantir.git-version") version "0.12.3"

@@ -61,7 +61,7 @@ class SkillSelection {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(contentAlignment = Alignment.Center) {
-                Image(modifier = Modifier.size(60.dp), bitmap = skillImage(skill))
+                Image(contentDescription = "", modifier = Modifier.size(60.dp), bitmap = skillImage(skill))
             }
             Row {
                 Text(modifier = Modifier.clickable { counter = if (counter <= 1) 0 else counter.minus(1) }, text = "<")

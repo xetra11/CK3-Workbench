@@ -343,8 +343,9 @@ class TraitSelection {
             contentAlignment = Alignment.Center,
         ) {
             Image(
+                contentDescription = "",
                 modifier = selectionModifier.size(70.dp, 70.dp),
-                bitmap = traitImage(leveledTrait, level)
+                bitmap = traitImage(leveledTrait, level),
             )
         }
     }
@@ -387,6 +388,7 @@ class TraitSelection {
         trait: Trait
     ) {
         Image(
+            contentDescription = "",
             modifier = selectionModifier,
             bitmap = traitImage(trait)
         )

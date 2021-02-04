@@ -52,7 +52,7 @@ object WorkbenchPanel {
             boxModifier,
             contentAlignment = Alignment.Center,
         ) {
-            Image(squareImage, alpha = 0.2F)
+            Image(bitmap = squareImage, "", alpha = 0.2F)
         }
     }
 
@@ -62,8 +62,8 @@ object WorkbenchPanel {
             boxModifier.clickable(onClick = { ViewManager.changeView(ViewManager.View.DYNASTY_VIEW) }),
             contentAlignment = Alignment.Center,
         ) {
-            Image(squareImage)
-            Image(bloodImage, modifier = Modifier.fillMaxSize(0.7F))
+            Image(squareImage, "Background Square")
+            Image(bloodImage, "Blood Icon", modifier = Modifier.fillMaxSize(0.7F))
         }
     }
 
@@ -73,9 +73,9 @@ object WorkbenchPanel {
             boxModifier.clickable(onClick = { ViewManager.changeView(ViewManager.View.CHARACTER_CREATE_VIEW) }),
             contentAlignment = Alignment.Center,
         ) {
-            Image(squareImage)
-            Image(crownImage, modifier = Modifier.fillMaxSize(0.7F))
-            Image(plusIconImage, modifier = Modifier.fillMaxSize(0.4F).align(Alignment.BottomEnd))
+            Image(squareImage, "")
+            Image(crownImage, "", modifier = Modifier.fillMaxSize(0.7F))
+            Image(plusIconImage, "", modifier = Modifier.fillMaxSize(0.4F).align(Alignment.BottomEnd))
         }
     }
 
@@ -85,8 +85,8 @@ object WorkbenchPanel {
             boxModifier.clickable(onClick = { ViewManager.changeView(ViewManager.View.CHARACTER_VIEW) }),
             contentAlignment = Alignment.Center,
         ) {
-            Image(squareImage)
-            Image(crownImage, modifier = Modifier.fillMaxSize(0.7F))
+            Image(squareImage, "")
+            Image(crownImage, "", modifier = Modifier.fillMaxSize(0.7F))
         }
     }
 }
