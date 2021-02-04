@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.52 (04/02/2021)
+*No changelog for this release.*
+
+---
+
 ## v0.0.51 (02/01/2021)
 
 #### New Features:

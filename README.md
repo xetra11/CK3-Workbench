@@ -7,7 +7,7 @@
 
 <p align="center">
 
-  <img width="130" src="https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.52" />
+  <img width="130" src="https://github.com/xetra11/CK3-Workbench/workflows/Release/badge.svg?branch=0.0.53" />
   <img width="200" src="https://github.com/xetra11/CK3-Workbench/workflows/Development%20Build/badge.svg" />
   <a href="https://github.com/xetra11/CK3-Workbench/blob/main/CHANGELOG.md"><img width="120" src="https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg" /></a> 
 </p>
@@ -28,17 +28,17 @@ you'd like to see in this tool in the future.
 ### Release Distributions
 <ul align="left">
     <li style="list-style-type: none;">
-       <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.52/ck3-workbench-0.0.52.msi">
+       <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.53/ck3-workbench-0.0.53.msi">
         <img width="110" src="https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=Windows" />
       </a>
   </li>
     <li style="list-style-type: none;">
-       <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.52/ck3-workbench_0.0.52-1_amd64.deb">
+       <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.53/ck3-workbench_0.0.53-1_amd64.deb">
         <img width="110" src="https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=Linux" />
       </a>
   </li>
     <li style="list-style-type: none;">
-       <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.52/ck3-workbench-0.0.52.dmg">
+       <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.53/ck3-workbench-0.0.53.dmg">
         <img width="120" src="https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=macOS" />
       </a>
   </li>
@@ -48,7 +48,7 @@ you'd like to see in this tool in the future.
 https://xetra11.github.io/CK3-Workbench/
 
 #### Changes
-* See [Latest Release](https://github.com/xetra11/CK3-Workbench/releases/tag/0.0.52) to see what's new.
+* See [Latest Release](https://github.com/xetra11/CK3-Workbench/releases/tag/0.0.53) to see what's new.
 * See [Changelog](https://github.com/xetra11/CK3-Workbench/blob/main/CHANGELOG.md) for preceding changes.
 
 ### Current Features
