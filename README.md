@@ -27,8 +27,10 @@ you'd like to see in this tool in the future.
 
 ### Release Distributions
 <ul align="left">
-  <li style="list-style-type: none;">
-      <img width="150" src="https://img.shields.io/static/v1?label=Windows&message=Out%20of%20Order&color=red" />
+    <li style="list-style-type: none;">
+       <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.52/ck3-workbench-0.0.52.msi">
+        <img width="110" src="https://img.shields.io/github/v/release/xetra11/CK3-Workbench?label=Windows" />
+      </a>
   </li>
     <li style="list-style-type: none;">
        <a href="https://github.com/xetra11/CK3-Workbench/releases/download/0.0.52/ck3-workbench_0.0.52-1_amd64.deb">
