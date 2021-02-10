@@ -42,7 +42,7 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:4.3.2")
     testImplementation("io.kotest:kotest-assertions-core:4.4.0")
     testImplementation("io.kotest:kotest-property:4.4.1")
-    testImplementation("io.mockk:mockk:1.10.4")
+    testImplementation("io.mockk:mockk:1.10.5")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
 }
 
