@@ -15,7 +15,7 @@ plugins {
     kotlin("plugin.serialization") version "1.4.31"
     id("org.jetbrains.compose") version "0.3.0-build142"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
-    id("io.gitlab.arturbosch.detekt") version "1.15.0"
+    id("io.gitlab.arturbosch.detekt") version "1.16.0"
     id("com.palantir.git-version") version "0.12.3"
 }
 
