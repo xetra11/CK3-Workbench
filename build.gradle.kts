@@ -11,7 +11,7 @@ buildscript {
 }
 
 plugins {
-    kotlin("jvm") version "1.4.21-2"
+    kotlin("jvm") version "1.5.10"
     kotlin("plugin.serialization") version "1.5.0"
     id("org.jetbrains.compose") version "0.3.0-build142"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
@@ -36,7 +36,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
 
     testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
     testImplementation("org.assertj:assertj-core:3.19.0")
     testImplementation("io.kotest:kotest-runner-junit5:4.3.2")
