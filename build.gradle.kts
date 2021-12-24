@@ -33,7 +33,7 @@ repositories {
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation("org.slf4j:slf4j-simple:2.0.0-alpha1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
